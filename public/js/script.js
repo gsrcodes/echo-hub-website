@@ -20,12 +20,40 @@ document.addEventListener('DOMContentLoaded', function() {
                 phoneMockup.style.transition = 'transform 1.2s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.8s ease-out';
                 phoneMockup.style.transform = 'scale(1)';
                 phoneMockup.style.opacity = '1';
+                
+                // After initial animation, let CSS animation take over
+                setTimeout(() => {
+                    phoneMockup.style.transition = 'none';
+                }, 1200);
             }, 300);
         }
     }
     
     // Run phone animation on load
     initPhoneAnimation();
+    
+    // ===================================
+    // Floating Icons Parallax Effect
+    // ===================================
+    function initFloatingIconsParallax() {
+        const floatingIcons = document.querySelectorAll('.floating-icon');
+        
+        if (floatingIcons.length > 0) {
+            window.addEventListener('mousemove', (e) => {
+                const mouseX = e.clientX / window.innerWidth - 0.5;
+                const mouseY = e.clientY / window.innerHeight - 0.5;
+                
+                floatingIcons.forEach((icon, index) => {
+                    const speed = (index + 1) * 10;
+                    const x = mouseX * speed;
+                    const y = mouseY * speed;
+                    icon.style.transform = `translate(${x}px, ${y}px)`;
+                });
+            });
+        }
+    }
+    
+    initFloatingIconsParallax();
     
     // ===================================
     // Chat Animation - Typing before messages

@@ -84,7 +84,120 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
+/* Custom scrollbar for splash screen */
+.splash-screen::-webkit-scrollbar {
+    width: 6px;
+}
+
+.splash-screen::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.splash-screen::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+}
+
+.splash-screen::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* Firefox scrollbar */
+.splash-screen {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.2) rgba(255, 255, 255, 0.05);
+}
+
+/* Mobile Splash Screen Adjustments */
+@media (max-width: 480px) {
+    .splash-screen {
+        align-items: flex-start;
+        padding: 0;
+    }
+    
+    .splash-content {
+        gap: 1.5rem;
+        padding: 1.5rem 1rem;
+        min-height: 100%;
+        justify-content: flex-start;
+        padding-top: 1rem;
+        padding-bottom: 2rem;
+    }
+    
+    .splash-phone-container {
+        transform: scale(0.52);
+        transform-origin: top center;
+        height: 300px; /* Fixed height to contain scaled phone */
+        margin-bottom: 0;
+    }
+    
+    .splash-phone {
+        width: 280px;
+        height: 560px;
+    }
+    
+    .splash-text-container {
+        padding: 0 1rem;
+        margin-top: 0;
+    }
+    
+    .splash-title {
+        font-size: 1.4rem;
+        line-height: 1.3;
+    }
+    
+    .splash-subtitle {
+        font-size: 0.85rem;
+    }
+    
+    .splash-cta {
+        padding: 0.875rem 2rem;
+        font-size: 1rem;
+        margin-top: 0.5rem;
+    }
+    
+    .splash-badge {
+        font-size: 0.7rem;
+        padding: 0.35rem 0.7rem;
+        margin-bottom: 0.5rem;
+    }
+}
+
+@media (max-width: 380px) {
+    .splash-phone-container {
+        transform: scale(0.45);
+        height: 260px;
+    }
+    
+    .splash-title {
+        font-size: 1.25rem;
+    }
+    
+    .splash-subtitle {
+        font-size: 0.8rem;
+    }
+}
+
+/* Very short screens */
+@media (max-height: 650px) and (max-width: 480px) {
+    .splash-phone-container {
+        transform: scale(0.4);
+        height: 230px;
+    }
+    
+    .splash-content {
+        gap: 1rem;
+        padding-top: 0.5rem;
+    }
+    
+    .splash-title {
+        font-size: 1.2rem;
+    }
 }
 
 /* Spotlight appears on splash too */
@@ -375,6 +488,14 @@ body.splash-active .header {
 
 body.splash-active {
     overflow: hidden;
+}
+
+/* Allow scroll on mobile during splash */
+@media (max-width: 480px) {
+    body.splash-active {
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
 }
 
 /* Main Content Reveal Animation */

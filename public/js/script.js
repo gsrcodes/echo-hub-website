@@ -4,6 +4,30 @@
 document.addEventListener('DOMContentLoaded', function() {
     
     // ===================================
+    // Phone Showcase Animation - Starts big, shrinks down
+    // ===================================
+    function initPhoneAnimation() {
+        const phoneShowcase = document.querySelector('.hero-phone-showcase');
+        const phoneMockup = document.querySelector('.phone-mockup');
+        
+        if (phoneShowcase && phoneMockup) {
+            // Start with phone scaled up
+            phoneMockup.style.transform = 'scale(1.3)';
+            phoneMockup.style.opacity = '0';
+            
+            // Animate to normal size
+            setTimeout(() => {
+                phoneMockup.style.transition = 'transform 1.2s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.8s ease-out';
+                phoneMockup.style.transform = 'scale(1)';
+                phoneMockup.style.opacity = '1';
+            }, 300);
+        }
+    }
+    
+    // Run phone animation on load
+    initPhoneAnimation();
+    
+    // ===================================
     // Chat Animation - Typing before messages
     // ===================================
     function initChatAnimation() {
@@ -305,26 +329,136 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // ===================================
-    // Form Submission Handler
+    // Form Validation & Submission - Web3Forms
     // ===================================
     const contactForm = document.getElementById('contactForm');
+    
+    console.log('Contact form found:', contactForm ? 'YES' : 'NO');
 
     if (contactForm) {
-        contactForm.addEventListener('submit', function(e) {
+        const submitButton = contactForm.querySelector('button[type="submit"]');
+        console.log('Submit button found:', submitButton ? 'YES' : 'NO');
+        
+        // Remove error state when user starts typing
+        const formInputs = contactForm.querySelectorAll('input, textarea');
+        formInputs.forEach(input => {
+            input.addEventListener('input', function() {
+                this.classList.remove('input-error');
+            });
+        });
+        
+        // Validation function
+        function validateForm() {
+            const fields = [
+                { id: 'name', label: 'Nome Completo', minLength: 3 },
+                { id: 'email', label: 'Email', type: 'email' },
+                { id: 'company', label: 'Empresa', minLength: 2 },
+                { id: 'phone', label: 'Telefone', minLength: 8 },
+                { id: 'message', label: 'Mensagem', minLength: 10 }
+            ];
+            
+            const errors = [];
+            
+            fields.forEach(field => {
+                const input = document.getElementById(field.id);
+                const value = input ? input.value.trim() : '';
+                
+                // Remove previous error state
+                if (input) {
+                    input.classList.remove('input-error');
+                }
+                
+                // Check if empty
+                if (!value) {
+                    errors.push(`O campo "${field.label}" é obrigatório.`);
+                    if (input) input.classList.add('input-error');
+                    return;
+                }
+                
+                // Check minimum length
+                if (field.minLength && value.length < field.minLength) {
+                    errors.push(`O campo "${field.label}" deve ter pelo menos ${field.minLength} caracteres.`);
+                    if (input) input.classList.add('input-error');
+                    return;
+                }
+                
+                // Check email format
+                if (field.type === 'email') {
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (!emailRegex.test(value)) {
+                        errors.push('Por favor, insira um email válido.');
+                        if (input) input.classList.add('input-error');
+                    }
+                }
+            });
+            
+            return errors;
+        }
+        
+        // Use click on button instead of form submit to bypass browser validation
+        submitButton.addEventListener('click', async function(e) {
             e.preventDefault();
+            console.log('Form submission started!');
             
-            // Get form data
-            const formData = new FormData(contactForm);
-            const data = Object.fromEntries(formData);
+            // Validate form
+            const errors = validateForm();
+            console.log('Validation errors:', errors);
             
-            // Show success message (in a real app, this would send to a server)
-            showNotification('Obrigado! Entraremos em contato em breve.', 'success');
+            if (errors.length > 0) {
+                showNotification(errors[0], 'error');
+                return;
+            }
             
-            // Reset form
-            contactForm.reset();
+            const submitBtn = submitButton;
+            const originalBtnText = submitBtn.innerHTML;
             
-            // Log for demo purposes
-            console.log('Form submitted:', data);
+            // Show loading state
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
+            submitBtn.disabled = true;
+            
+            // Build JSON object for Web3Forms
+            const formObject = {
+                access_key: '26babe76-46ed-4886-a890-8608325e78c6',
+                subject: 'Nova solicitação de demonstração - EchoHub',
+                from_name: 'EchoHub Website',
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                company: document.getElementById('company').value,
+                phone: document.getElementById('phone').value,
+                message: document.getElementById('message').value
+            };
+            
+            try {
+                const response = await fetch('https://api.web3forms.com/submit', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify(formObject)
+                });
+                
+                const result = await response.json();
+                
+                console.log('Web3Forms response:', result);
+                
+                if (result.success) {
+                    showNotification('Email enviado com sucesso! Entraremos em contato em breve.', 'success');
+                    contactForm.reset();
+                    // Remove error states
+                    contactForm.querySelectorAll('.input-error').forEach(el => el.classList.remove('input-error'));
+                } else {
+                    showNotification('Erro ao enviar: ' + (result.message || 'Tente novamente.'), 'error');
+                    console.error('Form error:', result);
+                }
+            } catch (error) {
+                showNotification('Erro de conexão. Verifique sua internet e tente novamente.', 'error');
+                console.error('Network error:', error);
+            } finally {
+                // Restore button
+                submitBtn.innerHTML = originalBtnText;
+                submitBtn.disabled = false;
+            }
         });
     }
 
@@ -338,12 +472,25 @@ document.addEventListener('DOMContentLoaded', function() {
             existingNotification.remove();
         }
 
+        // Define colors based on type
+        const colors = {
+            success: '#25d366',
+            error: '#ef4444',
+            info: '#3b82f6'
+        };
+        
+        const icons = {
+            success: 'fa-check-circle',
+            error: 'fa-exclamation-circle',
+            info: 'fa-info-circle'
+        };
+
         // Create notification element
         const notification = document.createElement('div');
         notification.className = `notification notification-${type}`;
         notification.innerHTML = `
             <div class="notification-content">
-                <i class="fas fa-check-circle"></i>
+                <i class="fas ${icons[type] || icons.info}"></i>
                 <span>${message}</span>
             </div>
         `;
@@ -353,7 +500,7 @@ document.addEventListener('DOMContentLoaded', function() {
             position: fixed;
             top: 100px;
             right: 20px;
-            background: ${type === 'success' ? '#10b981' : '#1e3a8a'};
+            background: ${colors[type] || colors.info};
             color: white;
             padding: 1rem 1.5rem;
             border-radius: 0.5rem;
@@ -412,19 +559,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const phoneMockup = document.querySelector('.phone-mockup');
     
     if (hero && phoneMockup) {
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const heroHeight = hero.offsetHeight;
-            const scrollProgress = Math.min(scrolled / heroHeight, 1);
-            
-            // Apple-style phone scale and rotation on scroll
-            if (window.innerWidth > 1024) {
-                const scale = 1 - (scrollProgress * 0.2); // Shrink up to 20%
-                const rotate = scrollProgress * 5; // Rotate up to 5 degrees
-                phoneMockup.style.transform = `scale(${scale}) rotateY(${rotate}deg)`;
-                phoneMockup.style.opacity = 1 - (scrollProgress * 0.3);
-            }
-        });
+        // Disable scroll parallax effect to keep phone crisp and readable
+        // Phone stays static while scrolling
     }
 
     // ===================================

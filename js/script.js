@@ -367,14 +367,20 @@ document.addEventListener('DOMContentLoaded', function() {
     // Add Parallax Effect to Hero Section
     // ===================================
     const hero = document.querySelector('.hero');
+    const phoneMockup = document.querySelector('.phone-mockup');
     
-    if (hero) {
+    if (hero && phoneMockup) {
         window.addEventListener('scroll', () => {
             const scrolled = window.pageYOffset;
-            const parallax = hero.querySelector('.hero-visual');
+            const heroHeight = hero.offsetHeight;
+            const scrollProgress = Math.min(scrolled / heroHeight, 1);
             
-            if (parallax && window.innerWidth > 1024) {
-                parallax.style.transform = `translateY(${scrolled * 0.3}px)`;
+            // Apple-style phone scale and rotation on scroll
+            if (window.innerWidth > 1024) {
+                const scale = 1 - (scrollProgress * 0.2); // Shrink up to 20%
+                const rotate = scrollProgress * 5; // Rotate up to 5 degrees
+                phoneMockup.style.transform = `scale(${scale}) rotateY(${rotate}deg)`;
+                phoneMockup.style.opacity = 1 - (scrollProgress * 0.3);
             }
         });
     }

@@ -464,6 +464,15 @@ a:hover {
     display: flex;
     justify-content: center;
     align-items: center;
+    position: sticky;
+    top: 100px;
+}
+
+@media (min-width: 1024px) {
+    .hero-visual {
+        position: sticky;
+        top: 100px;
+    }
 }
 
 .phone-mockup {
@@ -476,6 +485,8 @@ a:hover {
     position: relative;
     animation: float 6s ease-in-out infinite;
     border: 1px solid rgba(255, 255, 255, 0.1);
+    transform-origin: center;
+    transition: transform 0.3s ease-out;
 }
 
 .phone-screen {
@@ -763,7 +774,7 @@ a:hover {
    Features Section
    =================================== */
 .features {
-    background: var(--bg-secondary);
+    background: linear-gradient(180deg, #000000 0%, #0a0a0a 100%);
 }
 
 .features-grid {
@@ -775,11 +786,12 @@ a:hover {
 .feature-card {
     position: relative;
     padding: var(--spacing-xl);
-    background: white;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
     border-radius: var(--radius-xl);
-    box-shadow: var(--shadow-md);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
     transition: all var(--transition-base);
     overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .feature-card::before {
@@ -799,8 +811,9 @@ a:hover {
 }
 
 .feature-card:hover {
-    transform: translateY(-10px) rotateX(5deg);
-    box-shadow: var(--shadow-2xl);
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.3);
 }
 
 .feature-number {
@@ -809,14 +822,14 @@ a:hover {
     right: 1rem;
     font-size: 3rem;
     font-weight: 700;
-    color: var(--bg-tertiary);
-    opacity: 0.3;
+    color: rgba(255, 255, 255, 0.1);
+    opacity: 0.5;
 }
 
 .feature-icon {
     width: 60px;
     height: 60px;
-    background: var(--gradient-secondary);
+    background: linear-gradient(135deg, #ffffff 0%, #e5e5e5 100%);
     border-radius: var(--radius-lg);
     display: flex;
     align-items: center;
@@ -826,24 +839,26 @@ a:hover {
 
 .feature-icon i {
     font-size: 1.5rem;
-    color: white;
+    color: #000000;
 }
 
 .feature-card h3 {
     font-size: 1.125rem;
     margin-bottom: var(--spacing-sm);
+    color: #ffffff;
 }
 
 .feature-card p {
     margin: 0;
     font-size: 0.9rem;
+    color: var(--text-secondary);
 }
 
 /* ===================================
    Use Cases Section
    =================================== */
 .use-cases {
-    background: white;
+    background: linear-gradient(180deg, #0a0a0a 0%, #000000 100%);
 }
 
 .use-cases-grid {
@@ -854,21 +869,23 @@ a:hover {
 
 .use-case-card {
     padding: var(--spacing-xl);
-    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
     border-radius: var(--radius-2xl);
-    box-shadow: var(--shadow-lg);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
     transition: all var(--transition-base);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .use-case-card:hover {
     transform: scale(1.05);
-    box-shadow: var(--shadow-2xl);
+    box-shadow: 0 20px 40px rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.3);
 }
 
 .use-case-icon {
     width: 80px;
     height: 80px;
-    background: var(--gradient-accent);
+    background: linear-gradient(135deg, #ffffff 0%, #e5e5e5 100%);
     border-radius: var(--radius-xl);
     display: flex;
     align-items: center;
@@ -878,12 +895,17 @@ a:hover {
 
 .use-case-icon i {
     font-size: 2rem;
-    color: white;
+    color: #000000;
 }
 
 .use-case-card h3 {
     font-size: 1.5rem;
     margin-bottom: var(--spacing-md);
+    color: #ffffff;
+}
+
+.use-case-card p {
+    color: var(--text-secondary);
 }
 
 .use-case-features {
@@ -900,14 +922,14 @@ a:hover {
 }
 
 .use-case-features i {
-    color: var(--secondary-color);
+    color: #ffffff;
 }
 
 /* ===================================
    How to Start Section (Timeline)
    =================================== */
 .how-to-start {
-    background: var(--bg-secondary);
+    background: linear-gradient(180deg, #000000 0%, #0a0a0a 100%);
 }
 
 .timeline {
@@ -923,7 +945,7 @@ a:hover {
     top: 0;
     bottom: 0;
     width: 2px;
-    background: var(--gradient-primary);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.1) 100%);
     transform: translateX(-50%);
 }
 
@@ -955,44 +977,48 @@ a:hover {
     width: 60px;
     height: 60px;
     background: var(--gradient-primary);
-    color: white;
+    color: #000000;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 1.5rem;
     font-weight: 700;
-    box-shadow: var(--shadow-xl);
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
 }
 
 .timeline-content {
-    background: white;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
     padding: var(--spacing-lg);
     border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-md);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
     transition: all var(--transition-base);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .timeline-content:hover {
     transform: scale(1.05);
-    box-shadow: var(--shadow-xl);
+    box-shadow: 0 20px 40px rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.3);
 }
 
 .timeline-content h3 {
     font-size: 1.25rem;
     margin-bottom: var(--spacing-sm);
+    color: #ffffff;
 }
 
 .timeline-content p {
     margin: 0;
     font-size: 0.95rem;
+    color: var(--text-secondary);
 }
 
 /* ===================================
    Contact Section
    =================================== */
 .contact {
-    background: var(--bg-primary);
+    background: linear-gradient(180deg, #0a0a0a 0%, #000000 100%);
 }
 
 .contact-wrapper {
@@ -1011,6 +1037,11 @@ a:hover {
 .contact-info h2 {
     font-size: 2.5rem;
     margin-bottom: var(--spacing-md);
+    color: #ffffff;
+}
+
+.contact-info .lead-text {
+    color: var(--text-secondary);
 }
 
 .contact-features {
@@ -1024,10 +1055,11 @@ a:hover {
     align-items: center;
     gap: var(--spacing-sm);
     font-weight: 500;
+    color: #ffffff;
 }
 
 .contact-feature i {
-    color: var(--secondary-color);
+    color: #ffffff;
     font-size: 1.25rem;
 }
 
@@ -1045,12 +1077,13 @@ a:hover {
 
 .info-item i {
     font-size: 1.5rem;
-    color: var(--primary-color);
+    color: #ffffff;
 }
 
 .info-item strong {
     display: block;
     margin-bottom: 0.25rem;
+    color: #ffffff;
 }
 
 .info-item p {
@@ -1060,10 +1093,11 @@ a:hover {
 
 /* Contact Form */
 .contact-form-wrapper {
-    background: var(--bg-secondary);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
     padding: var(--spacing-xl);
     border-radius: var(--radius-xl);
-    box-shadow: var(--shadow-xl);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .contact-form {
@@ -1079,24 +1113,32 @@ a:hover {
 
 .form-group label {
     font-weight: 600;
-    color: var(--text-primary);
+    color: #ffffff;
 }
 
 .form-group input,
 .form-group textarea {
     padding: 0.75rem 1rem;
-    border: 2px solid var(--border-color);
+    border: 2px solid rgba(255, 255, 255, 0.2);
     border-radius: var(--radius-md);
     font-family: var(--font-primary);
     font-size: 1rem;
     transition: all var(--transition-base);
+    background: rgba(0, 0, 0, 0.5);
+    color: #ffffff;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: var(--text-light);
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
     outline: none;
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.1);
+    border-color: #ffffff;
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.7);
 }
 
 .form-group textarea {
@@ -1108,9 +1150,10 @@ a:hover {
    Footer
    =================================== */
 .footer {
-    background: var(--text-primary);
-    color: var(--bg-secondary);
+    background: linear-gradient(180deg, #000000 0%, #0a0a0a 100%);
+    color: var(--text-secondary);
     padding: var(--spacing-2xl) 0 var(--spacing-lg);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .footer-content {

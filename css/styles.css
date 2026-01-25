@@ -1171,9 +1171,11 @@ a:hover {
     margin-bottom: var(--spacing-md);
 }
 
-.footer-logo i {
-    font-size: 1.75rem;
-    color: var(--primary-light);
+.footer-logo-image {
+    height: 36px;
+    width: auto;
+    display: block;
+    margin-bottom: var(--spacing-md);
 }
 
 .footer-column p {

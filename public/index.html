@@ -94,46 +94,101 @@
                     <div class="phone-screen">
                         <div class="chat-interface">
                             <div class="chat-header">
-                                <i class="fab fa-whatsapp"></i>
-                                <span>EchoHub Atendimento</span>
+                                <i class="fas fa-arrow-left back-arrow"></i>
+                                <div class="chat-avatar">
+                                    <i class="fas fa-store"></i>
+                                </div>
+                                <div class="chat-header-info">
+                                    <span class="chat-name">Sua Empresa</span>
+                                    <span class="chat-status">online</span>
+                                </div>
+                                <div class="chat-header-actions">
+                                    <i class="fas fa-video"></i>
+                                    <i class="fas fa-phone"></i>
+                                    <i class="fas fa-ellipsis-v"></i>
+                                </div>
                             </div>
-                            <div class="chat-messages">
-                                <div class="message sent">
+                            <div class="chat-messages" id="chatMessages">
+                                <div class="typing-indicator client-typing" data-delay="200" data-duration="400">
+                                    <span></span><span></span><span></span>
+                                </div>
+                                <div class="message sent" data-delay="600">
                                     <p>Olá, boa tarde!</p>
                                 </div>
-                                <div class="message sent">
+                                <div class="typing-indicator client-typing" data-delay="1000" data-duration="500">
+                                    <span></span><span></span><span></span>
+                                </div>
+                                <div class="message sent" data-delay="1500">
                                     <p>Vocês têm notebook disponível?</p>
                                 </div>
-                                <div class="agent-switch">
-                                    <span class="agent-switch-badge"><i class="fas fa-robot"></i> IA direcionou para Agente de Produtos</span>
+                                <div class="agent-switch" data-delay="2100">
+                                    <span class="agent-switch-badge"><i class="fas fa-brain"></i> Motor de IA → Especialista em Produtos</span>
                                 </div>
-                                <div class="message received">
+                                <div class="typing-indicator" data-delay="2500" data-duration="500">
+                                    <span></span><span></span><span></span>
+                                </div>
+                                <div class="message received" data-delay="3000">
                                     <div class="agent-label">💼 Agente de Produtos</div>
-                                    <p>Olá! Boa tarde 😊</p>
+                                    <p>Olá! Temos sim 😊</p>
                                 </div>
-                                <div class="message received">
-                                    <p>Sim, temos diversos modelos!</p>
+                                <div class="typing-indicator" data-delay="3400" data-duration="500">
+                                    <span></span><span></span><span></span>
                                 </div>
-                                <div class="message received">
-                                    <p>Dell Inspiron 15 por R$ 3.200 e Lenovo IdeaPad por R$ 2.800.</p>
+                                <div class="message received" data-delay="3900">
+                                    <p>Dell Inspiron por R$ 3.200 e Lenovo por R$ 2.800.</p>
                                 </div>
-                                <div class="message sent">
-                                    <p>Ótimo! E vocês fazem suporte técnico?</p>
+                                <div class="typing-indicator client-typing" data-delay="4500" data-duration="500">
+                                    <span></span><span></span><span></span>
                                 </div>
-                                <div class="agent-switch">
-                                    <span class="agent-switch-badge"><i class="fas fa-robot"></i> IA direcionou para Agente de Suporte</span>
+                                <div class="message sent" data-delay="5000">
+                                    <p>Meu notebook não liga, podem ajudar?</p>
                                 </div>
-                                <div class="message received">
+                                <div class="agent-switch" data-delay="5500">
+                                    <span class="agent-switch-badge"><i class="fas fa-brain"></i> Motor de IA → Especialista Técnico</span>
+                                </div>
+                                <div class="typing-indicator" data-delay="5900" data-duration="500">
+                                    <span></span><span></span><span></span>
+                                </div>
+                                <div class="message received" data-delay="6400">
                                     <div class="agent-label">🔧 Agente de Suporte</div>
-                                    <p>Claro!</p>
+                                    <p>Claro! O cabo está conectado?</p>
                                 </div>
-                                <div class="message received">
-                                    <p>Qual problema você está enfrentando?</p>
+                                <div class="typing-indicator client-typing" data-delay="6900" data-duration="400">
+                                    <span></span><span></span><span></span>
                                 </div>
-                                <div class="message sent typing">
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
+                                <div class="message sent" data-delay="7300">
+                                    <p>Sim, mas nada acontece</p>
+                                </div>
+                                <div class="typing-indicator" data-delay="7700" data-duration="500">
+                                    <span></span><span></span><span></span>
+                                </div>
+                                <div class="message received" data-delay="8200">
+                                    <p>Traga na loja para avaliarmos!</p>
+                                </div>
+                                <div class="typing-indicator client-typing" data-delay="8600" data-duration="400">
+                                    <span></span><span></span><span></span>
+                                </div>
+                                <div class="message sent" data-delay="9000">
+                                    <p>Qual o endereço?</p>
+                                </div>
+                                <div class="agent-switch" data-delay="9500">
+                                    <span class="agent-switch-badge"><i class="fas fa-brain"></i> Motor de IA → Atendimento Geral</span>
+                                </div>
+                                <div class="typing-indicator" data-delay="9900" data-duration="500">
+                                    <span></span><span></span><span></span>
+                                </div>
+                                <div class="message received" data-delay="10400">
+                                    <div class="agent-label">❓ Agente de Dúvidas</div>
+                                    <p>Rua Example, 123 - Centro 📍</p>
+                                </div>
+                                <div class="typing-indicator" data-delay="10800" data-duration="400">
+                                    <span></span><span></span><span></span>
+                                </div>
+                                <div class="message received" data-delay="11200">
+                                    <p>Aberto das 9h às 18h!</p>
+                                </div>
+                                <div class="typing-indicator client-typing" data-delay="11800" data-duration="99999">
+                                    <span></span><span></span><span></span>
                                 </div>
                             </div>
                         </div>

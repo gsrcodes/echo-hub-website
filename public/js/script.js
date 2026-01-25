@@ -4,6 +4,48 @@
 document.addEventListener('DOMContentLoaded', function() {
     
     // ===================================
+    // Chat Animation - Typing before messages
+    // ===================================
+    function initChatAnimation() {
+        const chatMessages = document.getElementById('chatMessages');
+        if (!chatMessages) return;
+        
+        const elements = chatMessages.querySelectorAll('[data-delay]');
+        
+        elements.forEach(element => {
+            const delay = parseInt(element.getAttribute('data-delay'));
+            const duration = parseInt(element.getAttribute('data-duration')) || 0;
+            
+            setTimeout(() => {
+                element.classList.add('show');
+                
+                // Se for typing-indicator, esconde após a duração
+                if (element.classList.contains('typing-indicator') && duration > 0 && duration < 99999) {
+                    setTimeout(() => {
+                        element.classList.add('hide');
+                        element.classList.remove('show');
+                    }, duration);
+                }
+            }, delay);
+        });
+    }
+    
+    // Iniciar animação do chat quando a seção hero estiver visível
+    const heroSection = document.getElementById('home');
+    if (heroSection) {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    initChatAnimation();
+                    observer.disconnect();
+                }
+            });
+        }, { threshold: 0.3 });
+        
+        observer.observe(heroSection);
+    }
+    
+    // ===================================
     // Initialize AOS (Animate On Scroll)
     // ===================================
     AOS.init({

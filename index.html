@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Echo Hub - Solução Inteligente de Atendimento para Pequenas e Médias Empresas. Plataforma inovadora que integra chatbots de IA com atendimento humano.">
+    <meta name="keywords" content="atendimento ao cliente, chatbot, IA, WhatsApp, automação, PME">
+    <meta name="author" content="EchoHub">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Echo Hub - Solução Inteligente de Atendimento">
+    <meta property="og:description" content="Transforme o atendimento da sua PME com IA avançada e toque humano">
+    <meta property="og:type" content="website">
+    
+    <title>Echo Hub - Solução Inteligente de Atendimento para PMEs</title>
+    
+    <!-- External Libraries -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+    
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Particles Background -->
+    <div id="particles-js"></div>
+
+    <!-- Header & Navigation -->
+    <header class="header" id="header">
+        <nav class="navbar">
+            <div class="container">
+                <div class="nav-wrapper">
+                    <div class="logo">
+                        <i class="fas fa-comments"></i>
+                        <span>EchoHub</span>
+                    </div>
+                    <button class="mobile-menu-toggle" aria-label="Toggle menu">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                    <ul class="nav-menu">
+                        <li><a href="#overview" class="nav-link">Visão Geral</a></li>
+                        <li><a href="#benefits" class="nav-link">Benefícios</a></li>
+                        <li><a href="#features" class="nav-link">Funcionalidades</a></li>
+                        <li><a href="#use-cases" class="nav-link">Casos de Uso</a></li>
+                        <li><a href="#how-to-start" class="nav-link">Como Começar</a></li>
+                        <li><a href="#contact" class="nav-link cta-nav">Demonstração</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content" data-aos="fade-up">
+                <h1 class="hero-title">
+                    Echo Hub: Solução Inteligente de Atendimento
+                </h1>
+                <p class="hero-subtitle">
+                    <span id="typed-text"></span>
+                </p>
+                <p class="hero-description">
+                    Plataforma inovadora que integra chatbots de IA com atendimento humano para Pequenas e Médias Empresas
+                </p>
+                <div class="hero-cta">
+                    <a href="#contact" class="btn btn-primary">
+                        <span>Solicite uma Demonstração</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                    <a href="#overview" class="btn btn-secondary">
+                        <span>Saiba Mais</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </a>
+                </div>
+                <div class="hero-stats" data-aos="fade-up" data-aos-delay="200">
+                    <div class="stat-item">
+                        <div class="stat-number" data-target="24">0</div>
+                        <div class="stat-label">Horas/Dia</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" data-target="7">0</div>
+                        <div class="stat-label">Dias/Semana</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" data-target="100">0</div>
+                        <div class="stat-label">% Disponível</div>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-visual" data-aos="fade-left" data-aos-delay="300">
+                <div class="phone-mockup">
+                    <div class="phone-screen">
+                        <div class="chat-interface">
+                            <div class="chat-header">
+                                <i class="fab fa-whatsapp"></i>
+                                <span>EchoHub Atendimento</span>
+                            </div>
+                            <div class="chat-messages">
+                                <div class="message received">
+                                    <p>Olá! Como posso ajudar?</p>
+                                </div>
+                                <div class="message sent">
+                                    <p>Preciso de informações</p>
+                                </div>
+                                <div class="message received typing">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Overview Section -->
+    <section class="overview section-padding" id="overview">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-badge">O que é o EchoHub</span>
+                <h2 class="section-title">Sistema Híbrido de Atendimento Inteligente</h2>
+                <p class="section-subtitle">
+                    Combinando o melhor da tecnologia com o toque humano
+                </p>
+            </div>
+            <div class="overview-content">
+                <div class="overview-text" data-aos="fade-right">
+                    <p class="lead-text">
+                        O Echo Hub é uma plataforma inovadora de comunicação que ajuda pequenas e médias empresas 
+                        a automatizar e aprimorar o atendimento ao cliente de forma eficaz.
+                    </p>
+                    <p>
+                        Integrando chatbots de Inteligência Artificial com a atuação de atendentes humanos, o Echo Hub 
+                        oferece um sistema híbrido no qual assistentes virtuais resolvem questões rotineiras rapidamente 
+                        e transferem casos complexos para pessoas, garantindo um serviço ágil 24 horas por dia, 7 dias por semana.
+                    </p>
+                    <div class="overview-features">
+                        <div class="overview-feature">
+                            <i class="fas fa-robot"></i>
+                            <div>
+                                <h4>IA Avançada</h4>
+                                <p>Chatbots inteligentes que aprendem e evoluem</p>
+                            </div>
+                        </div>
+                        <div class="overview-feature">
+                            <i class="fas fa-user-friends"></i>
+                            <div>
+                                <h4>Toque Humano</h4>
+                                <p>Transferência para atendentes quando necessário</p>
+                            </div>
+                        </div>
+                        <div class="overview-feature">
+                            <i class="fas fa-building"></i>
+                            <div>
+                                <h4>Múltiplas Unidades</h4>
+                                <p>Gerencie filiais com isolamento de dados</p>
+                            </div>
+                        </div>
+                        <div class="overview-feature">
+                            <i class="fas fa-shield-alt"></i>
+                            <div>
+                                <h4>Segurança Total</h4>
+                                <p>Controle de acesso robusto e dados protegidos</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="overview-visual" data-aos="fade-left">
+                    <div class="dashboard-mockup">
+                        <div class="dashboard-header">
+                            <span class="dashboard-title">Dashboard EchoHub</span>
+                            <div class="dashboard-actions">
+                                <span class="dot green"></span>
+                                <span class="dot yellow"></span>
+                                <span class="dot red"></span>
+                            </div>
+                        </div>
+                        <div class="dashboard-content">
+                            <div class="metric-card">
+                                <i class="fas fa-comments"></i>
+                                <div class="metric-info">
+                                    <span class="metric-value">1,234</span>
+                                    <span class="metric-label">Conversas Ativas</span>
+                                </div>
+                            </div>
+                            <div class="metric-card">
+                                <i class="fas fa-clock"></i>
+                                <div class="metric-info">
+                                    <span class="metric-value">< 30s</span>
+                                    <span class="metric-label">Tempo de Resposta</span>
+                                </div>
+                            </div>
+                            <div class="metric-card">
+                                <i class="fas fa-smile"></i>
+                                <div class="metric-info">
+                                    <span class="metric-value">98%</span>
+                                    <span class="metric-label">Satisfação</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="benefits section-padding" id="benefits">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-badge">Vantagens</span>
+                <h2 class="section-title">7 Benefícios do EchoHub</h2>
+                <p class="section-subtitle">
+                    Transforme o atendimento da sua empresa com vantagens reais
+                </p>
+            </div>
+            <div class="benefits-grid">
+                <div class="benefit-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="benefit-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3>Atendimento ágil e sempre disponível</h3>
+                    <p>
+                        Suporte 24/7 automatizado que responde instantaneamente aos seus clientes, 
+                        sem filas de espera ou horário comercial limitado.
+                    </p>
+                </div>
+                <div class="benefit-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="benefit-icon">
+                        <i class="fas fa-smile-beam"></i>
+                    </div>
+                    <h3>Melhoria da satisfação do cliente</h3>
+                    <p>
+                        Respostas rápidas e precisas aumentam a satisfação, 
+                        com transferência inteligente para humanos quando necessário.
+                    </p>
+                </div>
+                <div class="benefit-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="benefit-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Redução de custos operacionais</h3>
+                    <p>
+                        Automatize até 80% das interações rotineiras, reduzindo drasticamente 
+                        a necessidade de grandes equipes de atendimento.
+                    </p>
+                </div>
+                <div class="benefit-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="benefit-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3>Implementação fácil e rápida</h3>
+                    <p>
+                        Configure sua conta, conecte seus canais e comece a atender 
+                        em questão de horas, não semanas ou meses.
+                    </p>
+                </div>
+                <div class="benefit-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="benefit-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h3>Experiência de uso premium</h3>
+                    <p>
+                        Interface intuitiva e moderna que encanta tanto seus clientes 
+                        quanto sua equipe de atendimento.
+                    </p>
+                </div>
+                <div class="benefit-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="benefit-icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <h3>Segurança e controle aprimorado</h3>
+                    <p>
+                        Controle de acesso granular, isolamento de dados entre unidades 
+                        e total conformidade com LGPD.
+                    </p>
+                </div>
+                <div class="benefit-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="benefit-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <h3>Aumento de vendas e conversões</h3>
+                    <p>
+                        Converta visitantes em clientes com atendimento proativo, 
+                        recomendações inteligentes e suporte ágil.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features section-padding" id="features">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-badge">Funcionalidades</span>
+                <h2 class="section-title">8 Funcionalidades Principais</h2>
+                <p class="section-subtitle">
+                    Tudo o que você precisa para um atendimento de excelência
+                </p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="feature-number">01</div>
+                    <div class="feature-icon">
+                        <i class="fas fa-users-cog"></i>
+                    </div>
+                    <h3>Múltiplos agentes de IA com personas personalizáveis</h3>
+                    <p>
+                        Crie diferentes agentes virtuais, cada um com personalidade, 
+                        tom de voz e expertise específicos para diferentes departamentos ou serviços.
+                    </p>
+                </div>
+                <div class="feature-card" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="feature-number">02</div>
+                    <div class="feature-icon">
+                        <i class="fas fa-route"></i>
+                    </div>
+                    <h3>Roteamento inteligente de conversas</h3>
+                    <p>
+                        Algoritmos avançados direcionam automaticamente cada conversa 
+                        para o agente ou departamento mais adequado.
+                    </p>
+                </div>
+                <div class="feature-card" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="feature-number">03</div>
+                    <div class="feature-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3>Encaminhamento para atendimento humano integrado</h3>
+                    <p>
+                        Transferência fluida do bot para atendente humano, 
+                        com histórico completo da conversa preservado.
+                    </p>
+                </div>
+                <div class="feature-card" data-aos="zoom-in" data-aos-delay="400">
+                    <div class="feature-number">04</div>
+                    <div class="feature-icon">
+                        <i class="fab fa-whatsapp"></i>
+                    </div>
+                    <h3>Integração com WhatsApp e múltiplos canais</h3>
+                    <p>
+                        Conecte WhatsApp, Telegram, Facebook Messenger e outros canais 
+                        em uma única plataforma unificada.
+                    </p>
+                </div>
+                <div class="feature-card" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="feature-number">05</div>
+                    <div class="feature-icon">
+                        <i class="fas fa-sitemap"></i>
+                    </div>
+                    <h3>Múltiplas unidades de negócio e controle de acesso robusto</h3>
+                    <p>
+                        Gerencie diferentes filiais ou departamentos com isolamento total de dados 
+                        e permissões granulares por usuário.
+                    </p>
+                </div>
+                <div class="feature-card" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="feature-number">06</div>
+                    <div class="feature-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3>Respostas humanizadas e análise de sentimento</h3>
+                    <p>
+                        IA que entende contexto e emoções, adaptando respostas 
+                        para criar conversas naturais e empáticas.
+                    </p>
+                </div>
+                <div class="feature-card" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="feature-number">07</div>
+                    <div class="feature-icon">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <h3>Templates prontos e personalização fácil</h3>
+                    <p>
+                        Biblioteca de templates para diversos segmentos que você pode 
+                        personalizar com poucos cliques, sem código.
+                    </p>
+                </div>
+                <div class="feature-card" data-aos="zoom-in" data-aos-delay="400">
+                    <div class="feature-number">08</div>
+                    <div class="feature-icon">
+                        <i class="fas fa-desktop"></i>
+                    </div>
+                    <h3>Interface unificada e design intuitivo</h3>
+                    <p>
+                        Painel de controle moderno e fácil de usar que centraliza 
+                        todas as conversas, métricas e configurações.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Use Cases Section -->
+    <section class="use-cases section-padding" id="use-cases">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-badge">Casos de Uso</span>
+                <h2 class="section-title">Perfeito para o seu Segmento</h2>
+                <p class="section-subtitle">
+                    Soluções adaptadas para diferentes tipos de negócio
+                </p>
+            </div>
+            <div class="use-cases-grid">
+                <div class="use-case-card" data-aos="flip-left" data-aos-delay="100">
+                    <div class="use-case-icon">
+                        <i class="fas fa-shopping-bag"></i>
+                    </div>
+                    <h3>Varejo e E-commerce</h3>
+                    <p>
+                        Atenda clientes sobre produtos, disponibilidade de estoque, 
+                        rastreamento de pedidos e políticas de troca. Aumente vendas 
+                        com recomendações personalizadas e suporte pós-venda eficiente.
+                    </p>
+                    <ul class="use-case-features">
+                        <li><i class="fas fa-check"></i> Catálogo de produtos integrado</li>
+                        <li><i class="fas fa-check"></i> Rastreamento de pedidos</li>
+                        <li><i class="fas fa-check"></i> Suporte pós-venda</li>
+                        <li><i class="fas fa-check"></i> Recuperação de carrinho</li>
+                    </ul>
+                </div>
+                <div class="use-case-card" data-aos="flip-left" data-aos-delay="200">
+                    <div class="use-case-icon">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <h3>Prestadores de Serviços e Agendamentos</h3>
+                    <p>
+                        Automatize agendamentos de consultas, confirmações e lembretes. 
+                        Ideal para clínicas, salões, consultórios, academias e escritórios 
+                        que precisam otimizar agenda e reduzir no-shows.
+                    </p>
+                    <ul class="use-case-features">
+                        <li><i class="fas fa-check"></i> Agendamento automático</li>
+                        <li><i class="fas fa-check"></i> Lembretes de consulta</li>
+                        <li><i class="fas fa-check"></i> Reagendamento fácil</li>
+                        <li><i class="fas fa-check"></i> Gestão de horários</li>
+                    </ul>
+                </div>
+                <div class="use-case-card" data-aos="flip-left" data-aos-delay="300">
+                    <div class="use-case-icon">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <h3>Suporte Técnico e Serviços de TI</h3>
+                    <p>
+                        Resolva problemas técnicos comuns automaticamente, 
+                        abra chamados, forneça status de tickets e escalone 
+                        casos complexos para especialistas com todo o contexto preservado.
+                    </p>
+                    <ul class="use-case-features">
+                        <li><i class="fas fa-check"></i> Abertura de tickets</li>
+                        <li><i class="fas fa-check"></i> Base de conhecimento</li>
+                        <li><i class="fas fa-check"></i> Troubleshooting guiado</li>
+                        <li><i class="fas fa-check"></i> Escalação inteligente</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How to Start Section -->
+    <section class="how-to-start section-padding" id="how-to-start">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-badge">Comece Agora</span>
+                <h2 class="section-title">Como Começar com o EchoHub</h2>
+                <p class="section-subtitle">
+                    6 passos simples para transformar seu atendimento
+                </p>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item" data-aos="fade-right" data-aos-delay="100">
+                    <div class="timeline-marker">
+                        <div class="timeline-number">1</div>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>Solicite uma Demonstração ou Cadastro</h3>
+                        <p>
+                            Preencha o formulário ou entre em contato conosco. 
+                            Nossa equipe apresentará a plataforma e criará sua conta personalizada.
+                        </p>
+                    </div>
+                </div>
+                <div class="timeline-item" data-aos="fade-left" data-aos-delay="200">
+                    <div class="timeline-marker">
+                        <div class="timeline-number">2</div>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>Configure sua Conta Empresarial</h3>
+                        <p>
+                            Defina unidades de negócio, adicione usuários e configure 
+                            permissões de acesso conforme sua estrutura organizacional.
+                        </p>
+                    </div>
+                </div>
+                <div class="timeline-item" data-aos="fade-right" data-aos-delay="300">
+                    <div class="timeline-marker">
+                        <div class="timeline-number">3</div>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>Conecte Seus Canais de Atendimento</h3>
+                        <p>
+                            Integre WhatsApp Business, redes sociais e outros canais 
+                            que seus clientes já utilizam.
+                        </p>
+                    </div>
+                </div>
+                <div class="timeline-item" data-aos="fade-left" data-aos-delay="400">
+                    <div class="timeline-marker">
+                        <div class="timeline-number">4</div>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>Crie e Personalize seus Agentes Virtuais</h3>
+                        <p>
+                            Use templates prontos ou crie do zero. Defina personas, 
+                            tom de voz e configure fluxos de conversa personalizados.
+                        </p>
+                    </div>
+                </div>
+                <div class="timeline-item" data-aos="fade-right" data-aos-delay="500">
+                    <div class="timeline-marker">
+                        <div class="timeline-number">5</div>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>Teste e Treine</h3>
+                        <p>
+                            Realize testes internos, ajuste respostas e treine sua equipe 
+                            para usar a plataforma de forma eficiente.
+                        </p>
+                    </div>
+                </div>
+                <div class="timeline-item" data-aos="fade-left" data-aos-delay="600">
+                    <div class="timeline-marker">
+                        <div class="timeline-number">6</div>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>Lance o Atendimento e Monitore</h3>
+                        <p>
+                            Ative o atendimento automatizado e acompanhe métricas em tempo real. 
+                            Otimize continuamente com base nos dados coletados.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact/CTA Section -->
+    <section class="contact section-padding" id="contact">
+        <div class="container">
+            <div class="contact-wrapper">
+                <div class="contact-info" data-aos="fade-right">
+                    <h2>Pronto para Transformar seu Atendimento?</h2>
+                    <p class="lead-text">
+                        Junte-se a centenas de empresas que já otimizaram 
+                        seu atendimento ao cliente com o EchoHub.
+                    </p>
+                    <div class="contact-features">
+                        <div class="contact-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Demonstração gratuita</span>
+                        </div>
+                        <div class="contact-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Configuração rápida</span>
+                        </div>
+                        <div class="contact-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Suporte especializado</span>
+                        </div>
+                        <div class="contact-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Sem cartão de crédito</span>
+                        </div>
+                    </div>
+                    <div class="contact-info-details">
+                        <div class="info-item">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <strong>Email</strong>
+                                <p>contato@echohub.com.br</p>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-phone"></i>
+                            <div>
+                                <strong>Telefone</strong>
+                                <p>+55 (11) 99999-9999</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form-wrapper" data-aos="fade-left">
+                    <form class="contact-form" id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Nome Completo</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Profissional</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="company">Empresa</label>
+                            <input type="text" id="company" name="company" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Telefone</label>
+                            <input type="tel" id="phone" name="phone" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Como podemos ajudar?</label>
+                            <textarea id="message" name="message" rows="4" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">
+                            <span>Solicitar Demonstração</span>
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <div class="footer-logo">
+                        <i class="fas fa-comments"></i>
+                        <span>EchoHub</span>
+                    </div>
+                    <p>
+                        Solução inteligente de atendimento para Pequenas e Médias Empresas. 
+                        Transforme seu atendimento com IA avançada e toque humano.
+                    </p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h4>Links Rápidos</h4>
+                    <ul>
+                        <li><a href="#overview">Visão Geral</a></li>
+                        <li><a href="#benefits">Benefícios</a></li>
+                        <li><a href="#features">Funcionalidades</a></li>
+                        <li><a href="#use-cases">Casos de Uso</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Suporte</h4>
+                    <ul>
+                        <li><a href="#how-to-start">Como Começar</a></li>
+                        <li><a href="#">Documentação</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#contact">Contato</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Contato</h4>
+                    <ul class="contact-list">
+                        <li>
+                            <i class="fas fa-envelope"></i>
+                            <span>contato@echohub.com.br</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-phone"></i>
+                            <span>+55 (11) 99999-9999</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>São Paulo, Brasil</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 EchoHub. Todos os direitos reservados.</p>
+                <div class="footer-links">
+                    <a href="#">Política de Privacidade</a>
+                    <a href="#">Termos de Uso</a>
+                    <a href="#">LGPD</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-top" id="scrollTop" aria-label="Scroll to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- External Scripts -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    
+    <!-- Custom Script -->
+    <script src="js/script.js"></script>
+</body>
+</html>

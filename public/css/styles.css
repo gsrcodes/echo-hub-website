@@ -87,6 +87,11 @@
     overflow: hidden;
 }
 
+/* Spotlight appears on splash too */
+body.splash-active .reveal-container {
+    z-index: 10000; /* Above splash background */
+}
+
 .splash-particles {
     position: absolute;
     top: 0;
@@ -623,9 +628,10 @@ a:hover {
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: -1;
-    background: #000000;
+    z-index: 2; /* Below spotlight (5), above body background */
+    background: transparent; /* Transparent so spotlight can show */
     overflow: hidden;
+    pointer-events: none;
 }
 
 .aurora-blob {
@@ -716,6 +722,7 @@ a:hover {
 
 /* ===================================
    Hidden Pattern Reveal Effect
+   Shows ONLY on splash screen
    =================================== */
 .reveal-container {
     position: fixed;
@@ -723,16 +730,17 @@ a:hover {
     left: 0;
     width: 100vw;
     height: 100vh;
-    z-index: 1; /* Very low - behind all content */
+    z-index: 10000; /* Only visible during splash */
     pointer-events: none;
     overflow: hidden;
-    opacity: 0;
+    opacity: 1;
     transition: opacity 0.5s ease;
 }
 
-/* Only show reveal after splash is gone */
+/* Hide spotlight after splash is gone */
 body:not(.splash-active) .reveal-container {
-    opacity: 1;
+    opacity: 0;
+    pointer-events: none;
 }
 
 #revealCanvas {
@@ -744,38 +752,67 @@ body:not(.splash-active) .reveal-container {
     pointer-events: none;
 }
 
-/* Reveal cursor glow */
 .reveal-glow {
     position: fixed;
     width: 300px;
     height: 300px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(37, 211, 102, 0.08) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(37, 211, 102, 0.1) 0%, transparent 70%);
     pointer-events: none;
     transform: translate(-50%, -50%);
     opacity: 0;
     transition: opacity 0.3s ease;
-    z-index: 1;
+    z-index: 10000;
 }
 
 .reveal-container.active .reveal-glow {
     opacity: 1;
 }
 
-/* All main content should be above reveal */
-.header,
-.hero,
-.footer,
-section,
-.feature-card,
-.pricing-card,
-.testimonial-card,
-.step,
-.faq-item,
-.overview-content,
-.cta-section {
+/* Main content wrapper */
+.main-content {
+    position: relative;
+    z-index: 1;
+}
+
+/* Header stays above everything */
+.header {
+    z-index: var(--z-fixed);
+}
+
+/* All sections AFTER hero get solid background layer to cover spotlight */
+.main-content section:not(.hero) {
     position: relative;
     z-index: 10;
+}
+
+/* Solid background layer behind section content but above spotlight */
+.main-content section:not(.hero)::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000000;
+    z-index: -1;
+}
+
+/* Footer also covers spotlight */
+.footer {
+    position: relative;
+    z-index: 10;
+}
+
+.footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000000;
+    z-index: -1;
 }
 
 /* ===================================
@@ -898,6 +935,235 @@ section,
     padding-bottom: 60px;
     position: relative;
     overflow: hidden;
+    background: transparent;
+    z-index: 6;
+}
+
+/* ===================================
+   Global Decorative Background Elements
+   =================================== */
+.global-decorations {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    overflow: visible;
+}
+
+/* Grid pattern across entire page */
+.decoration-grid {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        linear-gradient(rgba(37, 211, 102, 0.015) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(37, 211, 102, 0.015) 1px, transparent 1px);
+    background-size: 100px 100px;
+    opacity: 0.8;
+}
+
+/* Gradient orbs scattered across page */
+.decoration-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.12;
+}
+
+.orb-1 {
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, var(--primary-color) 0%, transparent 70%);
+    top: 100px;
+    left: -200px;
+    animation: orbFloat 30s ease-in-out infinite;
+}
+
+.orb-2 {
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, var(--primary-dark) 0%, transparent 70%);
+    top: 1000px;
+    right: -150px;
+    animation: orbFloat 35s ease-in-out infinite reverse;
+}
+
+.orb-3 {
+    width: 450px;
+    height: 450px;
+    background: radial-gradient(circle, var(--primary-color) 0%, transparent 70%);
+    top: 2000px;
+    left: -100px;
+    animation: orbFloat 28s ease-in-out infinite 5s;
+}
+
+.orb-4 {
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, var(--primary-dark) 0%, transparent 70%);
+    top: 3000px;
+    right: 10%;
+    animation: orbFloat 32s ease-in-out infinite 10s;
+}
+
+.orb-5 {
+    width: 550px;
+    height: 550px;
+    background: radial-gradient(circle, var(--primary-color) 0%, transparent 70%);
+    top: 4000px;
+    left: 5%;
+    animation: orbFloat 33s ease-in-out infinite 3s;
+}
+
+.orb-6 {
+    width: 480px;
+    height: 480px;
+    background: radial-gradient(circle, var(--primary-dark) 0%, transparent 70%);
+    top: 5000px;
+    right: -100px;
+    animation: orbFloat 29s ease-in-out infinite 7s;
+}
+
+/* Decorative circles - distributed throughout the page */
+.decoration-circle {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(37, 211, 102, 0.08);
+    opacity: 0.6;
+}
+
+.circle-1 {
+    width: 300px;
+    height: 300px;
+    top: 300px;
+    left: 5%;
+    animation: circleFloat 25s ease-in-out infinite;
+}
+
+.circle-2 {
+    width: 200px;
+    height: 200px;
+    top: 700px;
+    right: 10%;
+    animation: circleFloat 20s ease-in-out infinite reverse;
+}
+
+.circle-3 {
+    width: 150px;
+    height: 150px;
+    top: 1300px;
+    left: 15%;
+    animation: circleFloat 22s ease-in-out infinite 3s;
+}
+
+.circle-4 {
+    width: 250px;
+    height: 250px;
+    top: 1700px;
+    right: 5%;
+    animation: circleFloat 28s ease-in-out infinite 5s;
+}
+
+.circle-5 {
+    width: 180px;
+    height: 180px;
+    top: 2200px;
+    left: 25%;
+    animation: circleFloat 24s ease-in-out infinite 2s;
+}
+
+.circle-6 {
+    width: 120px;
+    height: 120px;
+    top: 2700px;
+    right: 20%;
+    border: 1px solid rgba(37, 211, 102, 0.05);
+    background: rgba(37, 211, 102, 0.02);
+    animation: circlePulse 8s ease-in-out infinite;
+}
+
+.circle-7 {
+    width: 220px;
+    height: 220px;
+    top: 3200px;
+    left: 8%;
+    animation: circleFloat 26s ease-in-out infinite 4s;
+}
+
+.circle-8 {
+    width: 160px;
+    height: 160px;
+    top: 3700px;
+    right: 15%;
+    animation: circleFloat 21s ease-in-out infinite 1s;
+}
+
+.circle-9 {
+    width: 280px;
+    height: 280px;
+    top: 4200px;
+    left: 20%;
+    animation: circleFloat 27s ease-in-out infinite 6s;
+}
+
+.circle-10 {
+    width: 100px;
+    height: 100px;
+    top: 4600px;
+    right: 25%;
+    border: 1px solid rgba(37, 211, 102, 0.06);
+    background: rgba(37, 211, 102, 0.03);
+    animation: circlePulse 6s ease-in-out infinite 2s;
+}
+
+.circle-11 {
+    width: 190px;
+    height: 190px;
+    top: 5100px;
+    left: 12%;
+    animation: circleFloat 23s ease-in-out infinite 3s;
+}
+
+.circle-12 {
+    width: 140px;
+    height: 140px;
+    top: 5500px;
+    right: 8%;
+    border: 1px solid rgba(37, 211, 102, 0.04);
+    background: rgba(37, 211, 102, 0.015);
+    animation: circlePulse 10s ease-in-out infinite 4s;
+}
+
+@keyframes orbFloat {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    25% { transform: translate(30px, -20px) scale(1.05); }
+    50% { transform: translate(-20px, 30px) scale(0.95); }
+    75% { transform: translate(20px, 20px) scale(1.02); }
+}
+
+@keyframes circleFloat {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-40px) rotate(10deg); }
+}
+
+@keyframes circlePulse {
+    0%, 100% { transform: scale(1); opacity: 0.6; }
+    50% { transform: scale(1.15); opacity: 0.4; }
+}
+
+/* Hide decorations during splash */
+body.splash-active .global-decorations {
+    opacity: 0;
+}
+
+body:not(.splash-active) .global-decorations {
+    opacity: 1;
+    transition: opacity 1s ease 0.5s;
 }
 
 .hero-background-glow {
@@ -2034,7 +2300,9 @@ section,
 .feature-card {
     position: relative;
     padding: var(--spacing-xl);
-    background: linear-gradient(135deg, rgba(37, 211, 102, 0.03) 0%, rgba(255, 255, 255, 0.02) 100%);
+    background: 
+        linear-gradient(135deg, rgba(37, 211, 102, 0.03) 0%, rgba(255, 255, 255, 0.02) 100%),
+        #0a0a0a; /* Solid dark background behind gradient */
     border-radius: var(--radius-xl);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
     transition: all var(--transition-base);

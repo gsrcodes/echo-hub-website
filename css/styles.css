@@ -302,12 +302,10 @@ a:hover {
     color: #ffffff;
 }
 
-.logo i {
-    font-size: 1.75rem;
-    background: var(--gradient-primary);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+.logo-image {
+    height: 40px;
+    width: auto;
+    display: block;
 }
 
 .nav-menu {

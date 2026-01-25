@@ -359,18 +359,32 @@ body.splash-active .reveal-container {
         padding: 2rem 1.5rem;
     }
     
+    /* Reset text column for mobile - always visible in column layout */
+    .splash-text-column {
+        width: auto;
+        overflow: visible;
+        align-items: center;
+        text-align: center;
+        transform: translateX(0);
+        transition: opacity 1.2s ease-out 0.2s;
+    }
+    
+    .splash-content.revealed {
+        gap: 2rem;
+    }
+    
+    .splash-content.revealed .splash-text-column {
+        transform: translateX(0);
+    }
+    
     .splash-phone-column {
         flex: 0 0 auto;
+        padding-top: 1rem;
     }
     
     .splash-phone {
         width: 240px;
         height: 480px;
-    }
-    
-    .splash-text-column {
-        align-items: center;
-        text-align: center;
     }
     
     .splash-text-container {
@@ -396,8 +410,13 @@ body.splash-active .reveal-container {
         min-height: 100%;
         height: auto;
         justify-content: flex-start;
-        padding: 2rem 1rem 3rem;
+        padding: 1.5rem 1rem 3rem;
+        padding-top: calc(env(safe-area-inset-top, 0px) + 1.5rem);
         gap: 1.5rem;
+    }
+    
+    .splash-phone-column {
+        padding-top: 0.5rem;
     }
     
     .splash-phone {

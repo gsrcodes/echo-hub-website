@@ -4,6 +4,279 @@
 document.addEventListener('DOMContentLoaded', function() {
     
     // ===================================
+    // SPLASH SCREEN - Experiência Imersiva
+    // ===================================
+    function initSplashScreen() {
+        const splashScreen = document.getElementById('splashScreen');
+        const splashCta = document.getElementById('splashCta');
+        const splashText = document.getElementById('splashText');
+        const splashChatMessages = document.getElementById('splashChatMessages');
+        const splashChatInput = document.getElementById('splashChatInput');
+        const splashSendBtn = document.getElementById('splashSendBtn');
+        const body = document.body;
+        
+        if (!splashScreen || !splashCta) return;
+        
+        // Auto-scroll chat only when element is below visible area
+        function scrollChatIfNeeded(container, element) {
+            if (!container || !element) return;
+            
+            // Wait for element to be rendered
+            requestAnimationFrame(() => {
+                const containerRect = container.getBoundingClientRect();
+                const elementRect = element.getBoundingClientRect();
+                
+                // Check if element bottom is below container bottom (not visible)
+                const elementBelowView = elementRect.bottom > containerRect.bottom;
+                
+                if (elementBelowView) {
+                    container.scrollTo({
+                        top: container.scrollTop + (elementRect.bottom - containerRect.bottom) + 10,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        }
+        
+        // Animate splash chat messages
+        function animateSplashChat() {
+            if (!splashChatMessages) return;
+            
+            const elements = splashChatMessages.querySelectorAll('[data-delay]');
+            let maxDelay = 0;
+            
+            elements.forEach(element => {
+                const delay = parseInt(element.getAttribute('data-delay'));
+                const duration = parseInt(element.getAttribute('data-duration')) || 0;
+                
+                if (delay > maxDelay) maxDelay = delay;
+                
+                setTimeout(() => {
+                    element.classList.add('show');
+                    
+                    // Auto-scroll only if this element is below visible area
+                    scrollChatIfNeeded(splashChatMessages, element);
+                    
+                    // Hide typing indicator after duration
+                    if (element.classList.contains('typing-indicator') && duration > 0 && duration < 99999) {
+                        setTimeout(() => {
+                            element.classList.add('hide');
+                            element.classList.remove('show');
+                        }, duration);
+                    }
+                }, delay);
+            });
+            
+            // Show text and CTA after chat animation
+            setTimeout(() => {
+                if (splashText) {
+                    splashText.classList.add('visible');
+                }
+            }, maxDelay + 800);
+            
+            setTimeout(() => {
+                splashCta.classList.add('visible');
+            }, maxDelay + 1200);
+            
+            // Animate user typing in input field after all messages
+            setTimeout(() => {
+                animateInputTyping(splashChatInput, "Quero saber mais! 😊");
+            }, maxDelay + 400);
+        }
+        
+        // Animate typing in input field with send animation
+        function animateInputTyping(input, text) {
+            if (!input) return;
+            
+            let index = 0;
+            input.value = '';
+            input.classList.add('typing-active');
+            
+            const typeInterval = setInterval(() => {
+                if (index < text.length) {
+                    input.value += text.charAt(index);
+                    index++;
+                } else {
+                    clearInterval(typeInterval);
+                    // Animate send button after typing
+                    setTimeout(() => {
+                        if (splashSendBtn) {
+                            splashSendBtn.classList.add('sending');
+                            setTimeout(() => {
+                                splashSendBtn.classList.remove('sending');
+                            }, 300);
+                        }
+                    }, 500);
+                }
+            }, 80);
+        }
+        
+        // Start splash animation
+        animateSplashChat();
+        
+        // Initialize WhatsApp interactive buttons
+        initWhatsAppInteractions();
+        
+        // Handle CTA click - Reveal main content
+        splashCta.addEventListener('click', function() {
+            // Add exit animations
+            splashScreen.classList.add('hidden');
+            splashScreen.classList.add('fade-out');
+            
+            // Reveal main content
+            setTimeout(() => {
+                body.classList.remove('splash-active');
+                body.classList.add('content-revealed');
+                
+                // Initialize AOS after content is revealed
+                if (typeof AOS !== 'undefined') {
+                    AOS.refresh();
+                }
+                
+                // Show hero chat messages instantly (already loaded from splash)
+                showHeroChatInstantly();
+                
+                // Scroll to top
+                window.scrollTo(0, 0);
+            }, 600);
+            
+            // Remove splash from DOM after animation
+            setTimeout(() => {
+                splashScreen.style.display = 'none';
+            }, 1800);
+        });
+        
+        // Add keyboard support
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                if (splashCta.classList.contains('visible')) {
+                    splashCta.click();
+                }
+            }
+        });
+    }
+    
+    // ===================================
+    // WhatsApp Interactive Buttons
+    // ===================================
+    function initWhatsAppInteractions() {
+        // Get all interactive elements
+        const chatInterfaces = document.querySelectorAll('.chat-interface');
+        
+        chatInterfaces.forEach(chatInterface => {
+            // Get phone-screen parent for popups
+            const phoneScreen = chatInterface.closest('.phone-screen');
+            const callPopup = phoneScreen ? phoneScreen.querySelector('.call-popup') : null;
+            const emojiPopup = phoneScreen ? phoneScreen.querySelector('.emoji-popup') : null;
+            const attachPopup = phoneScreen ? phoneScreen.querySelector('.attach-popup') : null;
+            const menuPopup = chatInterface.querySelector('.header-menu-popup');
+            const chatInput = chatInterface.querySelector('.chat-input');
+            
+            // Header actions
+            const headerActions = chatInterface.querySelectorAll('[data-action]');
+            
+            headerActions.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const action = btn.dataset.action;
+                    
+                    // Check if current popup is already open
+                    let currentPopupOpen = false;
+                    if (action === 'emoji' && emojiPopup) currentPopupOpen = emojiPopup.classList.contains('show');
+                    if (action === 'attach' && attachPopup) currentPopupOpen = attachPopup.classList.contains('show');
+                    if (action === 'menu' && menuPopup) currentPopupOpen = menuPopup.classList.contains('show');
+                    
+                    // Close all popups first
+                    closeAllPopups(chatInterface, phoneScreen);
+                    
+                    // If popup was open, just close it (don't reopen)
+                    if (currentPopupOpen) return;
+                    
+                    switch(action) {
+                        case 'video':
+                        case 'call':
+                            if (callPopup) {
+                                callPopup.classList.add('show');
+                                // Auto close after 3 seconds
+                                setTimeout(() => {
+                                    callPopup.classList.remove('show');
+                                }, 3000);
+                            }
+                            break;
+                        case 'menu':
+                            if (menuPopup) {
+                                menuPopup.classList.add('show');
+                            }
+                            break;
+                        case 'emoji':
+                            if (emojiPopup) {
+                                emojiPopup.classList.add('show');
+                            }
+                            break;
+                        case 'attach':
+                            if (attachPopup) {
+                                attachPopup.classList.add('show');
+                            }
+                            break;
+                        case 'back':
+                            // Small shake animation on back button
+                            btn.style.animation = 'none';
+                            btn.offsetHeight; // Trigger reflow
+                            btn.style.animation = 'backShake 0.3s ease';
+                            break;
+                    }
+                });
+            });
+            
+            // Emoji selection
+            if (emojiPopup && chatInput) {
+                const emojis = emojiPopup.querySelectorAll('.emoji-grid span');
+                emojis.forEach(emoji => {
+                    emoji.addEventListener('click', () => {
+                        chatInput.value += emoji.textContent;
+                        emojiPopup.classList.remove('show');
+                    });
+                });
+            }
+            
+            // Close call popup when clicking end button
+            if (callPopup) {
+                const endBtn = callPopup.querySelector('.call-end-btn');
+                if (endBtn) {
+                    endBtn.addEventListener('click', () => {
+                        callPopup.classList.remove('show');
+                    });
+                }
+            }
+            
+            // Close popups when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!e.target.closest('.chat-header-actions') && 
+                    !e.target.closest('.header-menu-popup') &&
+                    !e.target.closest('.emoji-btn') &&
+                    !e.target.closest('.emoji-popup') &&
+                    !e.target.closest('.attach-btn') &&
+                    !e.target.closest('.attach-popup')) {
+                    closeAllPopups(chatInterface, phoneScreen);
+                }
+            });
+        });
+        
+        function closeAllPopups(container, phoneScreen) {
+            const popups = container.querySelectorAll('.header-menu-popup');
+            popups.forEach(popup => popup.classList.remove('show'));
+            // Close emoji and attach popups in phone screen
+            if (phoneScreen) {
+                const screenPopups = phoneScreen.querySelectorAll('.emoji-popup, .attach-popup');
+                screenPopups.forEach(popup => popup.classList.remove('show'));
+            }
+        }
+    }
+    
+    // Initialize splash screen
+    initSplashScreen();
+    
+    // ===================================
     // Phone Showcase Animation - Starts big, shrinks down
     // ===================================
     function initPhoneAnimation() {
@@ -29,8 +302,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Run phone animation on load
-    initPhoneAnimation();
+    // Only run phone animation after splash is dismissed
+    // initPhoneAnimation(); // Moved to splash CTA handler
     
     // ===================================
     // Floating Icons Parallax Effect
@@ -54,6 +327,35 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     initFloatingIconsParallax();
+    
+    // ===================================
+    // Show Hero Chat Instantly (no animation)
+    // ===================================
+    function showHeroChatInstantly() {
+        const chatMessages = document.getElementById('chatMessages');
+        const heroChatInput = document.getElementById('heroChatInput');
+        if (!chatMessages) return;
+        
+        const elements = chatMessages.querySelectorAll('[data-delay]');
+        
+        elements.forEach(element => {
+            // Show all messages and agent switches
+            if (element.classList.contains('message') || element.classList.contains('agent-switch')) {
+                element.classList.add('show');
+                element.style.animation = 'none';
+            }
+            // Hide all typing indicators
+            if (element.classList.contains('typing-indicator')) {
+                element.classList.add('hide');
+                element.classList.remove('show');
+            }
+        });
+        
+        // Show input with typed text
+        if (heroChatInput) {
+            heroChatInput.value = "Quero saber mais! 😊";
+        }
+    }
     
     // ===================================
     // Chat Animation - Typing before messages
@@ -82,21 +384,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Iniciar animação do chat quando a seção hero estiver visível
-    const heroSection = document.getElementById('home');
-    if (heroSection) {
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    initChatAnimation();
-                    observer.disconnect();
-                }
-            });
-        }, { threshold: 0.3 });
-        
-        observer.observe(heroSection);
-    }
-    
     // ===================================
     // Initialize AOS (Animate On Scroll)
     // ===================================
@@ -107,89 +394,6 @@ document.addEventListener('DOMContentLoaded', function() {
         offset: 100,
         delay: 100
     });
-
-    // ===================================
-    // Initialize Particles.js
-    // ===================================
-    if (typeof particlesJS !== 'undefined') {
-        particlesJS('particles-js', {
-            particles: {
-                number: {
-                    value: 80,
-                    density: {
-                        enable: true,
-                        value_area: 800
-                    }
-                },
-                color: {
-                    value: '#ffffff'
-                },
-                shape: {
-                    type: 'circle',
-                    stroke: {
-                        width: 0,
-                        color: '#000000'
-                    }
-                },
-                opacity: {
-                    value: 0.3,
-                    random: false,
-                    anim: {
-                        enable: false
-                    }
-                },
-                size: {
-                    value: 3,
-                    random: true,
-                    anim: {
-                        enable: false
-                    }
-                },
-                line_linked: {
-                    enable: true,
-                    distance: 150,
-                    color: '#ffffff',
-                    opacity: 0.2,
-                    width: 1
-                },
-                move: {
-                    enable: true,
-                    speed: 2,
-                    direction: 'none',
-                    random: false,
-                    straight: false,
-                    out_mode: 'out',
-                    bounce: false
-                }
-            },
-            interactivity: {
-                detect_on: 'canvas',
-                events: {
-                    onhover: {
-                        enable: true,
-                        mode: 'grab'
-                    },
-                    onclick: {
-                        enable: true,
-                        mode: 'push'
-                    },
-                    resize: true
-                },
-                modes: {
-                    grab: {
-                        distance: 140,
-                        line_linked: {
-                            opacity: 0.5
-                        }
-                    },
-                    push: {
-                        particles_nb: 4
-                    }
-                }
-            },
-            retina_detect: true
-        });
-    }
 
     // ===================================
     // Initialize Typed.js for Hero Subtitle
@@ -781,6 +985,232 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize Everything
     // ===================================
     console.log('✅ EchoHub website initialized successfully!');
+});
+
+// ===================================
+// Hidden Pattern Reveal Effect (Optimized)
+// ===================================
+function initRevealEffect() {
+    const canvas = document.getElementById('revealCanvas');
+    const container = document.getElementById('revealContainer');
+    const glow = document.getElementById('revealGlow');
+    
+    if (!canvas || !container) return;
+    
+    const ctx = canvas.getContext('2d');
+    let elements = [];
+    let mouse = { x: -1000, y: -1000 };
+    let isActive = false;
+    
+    // Set canvas size
+    function resize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        createElements();
+    }
+    
+    // Create a fixed grid of elements that tiles infinitely
+    function createElements() {
+        elements = [];
+        const spacing = 100;
+        // Create extra rows for seamless scrolling
+        const cols = Math.ceil(canvas.width / spacing) + 1;
+        const rows = Math.ceil(canvas.height / spacing) + 3;
+        
+        const types = ['whatsapp', 'robot', 'chat', 'gear', 'briefcase', 'lightning'];
+        
+        for (let i = 0; i < cols; i++) {
+            for (let j = 0; j < rows; j++) {
+                if (Math.random() < 0.45) continue;
+                
+                elements.push({
+                    baseX: i * spacing + (Math.random() - 0.5) * 30,
+                    baseY: j * spacing + (Math.random() - 0.5) * 30,
+                    baseSize: Math.random() * 4 + 3,
+                    type: types[Math.floor(Math.random() * types.length)],
+                    opacity: 0,
+                    rotation: Math.random() * Math.PI * 2,
+                    color: Math.random() > 0.7 ? '#34e879' : '#25d366',
+                    special: Math.random() > 0.95
+                });
+            }
+        }
+    }
+    
+    // Draw element at given screen position
+    function drawElement(el, screenX, screenY) {
+        const size = el.special ? el.baseSize * 1.5 : el.baseSize;
+        
+        ctx.save();
+        ctx.translate(screenX, screenY);
+        ctx.rotate(el.rotation);
+        ctx.globalAlpha = el.opacity;
+        ctx.strokeStyle = el.color;
+        ctx.fillStyle = el.color;
+        ctx.lineWidth = el.special ? 1.5 : 1;
+        
+        switch(el.type) {
+            case 'whatsapp':
+                // Simple WhatsApp icon
+                ctx.beginPath();
+                ctx.arc(0, 0, size, 0, Math.PI * 2);
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.moveTo(-size * 0.4, 0);
+                ctx.quadraticCurveTo(0, size * 0.5, size * 0.4, 0);
+                ctx.stroke();
+                break;
+                
+            case 'robot':
+                // Simple robot
+                ctx.strokeRect(-size * 0.5, -size * 0.4, size, size * 0.8);
+                ctx.beginPath();
+                ctx.arc(-size * 0.2, -size * 0.1, size * 0.12, 0, Math.PI * 2);
+                ctx.arc(size * 0.2, -size * 0.1, size * 0.12, 0, Math.PI * 2);
+                ctx.fill();
+                break;
+                
+            case 'briefcase':
+                // Simple briefcase
+                ctx.strokeRect(-size * 0.6, -size * 0.25, size * 1.2, size * 0.6);
+                ctx.beginPath();
+                ctx.moveTo(-size * 0.2, -size * 0.25);
+                ctx.lineTo(-size * 0.2, -size * 0.4);
+                ctx.lineTo(size * 0.2, -size * 0.4);
+                ctx.lineTo(size * 0.2, -size * 0.25);
+                ctx.stroke();
+                break;
+                
+            case 'chat':
+                // Simple chat bubble
+                ctx.beginPath();
+                ctx.arc(0, -size * 0.1, size * 0.7, 0, Math.PI * 2);
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.moveTo(-size * 0.3, size * 0.5);
+                ctx.lineTo(0, size * 0.3);
+                ctx.lineTo(size * 0.1, size * 0.5);
+                ctx.stroke();
+                break;
+                
+            case 'gear':
+                // Simple gear
+                ctx.beginPath();
+                ctx.arc(0, 0, size * 0.7, 0, Math.PI * 2);
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.arc(0, 0, size * 0.3, 0, Math.PI * 2);
+                ctx.stroke();
+                break;
+                
+            case 'lightning':
+                // Simple lightning
+                ctx.beginPath();
+                ctx.moveTo(size * 0.2, -size);
+                ctx.lineTo(-size * 0.2, 0);
+                ctx.lineTo(size * 0.2, 0);
+                ctx.lineTo(-size * 0.2, size);
+                ctx.stroke();
+                break;
+        }
+        
+        ctx.restore();
+    }
+    
+    // Animation loop - scroll-aware
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        const revealRadius = 150;
+        const revealRadiusOuter = 220;
+        const scrollY = window.scrollY || window.pageYOffset;
+        const tileHeight = canvas.height;
+        
+        elements.forEach(el => {
+            // Calculate screen position - elements tile vertically
+            let screenY = el.baseY - (scrollY % tileHeight);
+            // Wrap around for seamless tiling
+            if (screenY < -50) screenY += tileHeight;
+            if (screenY > tileHeight + 50) screenY -= tileHeight;
+            
+            const screenX = el.baseX;
+            
+            // Calculate distance from mouse
+            const dx = screenX - mouse.x;
+            const dy = screenY - mouse.y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            
+            // Set target opacity based on distance
+            let targetOpacity = 0;
+            if (distance < revealRadius) {
+                targetOpacity = (1 - distance / revealRadius) * 0.65;
+            } else if (distance < revealRadiusOuter) {
+                targetOpacity = (1 - (distance - revealRadius) / (revealRadiusOuter - revealRadius)) * 0.15;
+            }
+            
+            if (el.special) targetOpacity *= 1.4;
+            
+            // Smooth opacity transition
+            el.opacity += (targetOpacity - el.opacity) * 0.15;
+            
+            // Only draw if visible
+            if (el.opacity > 0.02) {
+                drawElement(el, screenX, screenY);
+                el.rotation += 0.003;
+            }
+        });
+        
+        requestAnimationFrame(animate);
+    }
+    
+    // Update glow position
+    function updateGlow() {
+        if (glow) {
+            glow.style.left = mouse.x + 'px';
+            glow.style.top = mouse.y + 'px';
+        }
+    }
+    
+    // Throttled mouse handler
+    let lastMoveTime = 0;
+    document.addEventListener('mousemove', (e) => {
+        const now = Date.now();
+        if (now - lastMoveTime < 16) return; // ~60fps throttle
+        lastMoveTime = now;
+        
+        mouse.x = e.clientX;
+        mouse.y = e.clientY;
+        updateGlow();
+        
+        if (!isActive) {
+            isActive = true;
+            container.classList.add('active');
+        }
+    });
+    
+    // Mouse leave handler
+    document.addEventListener('mouseleave', () => {
+        mouse.x = -1000;
+        mouse.y = -1000;
+        updateGlow();
+    });
+    
+    // Resize handler with debounce
+    let resizeTimeout;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(resize, 200);
+    });
+    
+    resize();
+    animate();
+    
+    console.log('Reveal effect initialized with', elements.length, 'elements');
+}
+
+// Initialize reveal effect immediately
+document.addEventListener('DOMContentLoaded', () => {
+    initRevealEffect();
 });
 
 // ===================================

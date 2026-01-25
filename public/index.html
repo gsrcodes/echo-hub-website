@@ -18,13 +18,177 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
     
+    <!-- GSAP for professional animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    
     <!-- Custom Styles -->
     <link rel="stylesheet" href="css/styles.css">
 </head>
-<body>
-    <!-- Particles Background -->
-    <div id="particles-js"></div>
+<body class="splash-active">
+    <!-- Hidden Pattern Reveal - Global -->
+    <div class="reveal-container" id="revealContainer">
+        <canvas id="revealCanvas"></canvas>
+        <div class="reveal-glow" id="revealGlow"></div>
+    </div>
 
+    <!-- ============================================
+         SPLASH SCREEN - Experiência Imersiva
+         ============================================ -->
+    <div class="splash-screen" id="splashScreen">
+        <div class="splash-particles" id="splashParticles"></div>
+        <div class="splash-content">
+            <div class="splash-phone-container">
+                <div class="splash-phone-glow"></div>
+                <div class="splash-phone">
+                    <div class="phone-notch"></div>
+                    <div class="phone-screen">
+                        <!-- Popup de chamada (overlay) -->
+                        <div class="call-popup" id="splashCallPopup">
+                            <div class="call-popup-content">
+                                <div class="call-avatar pulse-ring">
+                                    <i class="fas fa-store"></i>
+                                </div>
+                                <span class="call-status">Chamando...</span>
+                                <span class="call-name">Sua Empresa</span>
+                                <div class="call-actions">
+                                    <button class="call-end-btn"><i class="fas fa-phone-slash"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Popup de Emojis -->
+                        <div class="emoji-popup" id="splashEmojiPopup">
+                            <div class="emoji-grid">
+                                <span>😊</span><span>😂</span><span>❤️</span><span>👍</span>
+                                <span>🎉</span><span>🔥</span><span>✨</span><span>💯</span>
+                                <span>🤔</span><span>😍</span><span>🙏</span><span>👏</span>
+                            </div>
+                        </div>
+                        <!-- Popup de Anexos -->
+                        <div class="attach-popup" id="splashAttachPopup">
+                            <div class="attach-option" style="--color: #7f66ff"><i class="fas fa-file"></i><span>Documento</span></div>
+                            <div class="attach-option" style="--color: #ff6b9d"><i class="fas fa-camera"></i><span>Câmera</span></div>
+                            <div class="attach-option" style="--color: #ff9500"><i class="fas fa-image"></i><span>Galeria</span></div>
+                            <div class="attach-option" style="--color: #00d95f"><i class="fas fa-headphones"></i><span>Áudio</span></div>
+                            <div class="attach-option" style="--color: #00a6ff"><i class="fas fa-map-marker-alt"></i><span>Local</span></div>
+                            <div class="attach-option" style="--color: #0090ff"><i class="fas fa-user"></i><span>Contato</span></div>
+                        </div>
+                        <div class="chat-interface">
+                            <div class="chat-header">
+                                <i class="fas fa-arrow-left back-arrow" data-action="back"></i>
+                                <div class="chat-avatar">
+                                    <i class="fas fa-store"></i>
+                                </div>
+                                <div class="chat-header-info">
+                                    <span class="chat-name">Sua Empresa</span>
+                                    <span class="chat-status">online</span>
+                                </div>
+                                <div class="chat-header-actions">
+                                    <i class="fas fa-video" data-action="video"></i>
+                                    <i class="fas fa-phone" data-action="call"></i>
+                                    <i class="fas fa-ellipsis-v" data-action="menu"></i>
+                                </div>
+                                <!-- Menu dropdown -->
+                                <div class="header-menu-popup" id="splashMenuPopup">
+                                    <div class="menu-item"><i class="fas fa-user-plus"></i> Novo grupo</div>
+                                    <div class="menu-item"><i class="fas fa-star"></i> Mensagens favoritas</div>
+                                    <div class="menu-item"><i class="fas fa-cog"></i> Configurações</div>
+                                </div>
+                            </div>
+                            <div class="chat-messages" id="splashChatMessages">
+                                <!-- Cliente pergunta sobre serviço -->
+                                <div class="typing-indicator client-typing" data-delay="200" data-duration="400">
+                                    <span></span><span></span><span></span>
+                                </div>
+                                <div class="message sent" data-delay="600">
+                                    <p>Oi! Quais serviços vocês oferecem?</p>
+                                </div>
+                                <!-- Roteamento 1: IA de Vendas -->
+                                <div class="agent-switch" data-delay="1100">
+                                    <span class="agent-switch-badge"><i class="fas fa-brain"></i> Motor IA → <i class="fas fa-robot"></i> IA de Vendas</span>
+                                </div>
+                                <div class="typing-indicator" data-delay="1500" data-duration="500">
+                                    <span></span><span></span><span></span>
+                                </div>
+                                <div class="message received" data-delay="2000">
+                                    <div class="agent-label"><i class="fas fa-robot"></i> IA de Vendas</div>
+                                    <p>Olá! 😊 Oferecemos consultoria, suporte e treinamentos. Posso ajudar?</p>
+                                </div>
+                                <!-- Cliente pergunta sobre problema -->
+                                <div class="typing-indicator client-typing" data-delay="2600" data-duration="400">
+                                    <span></span><span></span><span></span>
+                                </div>
+                                <div class="message sent" data-delay="3000">
+                                    <p>Estou com um problema técnico</p>
+                                </div>
+                                <!-- Roteamento 2: IA de Suporte -->
+                                <div class="agent-switch" data-delay="3500">
+                                    <span class="agent-switch-badge"><i class="fas fa-brain"></i> Motor IA → <i class="fas fa-robot"></i> IA de Suporte</span>
+                                </div>
+                                <div class="typing-indicator" data-delay="3900" data-duration="500">
+                                    <span></span><span></span><span></span>
+                                </div>
+                                <div class="message received" data-delay="4400">
+                                    <div class="agent-label"><i class="fas fa-robot"></i> IA de Suporte</div>
+                                    <p>Entendi! Pode descrever o problema? Vou te ajudar! 🔧</p>
+                                </div>
+                                <!-- Cliente pergunta horário -->
+                                <div class="typing-indicator client-typing" data-delay="5000" data-duration="400">
+                                    <span></span><span></span><span></span>
+                                </div>
+                                <div class="message sent" data-delay="5400">
+                                    <p>Qual horário de atendimento?</p>
+                                </div>
+                                <!-- Roteamento 3: IA de Atendimento -->
+                                <div class="agent-switch" data-delay="5900">
+                                    <span class="agent-switch-badge"><i class="fas fa-brain"></i> Motor IA → <i class="fas fa-robot"></i> IA Geral</span>
+                                </div>
+                                <div class="typing-indicator" data-delay="6300" data-duration="500">
+                                    <span></span><span></span><span></span>
+                                </div>
+                                <div class="message received" data-delay="6800">
+                                    <div class="agent-label"><i class="fas fa-robot"></i> IA Geral</div>
+                                    <p>Atendemos 24h! Estou sempre aqui 🕐</p>
+                                </div>
+                            </div>
+                            <div class="chat-footer" id="splashChatFooter">
+                                <div class="chat-input-container">
+                                    <i class="fas fa-smile emoji-btn" data-action="emoji"></i>
+                                    <input type="text" class="chat-input" id="splashChatInput" placeholder="Mensagem" readonly>
+                                    <i class="fas fa-paperclip attach-btn" data-action="attach"></i>
+                                </div>
+                                <button class="chat-send-btn" id="splashSendBtn" data-action="send">
+                                    <i class="fas fa-paper-plane"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="splash-text-container" id="splashText">
+                <div class="splash-badge">
+                    <i class="fas fa-robot"></i>
+                    <span>Isso não é uma pessoa</span>
+                </div>
+                <h1 class="splash-title">
+                    <span class="splash-title-line">Essa é uma <strong>IA</strong></span>
+                    <span class="splash-title-line">treinada para <strong>sua empresa</strong></span>
+                </h1>
+                <p class="splash-subtitle">Atendimento 24/7 com Inteligência Artificial personalizada</p>
+            </div>
+            
+            <button class="splash-cta" id="splashCta">
+                <span class="splash-cta-text">Quero Conhecer</span>
+                <span class="splash-cta-icon"><i class="fas fa-arrow-down"></i></span>
+                <div class="splash-cta-ripple"></div>
+            </button>
+        </div>
+    </div>
+
+    <!-- ============================================
+         MAIN CONTENT - Escondido inicialmente
+         ============================================ -->
+    
     <!-- Header & Navigation -->
     <header class="header" id="header">
         <nav class="navbar">
@@ -51,6 +215,15 @@
         </nav>
     </header>
 
+    <div class="main-content" id="mainContent">
+    <!-- Aurora Background -->
+    <div class="aurora-background">
+        <div class="aurora-blob aurora-1"></div>
+        <div class="aurora-blob aurora-2"></div>
+        <div class="aurora-blob aurora-3"></div>
+        <div class="aurora-grid"></div>
+    </div>
+    
     <!-- Hero Section -->
     <section class="hero" id="home">
         <div class="hero-background-glow"></div>
@@ -85,9 +258,39 @@
                 <div class="phone-mockup">
                     <div class="phone-notch"></div>
                     <div class="phone-screen">
+                        <!-- Popup de chamada (overlay) -->
+                        <div class="call-popup" id="heroCallPopup">
+                            <div class="call-popup-content">
+                                <div class="call-avatar pulse-ring">
+                                    <i class="fas fa-store"></i>
+                                </div>
+                                <span class="call-status">Chamando...</span>
+                                <span class="call-name">Sua Empresa</span>
+                                <div class="call-actions">
+                                    <button class="call-end-btn"><i class="fas fa-phone-slash"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Popup de Emojis -->
+                        <div class="emoji-popup" id="heroEmojiPopup">
+                            <div class="emoji-grid">
+                                <span>😊</span><span>😂</span><span>❤️</span><span>👍</span>
+                                <span>🎉</span><span>🔥</span><span>✨</span><span>💯</span>
+                                <span>🤔</span><span>😍</span><span>🙏</span><span>👏</span>
+                            </div>
+                        </div>
+                        <!-- Popup de Anexos -->
+                        <div class="attach-popup" id="heroAttachPopup">
+                            <div class="attach-option" style="--color: #7f66ff"><i class="fas fa-file"></i><span>Documento</span></div>
+                            <div class="attach-option" style="--color: #ff6b9d"><i class="fas fa-camera"></i><span>Câmera</span></div>
+                            <div class="attach-option" style="--color: #ff9500"><i class="fas fa-image"></i><span>Galeria</span></div>
+                            <div class="attach-option" style="--color: #00d95f"><i class="fas fa-headphones"></i><span>Áudio</span></div>
+                            <div class="attach-option" style="--color: #00a6ff"><i class="fas fa-map-marker-alt"></i><span>Local</span></div>
+                            <div class="attach-option" style="--color: #0090ff"><i class="fas fa-user"></i><span>Contato</span></div>
+                        </div>
                         <div class="chat-interface">
                             <div class="chat-header">
-                                <i class="fas fa-arrow-left back-arrow"></i>
+                                <i class="fas fa-arrow-left back-arrow" data-action="back"></i>
                                 <div class="chat-avatar">
                                     <i class="fas fa-store"></i>
                                 </div>
@@ -96,93 +299,82 @@
                                     <span class="chat-status">online</span>
                                 </div>
                                 <div class="chat-header-actions">
-                                    <i class="fas fa-video"></i>
-                                    <i class="fas fa-phone"></i>
-                                    <i class="fas fa-ellipsis-v"></i>
+                                    <i class="fas fa-video" data-action="video"></i>
+                                    <i class="fas fa-phone" data-action="call"></i>
+                                    <i class="fas fa-ellipsis-v" data-action="menu"></i>
+                                </div>
+                                <!-- Menu dropdown -->
+                                <div class="header-menu-popup" id="heroMenuPopup">
+                                    <div class="menu-item"><i class="fas fa-user-plus"></i> Novo grupo</div>
+                                    <div class="menu-item"><i class="fas fa-star"></i> Mensagens favoritas</div>
+                                    <div class="menu-item"><i class="fas fa-cog"></i> Configurações</div>
                                 </div>
                             </div>
                             <div class="chat-messages" id="chatMessages">
+                                <!-- Cliente pergunta sobre serviço -->
                                 <div class="typing-indicator client-typing" data-delay="200" data-duration="400">
                                     <span></span><span></span><span></span>
                                 </div>
                                 <div class="message sent" data-delay="600">
-                                    <p>Olá, boa tarde!</p>
+                                    <p>Oi! Quais serviços vocês oferecem?</p>
                                 </div>
-                                <div class="typing-indicator client-typing" data-delay="1000" data-duration="500">
+                                <!-- Roteamento 1: IA de Vendas -->
+                                <div class="agent-switch" data-delay="1100">
+                                    <span class="agent-switch-badge"><i class="fas fa-brain"></i> Motor IA → <i class="fas fa-robot"></i> IA de Vendas</span>
+                                </div>
+                                <div class="typing-indicator" data-delay="1500" data-duration="500">
                                     <span></span><span></span><span></span>
                                 </div>
-                                <div class="message sent" data-delay="1500">
-                                    <p>Vocês têm notebook disponível?</p>
+                                <div class="message received" data-delay="2000">
+                                    <div class="agent-label"><i class="fas fa-robot"></i> IA de Vendas</div>
+                                    <p>Olá! 😊 Oferecemos consultoria, suporte e treinamentos. Posso ajudar?</p>
                                 </div>
-                                <div class="agent-switch" data-delay="2100">
-                                    <span class="agent-switch-badge"><i class="fas fa-brain"></i> Motor de IA → <i class="fas fa-robot"></i> IA de Produtos</span>
-                                </div>
-                                <div class="typing-indicator" data-delay="2500" data-duration="500">
+                                <!-- Cliente pergunta sobre problema -->
+                                <div class="typing-indicator client-typing" data-delay="2600" data-duration="400">
                                     <span></span><span></span><span></span>
                                 </div>
-                                <div class="message received" data-delay="3000">
-                                    <div class="agent-label"><i class="fas fa-robot"></i> IA de Produtos</div>
-                                    <p>Olá! Temos sim 😊</p>
+                                <div class="message sent" data-delay="3000">
+                                    <p>Estou com um problema técnico</p>
                                 </div>
-                                <div class="typing-indicator" data-delay="3400" data-duration="500">
+                                <!-- Roteamento 2: IA de Suporte -->
+                                <div class="agent-switch" data-delay="3500">
+                                    <span class="agent-switch-badge"><i class="fas fa-brain"></i> Motor IA → <i class="fas fa-robot"></i> IA de Suporte</span>
+                                </div>
+                                <div class="typing-indicator" data-delay="3900" data-duration="500">
                                     <span></span><span></span><span></span>
                                 </div>
-                                <div class="message received" data-delay="3900">
-                                    <p>Dell Inspiron por R$ 3.200 e Lenovo por R$ 2.800.</p>
-                                </div>
-                                <div class="typing-indicator client-typing" data-delay="4500" data-duration="500">
-                                    <span></span><span></span><span></span>
-                                </div>
-                                <div class="message sent" data-delay="5000">
-                                    <p>Meu notebook não liga, podem ajudar?</p>
-                                </div>
-                                <div class="agent-switch" data-delay="5500">
-                                    <span class="agent-switch-badge"><i class="fas fa-brain"></i> Motor de IA → <i class="fas fa-robot"></i> IA de Suporte</span>
-                                </div>
-                                <div class="typing-indicator" data-delay="5900" data-duration="500">
-                                    <span></span><span></span><span></span>
-                                </div>
-                                <div class="message received" data-delay="6400">
+                                <div class="message received" data-delay="4400">
                                     <div class="agent-label"><i class="fas fa-robot"></i> IA de Suporte</div>
-                                    <p>Claro! O cabo está conectado?</p>
+                                    <p>Entendi! Pode descrever o problema? Vou te ajudar! 🔧</p>
                                 </div>
-                                <div class="typing-indicator client-typing" data-delay="6900" data-duration="400">
+                                <!-- Cliente pergunta horário -->
+                                <div class="typing-indicator client-typing" data-delay="5000" data-duration="400">
                                     <span></span><span></span><span></span>
                                 </div>
-                                <div class="message sent" data-delay="7300">
-                                    <p>Sim, mas nada acontece</p>
+                                <div class="message sent" data-delay="5400">
+                                    <p>Qual horário de atendimento?</p>
                                 </div>
-                                <div class="typing-indicator" data-delay="7700" data-duration="500">
+                                <!-- Roteamento 3: IA de Atendimento -->
+                                <div class="agent-switch" data-delay="5900">
+                                    <span class="agent-switch-badge"><i class="fas fa-brain"></i> Motor IA → <i class="fas fa-robot"></i> IA Geral</span>
+                                </div>
+                                <div class="typing-indicator" data-delay="6300" data-duration="500">
                                     <span></span><span></span><span></span>
                                 </div>
-                                <div class="message received" data-delay="8200">
-                                    <p>Traga na loja para avaliarmos!</p>
+                                <div class="message received" data-delay="6800">
+                                    <div class="agent-label"><i class="fas fa-robot"></i> IA Geral</div>
+                                    <p>Atendemos 24h! Estou sempre aqui 🕐</p>
                                 </div>
-                                <div class="typing-indicator client-typing" data-delay="8600" data-duration="400">
-                                    <span></span><span></span><span></span>
+                            </div>
+                            <div class="chat-footer" id="heroChatFooter">
+                                <div class="chat-input-container">
+                                    <i class="fas fa-smile emoji-btn" data-action="emoji"></i>
+                                    <input type="text" class="chat-input" id="heroChatInput" placeholder="Mensagem" readonly>
+                                    <i class="fas fa-paperclip attach-btn" data-action="attach"></i>
                                 </div>
-                                <div class="message sent" data-delay="9000">
-                                    <p>Qual o endereço?</p>
-                                </div>
-                                <div class="agent-switch" data-delay="9500">
-                                    <span class="agent-switch-badge"><i class="fas fa-brain"></i> Motor de IA → <i class="fas fa-robot"></i> IA de Atendimento</span>
-                                </div>
-                                <div class="typing-indicator" data-delay="9900" data-duration="500">
-                                    <span></span><span></span><span></span>
-                                </div>
-                                <div class="message received" data-delay="10400">
-                                    <div class="agent-label"><i class="fas fa-robot"></i> IA de Atendimento</div>
-                                    <p>Rua Example, 123 - Centro 📍</p>
-                                </div>
-                                <div class="typing-indicator" data-delay="10800" data-duration="400">
-                                    <span></span><span></span><span></span>
-                                </div>
-                                <div class="message received" data-delay="11200">
-                                    <p>Aberto das 9h às 18h!</p>
-                                </div>
-                                <div class="typing-indicator client-typing" data-delay="11800" data-duration="99999">
-                                    <span></span><span></span><span></span>
-                                </div>
+                                <button class="chat-send-btn" id="heroSendBtn" data-action="send">
+                                    <i class="fas fa-paper-plane"></i>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -555,7 +747,7 @@
                             <i class="fas fa-envelope"></i>
                             <div>
                                 <strong>Email</strong>
-                                <p>contato@echohub.com.br</p>
+                                <p>contato@echo-hub.dev</p>
                             </div>
                         </div>
                         <div class="info-item">
@@ -641,7 +833,7 @@
                     <ul class="contact-list">
                         <li>
                             <i class="fas fa-envelope"></i>
-                            <span>contato@echohub.com.br</span>
+                            <span>contato@echo-hub.dev</span>
                         </li>
                         <li>
                             <i class="fas fa-phone"></i>
@@ -670,8 +862,9 @@
         <i class="fas fa-arrow-up"></i>
     </button>
 
+    </div><!-- End of main-content -->
+
     <!-- External Scripts -->
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
     

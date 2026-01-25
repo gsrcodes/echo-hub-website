@@ -72,6 +72,9 @@
 /* ===================================
    SPLASH SCREEN - Experiência Imersiva
    =================================== */
+/* ===================================
+   SPLASH SCREEN - Complete Refactor
+   =================================== */
 .splash-screen {
     position: fixed;
     top: 0;
@@ -84,152 +87,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow-y: auto;
-    overflow-x: hidden;
-    scroll-behavior: smooth;
+    overflow: hidden;
 }
 
-/* Custom scrollbar for splash screen */
-.splash-screen::-webkit-scrollbar {
-    width: 6px;
-}
-
-.splash-screen::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.05);
-}
-
-.splash-screen::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 3px;
-}
-
-.splash-screen::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 255, 255, 0.3);
-}
-
-/* Firefox scrollbar */
-.splash-screen {
-    scrollbar-width: thin;
-    scrollbar-color: rgba(255, 255, 255, 0.2) rgba(255, 255, 255, 0.05);
-}
-
-/* Mobile Splash Screen Adjustments */
-@media (max-width: 480px) {
-    .splash-screen {
-        align-items: flex-start;
-        padding: 0;
-    }
-    
-    .splash-content {
-        gap: 1rem;
-        padding: 1rem;
-        min-height: 100%;
-        justify-content: flex-start;
-        padding-top: 0.5rem;
-        padding-bottom: 2rem;
-    }
-    
-    .splash-phone-container {
-        transform: scale(0.48);
-        transform-origin: top center;
-        height: 280px;
-        overflow: hidden;
-        margin-bottom: 0;
-        flex-shrink: 0;
-    }
-    
-    .splash-phone {
-        width: 280px;
-        height: 560px;
-    }
-    
-    .splash-text-container {
-        padding: 0 1rem;
-        margin-top: 0;
-        position: relative;
-        z-index: 10;
-        background: #000000;
-    }
-    
-    .splash-title {
-        font-size: 1.4rem;
-        line-height: 1.3;
-    }
-    
-    .splash-subtitle {
-        font-size: 0.85rem;
-    }
-    
-    .splash-cta {
-        padding: 0.875rem 2rem;
-        font-size: 1rem;
-        margin-top: 0.5rem;
-        position: relative;
-        z-index: 10;
-    }
-    
-    .splash-badge {
-        font-size: 0.7rem;
-        padding: 0.35rem 0.7rem;
-        margin-bottom: 0.5rem;
-    }
-}
-
-@media (max-width: 380px) {
-    .splash-phone-container {
-        transform: scale(0.42);
-        height: 240px;
-    }
-    
-    .splash-title {
-        font-size: 1.25rem;
-    }
-    
-    .splash-subtitle {
-        font-size: 0.8rem;
-    }
-}
-
-/* Very short screens */
-@media (max-height: 700px) and (max-width: 480px) {
-    .splash-phone-container {
-        transform: scale(0.38);
-        height: 220px;
-    }
-    
-    .splash-content {
-        gap: 0.75rem;
-        padding-top: 0.25rem;
-    }
-    
-    .splash-title {
-        font-size: 1.15rem;
-    }
-    
-    .splash-badge {
-        font-size: 0.65rem;
-        padding: 0.3rem 0.6rem;
-    }
-}
-
-@media (max-height: 600px) and (max-width: 480px) {
-    .splash-phone-container {
-        transform: scale(0.32);
-        height: 185px;
-    }
-    
-    .splash-title {
-        font-size: 1.1rem;
-    }
-    
-    .splash-subtitle {
-        font-size: 0.75rem;
-    }
-}
-
-/* Spotlight appears on splash too */
+/* Hide spotlight during splash */
 body.splash-active .reveal-container {
-    z-index: 10000; /* Above splash background */
+    display: none !important;
 }
 
 .splash-particles {
@@ -240,6 +103,7 @@ body.splash-active .reveal-container {
     height: 100%;
     background: transparent;
     overflow: hidden;
+    pointer-events: none;
 }
 
 /* Animated dots in splash */
@@ -289,22 +153,25 @@ body.splash-active .reveal-container {
     }
 }
 
+/* Splash Content - Desktop Layout */
 .splash-content {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 2rem;
-    padding: 1rem;
+    padding: 2rem;
     max-width: 100%;
+    width: 100%;
+    height: 100%;
     position: relative;
     z-index: 10;
 }
 
-/* Splash Phone */
+/* Splash Phone - Desktop */
 .splash-phone-container {
     position: relative;
-    transform: scale(0.9);
+    flex-shrink: 0;
 }
 
 .splash-phone-glow {
@@ -312,8 +179,8 @@ body.splash-active .reveal-container {
 }
 
 .splash-phone {
-    width: 300px;
-    height: 600px;
+    width: 280px;
+    height: 560px;
     background: linear-gradient(145deg, #2a2a2a 0%, #1a1a1a 50%, #0a0a0a 100%);
     border-radius: 2.5rem;
     padding: 0.6rem;
@@ -446,6 +313,123 @@ body.splash-active .reveal-container {
     height: 300px;
 }
 
+/* ===================================
+   SPLASH MOBILE - Complete Override
+   =================================== */
+@media (max-width: 768px) {
+    .splash-screen {
+        overflow-y: auto;
+        overflow-x: hidden;
+        align-items: flex-start;
+    }
+    
+    .splash-content {
+        min-height: 100%;
+        height: auto;
+        justify-content: flex-start;
+        padding: 1.5rem 1rem 3rem;
+        gap: 1.25rem;
+    }
+    
+    .splash-phone-container {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        overflow: hidden;
+        max-height: 45vh;
+    }
+    
+    .splash-phone {
+        width: 240px;
+        height: 480px;
+        transform-origin: top center;
+        animation: none;
+    }
+    
+    .splash-text-container {
+        width: 100%;
+        padding: 0 0.5rem;
+    }
+    
+    .splash-badge {
+        font-size: 0.75rem;
+        padding: 0.4rem 0.8rem;
+        margin-bottom: 0.75rem;
+    }
+    
+    .splash-title {
+        font-size: 1.5rem;
+        line-height: 1.3;
+    }
+    
+    .splash-subtitle {
+        font-size: 0.9rem;
+    }
+    
+    .splash-cta {
+        padding: 0.875rem 2rem;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .splash-content {
+        padding: 1rem 1rem 2.5rem;
+        gap: 1rem;
+    }
+    
+    .splash-phone-container {
+        max-height: 42vh;
+    }
+    
+    .splash-phone {
+        width: 220px;
+        height: 440px;
+    }
+    
+    .splash-title {
+        font-size: 1.35rem;
+    }
+    
+    .splash-subtitle {
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 380px) {
+    .splash-phone-container {
+        max-height: 38vh;
+    }
+    
+    .splash-phone {
+        width: 200px;
+        height: 400px;
+    }
+    
+    .splash-title {
+        font-size: 1.2rem;
+    }
+    
+    .splash-badge {
+        font-size: 0.7rem;
+    }
+}
+
+/* Very short screens */
+@media (max-height: 650px) and (max-width: 768px) {
+    .splash-phone-container {
+        max-height: 35vh;
+    }
+    
+    .splash-content {
+        gap: 0.75rem;
+    }
+    
+    .splash-title {
+        font-size: 1.15rem;
+    }
+}
+
 /* Splash Hidden State */
 .splash-screen.hidden {
     pointer-events: none;
@@ -457,11 +441,11 @@ body.splash-active .reveal-container {
 
 @keyframes phoneExit {
     0% {
-        transform: scale(0.9) translateY(0);
+        transform: translateY(0);
         opacity: 1;
     }
     100% {
-        transform: scale(0.3) translateY(-100vh);
+        transform: translateY(-100vh);
         opacity: 0;
     }
 }
@@ -518,7 +502,7 @@ body.splash-active {
 }
 
 /* Allow scroll on mobile during splash */
-@media (max-width: 480px) {
+@media (max-width: 768px) {
     body.splash-active {
         overflow-y: auto;
         overflow-x: hidden;

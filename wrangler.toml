@@ -1,5 +1,5 @@
 name = "proud-base-e694"
 compatibility_date = "2026-01-25"
 
-[site]
-bucket = "./public"
+[assets]
+directory = "./public"

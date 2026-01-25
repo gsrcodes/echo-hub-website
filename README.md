@@ -280,7 +280,8 @@ Contribuições são sempre bem-vindas! Sinta-se livre para:
 ## 📞 Contato
 
 - **Email**: contato@echohub.com.br
-- **Telefone**: +55 (11) 99999-9999
+- **Telefone**: +55 (18) 99636-4963
+- **Localização**: Presidente Prudente, Brasil
 - **Website**: [echohub.com.br](https://echohub.com.br)
 
 ## 🙏 Agradecimentos

@@ -51,16 +51,16 @@ echo-hub-website/
 ## 🎨 Paleta de Cores
 
 ```css
-/* Cores Principais */
---primary-color: #1e3a8a    /* Azul profissional */
---secondary-color: #10b981   /* Verde tecnológico */
---accent-color: #f59e0b      /* Laranja para CTAs */
+/* Cores Principais - Black & White Theme */
+--primary-color: #000000      /* Preto principal */
+--secondary-color: #404040    /* Cinza escuro */
+--accent-color: #1a1a1a       /* Preto suave para acentos */
 
 /* Neutras */
 --bg-primary: #ffffff
---bg-secondary: #f8fafc
---text-primary: #1e293b
---text-secondary: #64748b
+--bg-secondary: #f5f5f5
+--text-primary: #000000
+--text-secondary: #4a4a4a
 ```
 
 ## 📱 Seções do Website
@@ -224,9 +224,9 @@ Edite as variáveis CSS em `css/styles.css`:
 
 ```css
 :root {
-    --primary-color: #1e3a8a;
-    --secondary-color: #10b981;
-    --accent-color: #f59e0b;
+    --primary-color: #000000;
+    --secondary-color: #404040;
+    --accent-color: #1a1a1a;
     /* ... */
 }
 ```

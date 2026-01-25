@@ -37,11 +37,13 @@
     <div class="splash-screen" id="splashScreen">
         <div class="splash-particles" id="splashParticles"></div>
         <div class="splash-content">
-            <div class="splash-phone-container">
-                <div class="splash-phone-glow"></div>
-                <div class="splash-phone">
-                    <div class="phone-notch"></div>
-                    <div class="phone-screen">
+            <!-- Left side: Phone -->
+            <div class="splash-phone-column">
+                <div class="splash-phone-container">
+                    <div class="splash-phone-glow"></div>
+                    <div class="splash-phone">
+                        <div class="phone-notch"></div>
+                        <div class="phone-screen">
                         <!-- Popup de chamada (overlay) -->
                         <div class="call-popup" id="splashCallPopup">
                             <div class="call-popup-content">
@@ -164,24 +166,28 @@
                     </div>
                 </div>
             </div>
-            
-            <div class="splash-text-container" id="splashText">
-                <div class="splash-badge">
-                    <i class="fas fa-robot"></i>
-                    <span>Isso não é uma pessoa</span>
-                </div>
-                <h1 class="splash-title">
-                    <span class="splash-title-line">Essa é uma <strong>IA</strong></span>
-                    <span class="splash-title-line">treinada para <strong>sua empresa</strong></span>
-                </h1>
-                <p class="splash-subtitle">Atendimento 24/7 com Inteligência Artificial personalizada</p>
             </div>
             
-            <button class="splash-cta" id="splashCta">
-                <span class="splash-cta-text">Quero Conhecer</span>
-                <span class="splash-cta-icon"><i class="fas fa-arrow-down"></i></span>
-                <div class="splash-cta-ripple"></div>
-            </button>
+            <!-- Right side: Text + CTA -->
+            <div class="splash-text-column">
+                <div class="splash-text-container" id="splashText">
+                    <div class="splash-badge">
+                        <i class="fas fa-robot"></i>
+                        <span>Isso não é uma pessoa</span>
+                    </div>
+                    <h1 class="splash-title">
+                        <span class="splash-title-line">Essa é uma <strong>IA</strong></span>
+                        <span class="splash-title-line">treinada para <strong>sua empresa</strong></span>
+                    </h1>
+                    <p class="splash-subtitle">Atendimento 24/7 com Inteligência Artificial personalizada</p>
+                </div>
+                
+                <button class="splash-cta" id="splashCta">
+                    <span class="splash-cta-text">Quero Conhecer</span>
+                    <span class="splash-cta-icon"><i class="fas fa-arrow-down"></i></span>
+                    <div class="splash-cta-ripple"></div>
+                </button>
+            </div>
         </div>
     </div>
 

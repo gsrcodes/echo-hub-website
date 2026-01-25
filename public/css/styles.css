@@ -73,7 +73,7 @@
    SPLASH SCREEN - Experiência Imersiva
    =================================== */
 /* ===================================
-   SPLASH SCREEN - Complete Refactor
+   SPLASH SCREEN - Side by Side Layout
    =================================== */
 .splash-screen {
     position: fixed;
@@ -153,25 +153,59 @@ body.splash-active .reveal-container {
     }
 }
 
-/* Splash Content - Desktop Layout */
+/* Desktop: Start Centered, Move to Side by Side */
 .splash-content {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
-    gap: 2rem;
+    gap: 0;
     padding: 2rem;
-    max-width: 100%;
+    max-width: 1200px;
     width: 100%;
     height: 100%;
     position: relative;
     z-index: 10;
 }
 
-/* Splash Phone - Desktop */
+/* Text column hidden initially */
+.splash-text-column {
+    flex: 0 1 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2rem;
+    max-width: 500px;
+    opacity: 0;
+    transform: translateX(50px);
+    width: 0;
+    overflow: hidden;
+    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* When revealed - show text column and move phone */
+.splash-content.revealed {
+    gap: 4rem;
+}
+
+.splash-content.revealed .splash-text-column {
+    opacity: 1;
+    transform: translateX(0);
+    width: auto;
+    overflow: visible;
+}
+
+/* Phone Column - Center then Left */
+.splash-phone-column {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
 .splash-phone-container {
     position: relative;
-    flex-shrink: 0;
 }
 
 .splash-phone-glow {
@@ -196,9 +230,8 @@ body.splash-active .reveal-container {
     50% { transform: translateY(-15px); }
 }
 
-/* Splash Text */
 .splash-text-container {
-    text-align: center;
+    text-align: left;
     opacity: 0;
     transform: translateY(30px);
 }
@@ -229,7 +262,7 @@ body.splash-active .reveal-container {
 }
 
 .splash-title {
-    font-size: clamp(1.8rem, 5vw, 3rem);
+    font-size: clamp(2rem, 4vw, 3rem);
     font-weight: 700;
     color: #ffffff;
     line-height: 1.2;
@@ -248,7 +281,7 @@ body.splash-active .reveal-container {
 }
 
 .splash-subtitle {
-    font-size: 1rem;
+    font-size: 1.1rem;
     color: rgba(255, 255, 255, 0.6);
     margin: 0;
 }
@@ -314,56 +347,68 @@ body.splash-active .reveal-container {
 }
 
 /* ===================================
-   SPLASH MOBILE - Complete Override
+   SPLASH MOBILE - Stacked Layout
    =================================== */
+@media (max-width: 900px) {
+    .splash-content {
+        flex-direction: column;
+        gap: 2rem;
+        padding: 2rem 1.5rem;
+    }
+    
+    .splash-phone-column {
+        flex: 0 0 auto;
+    }
+    
+    .splash-phone {
+        width: 240px;
+        height: 480px;
+    }
+    
+    .splash-text-column {
+        align-items: center;
+        text-align: center;
+    }
+    
+    .splash-text-container {
+        text-align: center;
+    }
+    
+    .splash-title {
+        font-size: 1.75rem;
+    }
+    
+    .splash-subtitle {
+        font-size: 1rem;
+    }
+}
+
 @media (max-width: 768px) {
     .splash-screen {
         overflow-y: auto;
         overflow-x: hidden;
-        align-items: flex-start;
     }
     
     .splash-content {
         min-height: 100%;
         height: auto;
         justify-content: flex-start;
-        padding: 1.5rem 1rem 3rem;
-        gap: 1.25rem;
-    }
-    
-    .splash-phone-container {
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        overflow: hidden;
-        max-height: 45vh;
+        padding: 2rem 1rem 3rem;
+        gap: 1.5rem;
     }
     
     .splash-phone {
-        width: 240px;
-        height: 480px;
-        transform-origin: top center;
+        width: 220px;
+        height: 440px;
         animation: none;
     }
     
-    .splash-text-container {
-        width: 100%;
-        padding: 0 0.5rem;
-    }
-    
-    .splash-badge {
-        font-size: 0.75rem;
-        padding: 0.4rem 0.8rem;
-        margin-bottom: 0.75rem;
+    .splash-text-column {
+        gap: 1.5rem;
     }
     
     .splash-title {
         font-size: 1.5rem;
-        line-height: 1.3;
-    }
-    
-    .splash-subtitle {
-        font-size: 0.9rem;
     }
     
     .splash-cta {
@@ -374,36 +419,38 @@ body.splash-active .reveal-container {
 
 @media (max-width: 480px) {
     .splash-content {
-        padding: 1rem 1rem 2.5rem;
-        gap: 1rem;
-    }
-    
-    .splash-phone-container {
-        max-height: 42vh;
-    }
-    
-    .splash-phone {
-        width: 220px;
-        height: 440px;
-    }
-    
-    .splash-title {
-        font-size: 1.35rem;
-    }
-    
-    .splash-subtitle {
-        font-size: 0.85rem;
-    }
-}
-
-@media (max-width: 380px) {
-    .splash-phone-container {
-        max-height: 38vh;
+        padding: 1.5rem 1rem 2.5rem;
+        gap: 1.25rem;
     }
     
     .splash-phone {
         width: 200px;
         height: 400px;
+    }
+    
+    .splash-text-column {
+        gap: 1.25rem;
+    }
+    
+    .splash-badge {
+        font-size: 0.75rem;
+        padding: 0.4rem 0.8rem;
+    }
+    
+    .splash-title {
+        font-size: 1.35rem;
+        line-height: 1.3;
+    }
+    
+    .splash-subtitle {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 380px) {
+    .splash-phone {
+        width: 180px;
+        height: 360px;
     }
     
     .splash-title {
@@ -415,14 +462,15 @@ body.splash-active .reveal-container {
     }
 }
 
-/* Very short screens */
-@media (max-height: 650px) and (max-width: 768px) {
-    .splash-phone-container {
-        max-height: 35vh;
+/* Very short screens - hide phone animation, smaller phone */
+@media (max-height: 700px) and (max-width: 768px) {
+    .splash-phone {
+        width: 160px;
+        height: 320px;
     }
     
     .splash-content {
-        gap: 0.75rem;
+        gap: 1rem;
     }
     
     .splash-title {
@@ -435,7 +483,7 @@ body.splash-active .reveal-container {
     pointer-events: none;
 }
 
-.splash-screen.hidden .splash-phone-container {
+.splash-screen.hidden .splash-phone-column {
     animation: phoneExit 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
@@ -450,8 +498,7 @@ body.splash-active .reveal-container {
     }
 }
 
-.splash-screen.hidden .splash-text-container,
-.splash-screen.hidden .splash-cta {
+.splash-screen.hidden .splash-text-column {
     animation: fadeOutUp 0.5s ease forwards;
 }
 

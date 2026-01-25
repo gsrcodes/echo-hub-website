@@ -71,6 +71,11 @@ document.addEventListener('DOMContentLoaded', function() {
             setTimeout(() => {
                 if (splashText) {
                     splashText.classList.add('visible');
+                    // Trigger layout transition - move phone to left
+                    const splashContent = document.querySelector('.splash-content');
+                    if (splashContent) {
+                        splashContent.classList.add('revealed');
+                    }
                 }
             }, maxDelay + 800);
             

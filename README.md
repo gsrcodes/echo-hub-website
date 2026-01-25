@@ -2,7 +2,7 @@
 
 > Solução Inteligente de Atendimento para Pequenas e Médias Empresas
 
-Website moderno e profissional para o EchoHub, plataforma inovadora que integra chatbots de IA com atendimento humano para PMEs.
+Website moderno e profissional para o EchoHub, plataforma inovadora que integra agentes virtuais de IA com atendimento humano para PMEs.
 
 ![EchoHub](https://img.shields.io/badge/Status-Live-success)
 ![Version](https://img.shields.io/badge/Version-1.0.0-blue)

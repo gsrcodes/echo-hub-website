@@ -2,384 +2,1128 @@
 // Wait for DOM to be ready
 // ===================================
 document.addEventListener('DOMContentLoaded', function() {
+    initNavbar();
+    initParticles();
+    initPricingToggle();
+    initThemeSelector();
+    initScrollAnimations();
+    initMobileMenu();
+    initAnimationsOnScroll();
+    initInteractiveCalendar();
+    initContactForm();
+    initDynamicChat();
+});
+
+// ===================================
+// Simple scroll animations (works without GSAP)
+// ===================================
+function initAnimationsOnScroll() {
+    const animatedElements = document.querySelectorAll('[data-aos]');
     
-    // ===================================
-    // SPLASH SCREEN - Experiência Imersiva
-    // ===================================
-    function initSplashScreen() {
-        const splashScreen = document.getElementById('splashScreen');
-        const splashCta = document.getElementById('splashCta');
-        const splashText = document.getElementById('splashText');
-        const splashChatMessages = document.getElementById('splashChatMessages');
-        const splashChatInput = document.getElementById('splashChatInput');
-        const splashSendBtn = document.getElementById('splashSendBtn');
-        const body = document.body;
-        
-        if (!splashScreen || !splashCta) return;
-        
-        // Auto-scroll chat only when element is below visible area
-        function scrollChatIfNeeded(container, element) {
-            if (!container || !element) return;
-            
-            // Wait for element to be rendered
-            requestAnimationFrame(() => {
-                const containerRect = container.getBoundingClientRect();
-                const elementRect = element.getBoundingClientRect();
-                
-                // Check if element bottom is below container bottom (not visible)
-                const elementBelowView = elementRect.bottom > containerRect.bottom;
-                
-                if (elementBelowView) {
-                    container.scrollTo({
-                        top: container.scrollTop + (elementRect.bottom - containerRect.bottom) + 10,
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('aos-animate');
+            }
+        });
+    }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    });
+
+    animatedElements.forEach(el => {
+        observer.observe(el);
+    });
+}
+
+// ===================================
+// Navbar Scroll Effect
+// ===================================
+function initNavbar() {
+    const navbar = document.getElementById('navbar');
+    
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+        }
+    });
+
+    // Smooth scroll for navigation links
+    const navLinks = document.querySelectorAll('.nav-link, .nav-link-cta');
+    navLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            const href = link.getAttribute('href');
+            if (href.startsWith('#')) {
+                e.preventDefault();
+                const target = document.querySelector(href);
+                if (target) {
+                    const offset = 80;
+                    const targetPosition = target.offsetTop - offset;
+                    window.scrollTo({
+                        top: targetPosition,
                         behavior: 'smooth'
                     });
-                }
-            });
-        }
-        
-        // Animate splash chat messages
-        function animateSplashChat() {
-            if (!splashChatMessages) return;
-            
-            const elements = splashChatMessages.querySelectorAll('[data-delay]');
-            let maxDelay = 0;
-            
-            elements.forEach(element => {
-                const delay = parseInt(element.getAttribute('data-delay'));
-                const duration = parseInt(element.getAttribute('data-duration')) || 0;
-                
-                if (delay > maxDelay) maxDelay = delay;
-                
-                setTimeout(() => {
-                    element.classList.add('show');
-                    
-                    // Auto-scroll only if this element is below visible area
-                    scrollChatIfNeeded(splashChatMessages, element);
-                    
-                    // Hide typing indicator after duration
-                    if (element.classList.contains('typing-indicator') && duration > 0 && duration < 99999) {
-                        setTimeout(() => {
-                            element.classList.add('hide');
-                            element.classList.remove('show');
-                        }, duration);
-                    }
-                }, delay);
-            });
-            
-            // Show text and CTA after chat animation
-            setTimeout(() => {
-                if (splashText) {
-                    splashText.classList.add('visible');
-                    // Trigger layout transition - move phone to left
-                    const splashContent = document.querySelector('.splash-content');
-                    if (splashContent) {
-                        splashContent.classList.add('revealed');
+                    // Close mobile menu if open
+                    const navMenu = document.getElementById('navMenu');
+                    if (navMenu.classList.contains('active')) {
+                        navMenu.classList.remove('active');
                     }
                 }
-            }, maxDelay + 800);
-            
-            setTimeout(() => {
-                splashCta.classList.add('visible');
-            }, maxDelay + 1200);
-            
-            // Animate user typing in input field after all messages
-            setTimeout(() => {
-                animateInputTyping(splashChatInput, "Quero saber mais! 😊");
-            }, maxDelay + 400);
-        }
+            }
+        });
+    });
+}
+
+// ===================================
+// Mobile Menu Toggle
+// ===================================
+function initMobileMenu() {
+    const navToggle = document.getElementById('navToggle');
+    const navMenu = document.getElementById('navMenu');
+    
+    if (navToggle && navMenu) {
+        navToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            navToggle.classList.toggle('active');
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!navToggle.contains(e.target) && !navMenu.contains(e.target)) {
+                navMenu.classList.remove('active');
+                navToggle.classList.remove('active');
+            }
+        });
+    }
+}
+
+// ===================================
+// Animated Particles Background
+// ===================================
+function initParticles() {
+    const particlesBg = document.getElementById('particlesBg');
+    
+    if (!particlesBg) return;
+
+    // Create floating particles
+    for (let i = 0; i < 30; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
         
-        // Animate typing in input field with send animation
-        function animateInputTyping(input, text) {
-            if (!input) return;
+        const size = Math.random() * 4 + 1;
+        const duration = Math.random() * 20 + 10;
+        const delay = Math.random() * -20;
+        
+        particle.style.cssText = `
+            position: absolute;
+            width: ${size}px;
+            height: ${size}px;
+            background: ${getRandomColor()};
+            border-radius: 50%;
+            opacity: ${Math.random() * 0.5 + 0.3};
+            top: ${Math.random() * 100}%;
+            left: ${Math.random() * 100}%;
+            animation: float ${duration}s linear ${delay}s infinite;
+            pointer-events: none;
+        `;
+        
+        particlesBg.appendChild(particle);
+    }
+}
+
+function getRandomColor() {
+    const colors = [
+        'rgba(37, 211, 102, 0.5)',
+        'rgba(102, 126, 234, 0.5)',
+        'rgba(245, 87, 108, 0.5)',
+        'rgba(52, 232, 121, 0.5)',
+    ];
+    return colors[Math.floor(Math.random() * colors.length)];
+}
+
+// ===================================
+// Pricing Toggle (Monthly/Annual)
+// ===================================
+function initPricingToggle() {
+    const toggle = document.getElementById('pricingToggle');
+    const amounts = document.querySelectorAll('.amount');
+    
+    if (!toggle) return;
+    
+    toggle.addEventListener('change', function() {
+        amounts.forEach(amount => {
+            const monthly = amount.getAttribute('data-monthly');
+            const annual = amount.getAttribute('data-annual');
             
-            let index = 0;
-            input.value = '';
-            input.classList.add('typing-active');
-            
-            const typeInterval = setInterval(() => {
-                if (index < text.length) {
-                    input.value += text.charAt(index);
-                    index++;
+            if (monthly && annual) {
+                if (this.checked) {
+                    // Annual
+                    amount.textContent = annual;
                 } else {
-                    clearInterval(typeInterval);
-                    // Animate send button after typing
-                    setTimeout(() => {
-                        if (splashSendBtn) {
-                            splashSendBtn.classList.add('sending');
-                            setTimeout(() => {
-                                splashSendBtn.classList.remove('sending');
-                            }, 300);
-                        }
-                    }, 500);
-                }
-            }, 80);
-        }
-        
-        // Start splash animation
-        animateSplashChat();
-        
-        // Initialize WhatsApp interactive buttons
-        initWhatsAppInteractions();
-        
-        // Handle CTA click - Reveal main content
-        splashCta.addEventListener('click', function() {
-            // Add exit animations
-            splashScreen.classList.add('hidden');
-            splashScreen.classList.add('fade-out');
-            
-            // Reveal main content
-            setTimeout(() => {
-                body.classList.remove('splash-active');
-                body.classList.add('content-revealed');
-                
-                // Initialize AOS after content is revealed
-                if (typeof AOS !== 'undefined') {
-                    AOS.refresh();
-                }
-                
-                // Show hero chat messages instantly (already loaded from splash)
-                showHeroChatInstantly();
-                
-                // Scroll to top
-                window.scrollTo(0, 0);
-            }, 600);
-            
-            // Remove splash from DOM after animation
-            setTimeout(() => {
-                splashScreen.style.display = 'none';
-            }, 1800);
-        });
-        
-        // Add keyboard support
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Enter' || e.key === ' ') {
-                if (splashCta.classList.contains('visible')) {
-                    splashCta.click();
+                    // Monthly
+                    amount.textContent = monthly;
                 }
             }
         });
-    }
+    });
+}
+
+// ===================================
+// Theme Selector for Whitelabel Demo
+// ===================================
+function initThemeSelector() {
+    const themeButtons = document.querySelectorAll('.theme-btn');
+    const previewCards = document.querySelectorAll('.preview-card i');
+    const menuItems = document.querySelectorAll('.menu-item.active');
+    const previewLogo = document.querySelector('.preview-logo i');
     
-    // ===================================
-    // WhatsApp Interactive Buttons
-    // ===================================
-    function initWhatsAppInteractions() {
-        // Get all interactive elements
-        const chatInterfaces = document.querySelectorAll('.chat-interface');
+    const themes = {
+        purple: 'linear-gradient(135deg, #667eea, #764ba2)',
+        green: 'linear-gradient(135deg, #25d366, #128c7e)',
+        blue: 'linear-gradient(135deg, #4facfe, #00f2fe)',
+        red: 'linear-gradient(135deg, #f093fb, #f5576c)'
+    };
+    
+    const iconColors = {
+        purple: '#667eea',
+        green: '#25d366',
+        blue: '#4facfe',
+        red: '#f093fb'
+    };
+    
+    // Apply theme function
+    function applyTheme(theme) {
+        const gradient = themes[theme];
+        const iconColor = iconColors[theme];
         
-        chatInterfaces.forEach(chatInterface => {
-            // Get phone-screen parent for popups
-            const phoneScreen = chatInterface.closest('.phone-screen');
-            const callPopup = phoneScreen ? phoneScreen.querySelector('.call-popup') : null;
-            const emojiPopup = phoneScreen ? phoneScreen.querySelector('.emoji-popup') : null;
-            const attachPopup = phoneScreen ? phoneScreen.querySelector('.attach-popup') : null;
-            const menuPopup = chatInterface.querySelector('.header-menu-popup');
-            const chatInput = chatInterface.querySelector('.chat-input');
-            
-            // Header actions
-            const headerActions = chatInterface.querySelectorAll('[data-action]');
-            
-            headerActions.forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    const action = btn.dataset.action;
-                    
-                    // Check if current popup is already open
-                    let currentPopupOpen = false;
-                    if (action === 'emoji' && emojiPopup) currentPopupOpen = emojiPopup.classList.contains('show');
-                    if (action === 'attach' && attachPopup) currentPopupOpen = attachPopup.classList.contains('show');
-                    if (action === 'menu' && menuPopup) currentPopupOpen = menuPopup.classList.contains('show');
-                    
-                    // Close all popups first
-                    closeAllPopups(chatInterface, phoneScreen);
-                    
-                    // If popup was open, just close it (don't reopen)
-                    if (currentPopupOpen) return;
-                    
-                    switch(action) {
-                        case 'video':
-                        case 'call':
-                            if (callPopup) {
-                                callPopup.classList.add('show');
-                                // Auto close after 3 seconds
-                                setTimeout(() => {
-                                    callPopup.classList.remove('show');
-                                }, 3000);
-                            }
-                            break;
-                        case 'menu':
-                            if (menuPopup) {
-                                menuPopup.classList.add('show');
-                            }
-                            break;
-                        case 'emoji':
-                            if (emojiPopup) {
-                                emojiPopup.classList.add('show');
-                            }
-                            break;
-                        case 'attach':
-                            if (attachPopup) {
-                                attachPopup.classList.add('show');
-                            }
-                            break;
-                        case 'back':
-                            // Small shake animation on back button
-                            btn.style.animation = 'none';
-                            btn.offsetHeight; // Trigger reflow
-                            btn.style.animation = 'backShake 0.3s ease';
-                            break;
-                    }
-                });
-            });
-            
-            // Emoji selection
-            if (emojiPopup && chatInput) {
-                const emojis = emojiPopup.querySelectorAll('.emoji-grid span');
-                emojis.forEach(emoji => {
-                    emoji.addEventListener('click', () => {
-                        chatInput.value += emoji.textContent;
-                        emojiPopup.classList.remove('show');
-                    });
-                });
-            }
-            
-            // Close call popup when clicking end button
-            if (callPopup) {
-                const endBtn = callPopup.querySelector('.call-end-btn');
-                if (endBtn) {
-                    endBtn.addEventListener('click', () => {
-                        callPopup.classList.remove('show');
-                    });
-                }
-            }
-            
-            // Close popups when clicking outside
-            document.addEventListener('click', (e) => {
-                if (!e.target.closest('.chat-header-actions') && 
-                    !e.target.closest('.header-menu-popup') &&
-                    !e.target.closest('.emoji-btn') &&
-                    !e.target.closest('.emoji-popup') &&
-                    !e.target.closest('.attach-btn') &&
-                    !e.target.closest('.attach-popup')) {
-                    closeAllPopups(chatInterface, phoneScreen);
-                }
-            });
+        menuItems.forEach(item => {
+            item.style.background = gradient;
         });
         
-        function closeAllPopups(container, phoneScreen) {
-            const popups = container.querySelectorAll('.header-menu-popup');
-            popups.forEach(popup => popup.classList.remove('show'));
-            // Close emoji and attach popups in phone screen
-            if (phoneScreen) {
-                const screenPopups = phoneScreen.querySelectorAll('.emoji-popup, .attach-popup');
-                screenPopups.forEach(popup => popup.classList.remove('show'));
+        previewCards.forEach(icon => {
+            icon.style.color = iconColor;
+        });
+        
+        if (previewLogo) {
+            previewLogo.style.color = iconColor;
+        }
+    }
+    
+    // Apply purple theme on load (default)
+    applyTheme('purple');
+    
+    themeButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            // Remove active class from all buttons
+            themeButtons.forEach(btn => btn.classList.remove('active'));
+            // Add active to clicked button
+            this.classList.add('active');
+            
+            const theme = this.getAttribute('data-theme');
+            applyTheme(theme);
+        });
+    });
+}
+
+// ===================================
+// Scroll Animations with GSAP
+// ===================================
+function initScrollAnimations() {
+    // Only initialize if GSAP is loaded
+    if (typeof gsap === 'undefined') {
+        console.log('GSAP not loaded, using fallback animations');
+        initFallbackAnimations();
+        return;
+    }
+
+    // Register ScrollTrigger
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Hero animations
+    gsap.from('.hero-badge', {
+        opacity: 0,
+        y: 30,
+        duration: 0.8,
+        delay: 0.2
+    });
+
+    gsap.from('.hero-title', {
+        opacity: 0,
+        y: 40,
+        duration: 0.8,
+        delay: 0.4
+    });
+
+    gsap.from('.hero-subtitle', {
+        opacity: 0,
+        y: 40,
+        duration: 0.8,
+        delay: 0.6
+    });
+
+    gsap.from('.hero-cta', {
+        opacity: 0,
+        y: 40,
+        duration: 0.8,
+        delay: 0.8
+    });
+
+    gsap.from('.hero-stats', {
+        opacity: 0,
+        y: 40,
+        duration: 0.8,
+        delay: 1.0
+    });
+
+    gsap.from('.dashboard-mockup', {
+        opacity: 0,
+        x: 60,
+        duration: 1,
+        delay: 0.4,
+        ease: 'power3.out'
+    });
+
+    // Animate cards on scroll
+    gsap.utils.toArray('.mockup-card').forEach((card, index) => {
+        gsap.from(card, {
+            scrollTrigger: {
+                trigger: card,
+                start: 'top 80%',
+            },
+            opacity: 0,
+            y: 30,
+            duration: 0.6,
+            delay: index * 0.1
+        });
+    });
+
+    // Section headers
+    gsap.utils.toArray('.section-header').forEach(header => {
+        gsap.from(header, {
+            scrollTrigger: {
+                trigger: header,
+                start: 'top 80%',
+            },
+            opacity: 0,
+            y: 40,
+            duration: 0.8
+        });
+    });
+
+    // Parallax effect for hero
+    gsap.to('.hero-visual', {
+        scrollTrigger: {
+            trigger: '.hero',
+            start: 'top top',
+            end: 'bottom top',
+            scrub: true
+        },
+        y: 100,
+        ease: 'none'
+    });
+}
+
+// ===================================
+// Fallback Animations (without GSAP)
+// ===================================
+function initFallbackAnimations() {
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -100px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('aos-animate');
+            }
+        });
+    }, observerOptions);
+
+    // Observe all elements with data-aos attribute
+    document.querySelectorAll('[data-aos]').forEach(el => {
+        observer.observe(el);
+    });
+}
+
+// ===================================
+// Counter Animation for Stats
+// ===================================
+function animateCounter(element, target, duration = 2000) {
+    let start = 0;
+    const increment = target / (duration / 16);
+    
+    const timer = setInterval(() => {
+        start += increment;
+        if (start >= target) {
+            element.textContent = target;
+            clearInterval(timer);
+        } else {
+            element.textContent = Math.floor(start);
+        }
+    }, 16);
+}
+
+// Animate counters when they come into view
+const statsObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting && !entry.target.classList.contains('counted')) {
+            entry.target.classList.add('counted');
+            const target = parseInt(entry.target.textContent);
+            if (!isNaN(target)) {
+                animateCounter(entry.target, target);
             }
         }
+    });
+}, { threshold: 0.5 });
+
+document.querySelectorAll('.stat-item strong, .stat-value, .insight-value').forEach(stat => {
+    if (!isNaN(parseInt(stat.textContent))) {
+        statsObserver.observe(stat);
+    }
+});
+
+// ===================================
+// Smooth Scroll Reveal Effects
+// ===================================
+window.addEventListener('scroll', () => {
+    const reveals = document.querySelectorAll('[data-reveal]');
+    
+    reveals.forEach(reveal => {
+        const windowHeight = window.innerHeight;
+        const revealTop = reveal.getBoundingClientRect().top;
+        const revealPoint = 150;
+        
+        if (revealTop < windowHeight - revealPoint) {
+            reveal.classList.add('active');
+        }
+    });
+});
+
+// ===================================
+// Form Validation & Submission
+// ===================================
+const forms = document.querySelectorAll('form');
+forms.forEach(form => {
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        // Add your form submission logic here
+        console.log('Form submitted');
+        
+        // Show success message
+        showNotification('Mensagem enviada com sucesso!', 'success');
+    });
+});
+
+function showNotification(message, type = 'info') {
+    const notification = document.createElement('div');
+    notification.className = `notification notification-${type}`;
+    notification.textContent = message;
+    notification.style.cssText = `
+        position: fixed;
+        top: 100px;
+        right: 20px;
+        padding: 1rem 1.5rem;
+        background: ${type === 'success' ? '#25d366' : '#667eea'};
+        color: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+        z-index: 10000;
+        animation: slideIn 0.3s ease-out;
+    `;
+    
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.style.animation = 'slideOut 0.3s ease-out';
+        setTimeout(() => {
+            notification.remove();
+        }, 300);
+    }, 3000);
+}
+
+// ===================================
+// Typing Effect for Hero
+// ===================================
+function typeWriter(element, text, speed = 50) {
+    let i = 0;
+    element.textContent = '';
+    
+    function type() {
+        if (i < text.length) {
+            element.textContent += text.charAt(i);
+            i++;
+            setTimeout(type, speed);
+        }
     }
     
-    // Initialize splash screen
-    initSplashScreen();
+    type();
+}
+
+// ===================================
+// Lazy Loading Images
+// ===================================
+if ('IntersectionObserver' in window) {
+    const imageObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                img.src = img.dataset.src;
+                img.classList.add('loaded');
+                observer.unobserve(img);
+            }
+        });
+    });
+
+    document.querySelectorAll('img[data-src]').forEach(img => {
+        imageObserver.observe(img);
+    });
+}
+
+// ===================================
+// Interactive Dashboard Cards
+// ===================================
+const dashboardCards = document.querySelectorAll('.mockup-card');
+dashboardCards.forEach(card => {
+    card.addEventListener('mouseenter', function() {
+        this.style.transform = 'translateY(-5px) scale(1.02)';
+    });
     
-    // ===================================
-    // Phone Showcase Animation - Starts big, shrinks down
-    // ===================================
-    function initPhoneAnimation() {
-        const phoneShowcase = document.querySelector('.hero-phone-showcase');
-        const phoneMockup = document.querySelector('.phone-mockup');
+    card.addEventListener('mouseleave', function() {
+        this.style.transform = 'translateY(0) scale(1)';
+    });
+});
+
+// ===================================
+// Calendar Interaction
+// ===================================
+const calendarNav = document.querySelectorAll('.cal-nav');
+calendarNav.forEach(nav => {
+    nav.addEventListener('click', function() {
+        // Add ripple effect
+        const ripple = document.createElement('span');
+        ripple.className = 'ripple';
+        ripple.style.cssText = `
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.6);
+            width: 100px;
+            height: 100px;
+            margin-top: -50px;
+            margin-left: -50px;
+            animation: ripple 0.6s;
+            pointer-events: none;
+        `;
+        this.appendChild(ripple);
         
-        if (phoneShowcase && phoneMockup) {
-            // Start with phone scaled up
-            phoneMockup.style.transform = 'scale(1.3)';
-            phoneMockup.style.opacity = '0';
+        setTimeout(() => ripple.remove(), 600);
+    });
+});
+
+// Add CSS animation for ripple
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes ripple {
+        from {
+            opacity: 1;
+            transform: scale(0);
+        }
+        to {
+            opacity: 0;
+            transform: scale(4);
+        }
+    }
+    
+    @keyframes slideIn {
+        from {
+            transform: translateX(400px);
+            opacity: 0;
+        }
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+    
+    @keyframes slideOut {
+        from {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        to {
+            transform: translateX(400px);
+            opacity: 0;
+        }
+    }
+`;
+document.head.appendChild(style);
+
+// ===================================
+// Testimonial Carousel (if needed)
+// ===================================
+function initTestimonialCarousel() {
+    const testimonials = document.querySelectorAll('.testimonial-card');
+    if (testimonials.length === 0) return;
+    
+    let currentIndex = 0;
+    
+    function showTestimonial(index) {
+        testimonials.forEach((testimonial, i) => {
+            if (i === index) {
+                testimonial.style.display = 'block';
+                testimonial.style.animation = 'fadeIn 0.5s';
+            } else {
+                testimonial.style.display = 'none';
+            }
+        });
+    }
+    
+    // Auto-rotate testimonials
+    setInterval(() => {
+        currentIndex = (currentIndex + 1) % testimonials.length;
+        showTestimonial(currentIndex);
+    }, 5000);
+}
+
+// ===================================
+// Easter Eggs & Interactions
+// ===================================
+
+// Konami Code Easter Egg
+let konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+let konamiIndex = 0;
+
+document.addEventListener('keydown', (e) => {
+    if (e.key === konamiCode[konamiIndex]) {
+        konamiIndex++;
+        if (konamiIndex === konamiCode.length) {
+            activateEasterEgg();
+            konamiIndex = 0;
+        }
+    } else {
+        konamiIndex = 0;
+    }
+});
+
+function activateEasterEgg() {
+    // Add rainbow effect to the page
+    document.body.style.animation = 'rainbow 2s linear infinite';
+    
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes rainbow {
+            0% { filter: hue-rotate(0deg); }
+            100% { filter: hue-rotate(360deg); }
+        }
+    `;
+    document.head.appendChild(style);
+    
+    showNotification('🎉 Easter Egg Ativado! 🎉', 'success');
+    
+    setTimeout(() => {
+        document.body.style.animation = '';
+    }, 5000);
+}
+
+// ===================================
+// Interactive Kanban Calendar
+// ===================================
+function initInteractiveCalendar() {
+    const modal = document.getElementById('appointmentModal');
+    const closeModal = document.getElementById('closeModal');
+    const cancelModal = document.getElementById('cancelModal');
+    const confirmBtn = document.getElementById('confirmAppointment');
+    
+    if (!modal) return;
+    
+    // Track which slot was clicked
+    let selectedSlot = null;
+    
+    // Close modal handlers
+    closeModal?.addEventListener('click', () => modal.classList.remove('active'));
+    cancelModal?.addEventListener('click', () => modal.classList.remove('active'));
+    modal?.addEventListener('click', (e) => {
+        if (e.target === modal) modal.classList.remove('active');
+    });
+    
+    // Click on slot to create appointment
+    document.querySelectorAll('.slot-row').forEach(slot => {
+        slot.addEventListener('click', (e) => {
+            // Check if this slot is occupied by checking if click was on a card
+            if (e.target.closest('.schedule-card') || e.target.closest('.schedule-block')) {
+                return;
+            }
             
-            // Animate to normal size
-            setTimeout(() => {
-                phoneMockup.style.transition = 'transform 1.2s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.8s ease-out';
-                phoneMockup.style.transform = 'scale(1)';
-                phoneMockup.style.opacity = '1';
-                
-                // After initial animation, let CSS animation take over
-                setTimeout(() => {
-                    phoneMockup.style.transition = 'none';
-                }, 1200);
-            }, 300);
-        }
-    }
-    
-    // Only run phone animation after splash is dismissed
-    // initPhoneAnimation(); // Moved to splash CTA handler
-    
-    // ===================================
-    // Floating Icons Parallax Effect
-    // ===================================
-    function initFloatingIconsParallax() {
-        const floatingIcons = document.querySelectorAll('.floating-icon');
-        
-        if (floatingIcons.length > 0) {
-            window.addEventListener('mousemove', (e) => {
-                const mouseX = e.clientX / window.innerWidth - 0.5;
-                const mouseY = e.clientY / window.innerHeight - 0.5;
-                
-                floatingIcons.forEach((icon, index) => {
-                    const speed = (index + 1) * 10;
-                    const x = mouseX * speed;
-                    const y = mouseY * speed;
-                    icon.style.transform = `translate(${x}px, ${y}px)`;
-                });
+            const time = slot.dataset.time;
+            const column = slot.closest('.attendant-column');
+            const attendant = column?.dataset.attendant;
+            
+            if (!time || !attendant) return;
+            
+            // Check if slot is blocked (lunch, etc)
+            const cardsLayer = column.querySelector('.cards-layer');
+            const blocks = cardsLayer?.querySelectorAll('.schedule-block');
+            const timeIndex = getTimeIndex(time);
+            
+            let isBlocked = false;
+            blocks?.forEach(block => {
+                const blockTop = parseInt(block.style.getPropertyValue('--top'));
+                const blockDuration = parseInt(block.style.getPropertyValue('--duration'));
+                if (timeIndex >= blockTop && timeIndex < blockTop + blockDuration) {
+                    isBlocked = true;
+                }
             });
+            
+            if (isBlocked) {
+                showNotification('Este horário está bloqueado.', 'error');
+                return;
+            }
+            
+            // Check if slot already has a card
+            const cards = cardsLayer?.querySelectorAll('.schedule-card');
+            let isOccupied = false;
+            cards?.forEach(card => {
+                const cardTop = parseInt(card.style.getPropertyValue('--top'));
+                const cardDuration = parseInt(card.style.getPropertyValue('--duration'));
+                if (timeIndex >= cardTop && timeIndex < cardTop + cardDuration) {
+                    isOccupied = true;
+                }
+            });
+            
+            if (isOccupied) {
+                showNotification('Este horário já está ocupado.', 'error');
+                return;
+            }
+            
+            // Open modal with pre-selected values
+            selectedSlot = { time, attendant, timeIndex };
+            document.getElementById('selectTime').value = time;
+            document.getElementById('selectAttendant').value = attendant;
+            document.getElementById('clientName').value = '';
+            modal.classList.add('active');
+        });
+    });
+    
+    // Confirm appointment
+    confirmBtn?.addEventListener('click', () => {
+        const name = document.getElementById('clientName').value.trim();
+        const attendant = document.getElementById('selectAttendant').value;
+        const time = document.getElementById('selectTime').value;
+        const service = document.getElementById('selectService').value;
+        
+        if (!name) {
+            showNotification('Por favor, digite o nome do cliente.', 'error');
+            return;
         }
+        
+        const timeIndex = getTimeIndex(time);
+        const column = document.querySelector(`.attendant-column[data-attendant="${attendant}"]`);
+        const cardsLayer = column?.querySelector('.cards-layer');
+        
+        if (!cardsLayer) return;
+        
+        // Check if slot is available
+        let isAvailable = true;
+        cardsLayer.querySelectorAll('.schedule-card, .schedule-block').forEach(item => {
+            const itemTop = parseInt(item.style.getPropertyValue('--top'));
+            const itemDuration = parseInt(item.style.getPropertyValue('--duration'));
+            if (timeIndex >= itemTop && timeIndex < itemTop + itemDuration) {
+                isAvailable = false;
+            }
+        });
+        
+        if (!isAvailable) {
+            showNotification('Este horário não está disponível.', 'error');
+            return;
+        }
+        
+        // Create new card
+        const colors = ['#667eea', '#25d366', '#f5576c', '#4facfe', '#f093fb', '#fa709a', '#30cfd0'];
+        const randomColor = colors[Math.floor(Math.random() * colors.length)];
+        const endTime = getTimeFromIndex(timeIndex + 1);
+        
+        const card = document.createElement('div');
+        card.className = 'schedule-card';
+        card.draggable = true;
+        card.dataset.id = Date.now();
+        card.style.setProperty('--top', timeIndex);
+        card.style.setProperty('--duration', 1);
+        card.style.setProperty('--color', randomColor);
+        card.innerHTML = `
+            <div class="card-drag-handle"><i class="fas fa-grip-vertical"></i></div>
+            <div class="card-content">
+                <div class="card-time">${time} - ${endTime}</div>
+                <div class="card-client">${name}</div>
+                <div class="card-service">${service}</div>
+                <div class="card-status pending">
+                    <i class="fas fa-clock"></i> Pendente
+                </div>
+            </div>
+        `;
+        
+        cardsLayer.appendChild(card);
+        initCardDrag(card);
+        
+        // Update attendant count
+        updateAttendantCounts();
+        
+        modal.classList.remove('active');
+        showNotification(`Agendamento criado para ${name} às ${time}! (Demo)`, 'success');
+    });
+    
+    // Initialize drag for existing cards
+    document.querySelectorAll('.schedule-card').forEach(card => {
+        initCardDrag(card);
+    });
+    
+    // Function to check collision considering card duration
+    function checkCollision(cardsLayer, timeIndex, duration, excludeCard = null) {
+        let hasCollision = false;
+        const cardEnd = timeIndex + duration;
+        
+        cardsLayer.querySelectorAll('.schedule-card, .schedule-block').forEach(item => {
+            // Skip the card being moved
+            if (excludeCard && item === excludeCard) return;
+            if (item.classList.contains('dragging')) return;
+            
+            const itemTop = parseInt(item.style.getPropertyValue('--top'));
+            const itemDuration = parseInt(item.style.getPropertyValue('--duration')) || 1;
+            const itemEnd = itemTop + itemDuration;
+            
+            // Check if ranges overlap
+            if (timeIndex < itemEnd && cardEnd > itemTop) {
+                hasCollision = true;
+            }
+        });
+        
+        return hasCollision;
     }
     
-    initFloatingIconsParallax();
+    // Function to count available slots
+    function countAvailableSlots(column) {
+        const cardsLayer = column.querySelector('.cards-layer');
+        const totalSlots = 12; // 07:00 to 18:00
+        let occupiedSlots = 0;
+        
+        cardsLayer?.querySelectorAll('.schedule-card, .schedule-block').forEach(item => {
+            const duration = parseInt(item.style.getPropertyValue('--duration')) || 1;
+            occupiedSlots += duration;
+        });
+        
+        return Math.max(0, totalSlots - occupiedSlots);
+    }
     
-    // ===================================
-    // Show Hero Chat Instantly (no animation)
-    // ===================================
-    function showHeroChatInstantly() {
-        const chatMessages = document.getElementById('chatMessages');
-        const heroChatInput = document.getElementById('heroChatInput');
-        if (!chatMessages) return;
+    // Function to update attendant counts in header
+    function updateAttendantCounts() {
+        document.querySelectorAll('.attendant-column').forEach(column => {
+            const attendantId = column.dataset.attendant;
+            const header = document.querySelector(`.attendant-header[data-attendant="${attendantId}"]`);
+            if (!header) return;
+            
+            const cardsLayer = column.querySelector('.cards-layer');
+            const cardCount = cardsLayer?.querySelectorAll('.schedule-card').length || 0;
+            const availableSlots = countAvailableSlots(column);
+            
+            const badges = header.querySelectorAll('.attendant-meta .badge');
+            if (badges[0]) {
+                badges[0].textContent = `${cardCount} agendamento${cardCount !== 1 ? 's' : ''}`;
+            }
+            if (badges[1]) {
+                badges[1].textContent = `${availableSlots} slot${availableSlots !== 1 ? 's' : ''}`;
+            }
+        });
+    }
+    
+    // Initial count update
+    updateAttendantCounts();
+    
+    // Drag and Drop functionality
+    function initCardDrag(card) {
+        card.addEventListener('dragstart', (e) => {
+            card.classList.add('dragging');
+            e.dataTransfer.setData('text/plain', JSON.stringify({
+                id: card.dataset.id,
+                attendant: card.closest('.attendant-column')?.dataset.attendant
+            }));
+            e.dataTransfer.effectAllowed = 'move';
+        });
+        
+        card.addEventListener('dragend', () => {
+            card.classList.remove('dragging');
+            document.querySelectorAll('.slot-row.drag-over, .slot-row.invalid').forEach(s => {
+                s.classList.remove('drag-over', 'invalid');
+            });
+        });
+    }
+    
+    // Store dragging card reference for collision checking
+    let currentDraggingCard = null;
+    
+    // Drop zones
+    document.querySelectorAll('.slot-row').forEach(slot => {
+        slot.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            e.dataTransfer.dropEffect = 'move';
+            
+            // Visual feedback
+            const column = slot.closest('.attendant-column');
+            const cardsLayer = column?.querySelector('.cards-layer');
+            const timeIndex = getTimeIndex(slot.dataset.time);
+            
+            // Get the dragging card to check its duration
+            const draggingCard = document.querySelector('.schedule-card.dragging');
+            const duration = draggingCard ? (parseInt(draggingCard.style.getPropertyValue('--duration')) || 1) : 1;
+            
+            // Check if the card would fit (considering its full duration)
+            const hasCollision = checkCollision(cardsLayer, timeIndex, duration, draggingCard);
+            
+            slot.classList.remove('drag-over', 'invalid');
+            slot.classList.add(hasCollision ? 'invalid' : 'drag-over');
+        });
+        
+        slot.addEventListener('dragleave', () => {
+            slot.classList.remove('drag-over', 'invalid');
+        });
+        
+        slot.addEventListener('drop', (e) => {
+            e.preventDefault();
+            slot.classList.remove('drag-over', 'invalid');
+            
+            const data = JSON.parse(e.dataTransfer.getData('text/plain'));
+            const draggingCard = document.querySelector(`.schedule-card[data-id="${data.id}"]`);
+            const targetColumn = slot.closest('.attendant-column');
+            const targetCardsLayer = targetColumn?.querySelector('.cards-layer');
+            const timeIndex = getTimeIndex(slot.dataset.time);
+            
+            if (!draggingCard || !targetCardsLayer) return;
+            
+            // Get card duration
+            const duration = parseInt(draggingCard.style.getPropertyValue('--duration')) || 1;
+            
+            // Check if available using the proper collision function
+            const hasCollision = checkCollision(targetCardsLayer, timeIndex, duration, draggingCard);
+            
+            if (hasCollision) {
+                showNotification('Este horário não está disponível.', 'error');
+                return;
+            }
+            
+            // Check if card would go beyond the schedule (18:00)
+            if (timeIndex + duration > 12) {
+                showNotification('O agendamento ultrapassaria o horário de funcionamento.', 'error');
+                return;
+            }
+            
+            // Move the card
+            const newTime = slot.dataset.time;
+            const endTime = getTimeFromIndex(timeIndex + duration);
+            
+            draggingCard.style.setProperty('--top', timeIndex);
+            draggingCard.querySelector('.card-time').textContent = `${newTime} - ${endTime}`;
+            
+            // If moving to different column, move the card element
+            if (draggingCard.closest('.cards-layer') !== targetCardsLayer) {
+                targetCardsLayer.appendChild(draggingCard);
+                // Update counts after moving between columns
+                updateAttendantCounts();
+            }
+            
+            showNotification('Agendamento movido com sucesso! (Demo)', 'success');
+        });
+    });
+    
+    // Helper functions
+    function getTimeIndex(time) {
+        const times = ['07:00', '08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00'];
+        return times.indexOf(time);
+    }
+    
+    function getTimeFromIndex(index) {
+        const times = ['07:00', '08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00'];
+        return times[index] || '19:00';
+    }
+}
+
+// ===================================
+// Contact Form - Web3Forms
+// ===================================
+function initContactForm() {
+    const contactForm = document.getElementById('contactForm');
+    
+    if (!contactForm) return;
+    
+    const submitButton = contactForm.querySelector('button[type="submit"]');
+    
+    // Remove error state when user starts typing
+    contactForm.querySelectorAll('input, textarea').forEach(input => {
+        input.addEventListener('input', function() {
+            this.classList.remove('input-error');
+        });
+    });
+    
+    // Validation function
+    function validateForm() {
+        const fields = [
+            { id: 'name', label: 'Nome Completo', minLength: 3 },
+            { id: 'email', label: 'Email', type: 'email' },
+            { id: 'company', label: 'Empresa', minLength: 2 },
+            { id: 'phone', label: 'Telefone', minLength: 8 },
+            { id: 'message', label: 'Mensagem', minLength: 10 }
+        ];
+        
+        const errors = [];
+        
+        fields.forEach(field => {
+            const input = document.getElementById(field.id);
+            const value = input ? input.value.trim() : '';
+            
+            if (input) input.classList.remove('input-error');
+            
+            if (!value) {
+                errors.push(`O campo "${field.label}" é obrigatório.`);
+                if (input) input.classList.add('input-error');
+                return;
+            }
+            
+            if (field.minLength && value.length < field.minLength) {
+                errors.push(`O campo "${field.label}" deve ter pelo menos ${field.minLength} caracteres.`);
+                if (input) input.classList.add('input-error');
+                return;
+            }
+            
+            if (field.type === 'email') {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(value)) {
+                    errors.push('Por favor, insira um email válido.');
+                    if (input) input.classList.add('input-error');
+                }
+            }
+        });
+        
+        return errors;
+    }
+    
+    // Form submission
+    submitButton.addEventListener('click', async function(e) {
+        e.preventDefault();
+        
+        const errors = validateForm();
+        
+        if (errors.length > 0) {
+            showNotification(errors[0], 'error');
+            return;
+        }
+        
+        const originalBtnText = submitButton.innerHTML;
+        submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
+        submitButton.disabled = true;
+        
+        const formObject = {
+            access_key: '26babe76-46ed-4886-a890-8608325e78c6',
+            subject: 'Nova solicitação de demonstração - EchoHub',
+            from_name: 'EchoHub Website',
+            name: document.getElementById('name').value,
+            email: document.getElementById('email').value,
+            company: document.getElementById('company').value,
+            phone: document.getElementById('phone').value,
+            message: document.getElementById('message').value
+        };
+        
+        try {
+            const response = await fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify(formObject)
+            });
+            
+            const result = await response.json();
+            
+            if (result.success) {
+                showNotification('Email enviado com sucesso! Entraremos em contato em breve.', 'success');
+                contactForm.reset();
+                contactForm.querySelectorAll('.input-error').forEach(el => el.classList.remove('input-error'));
+            } else {
+                showNotification('Erro ao enviar: ' + (result.message || 'Tente novamente.'), 'error');
+            }
+        } catch (error) {
+            showNotification('Erro de conexão. Verifique sua internet e tente novamente.', 'error');
+            console.error('Network error:', error);
+        } finally {
+            submitButton.innerHTML = originalBtnText;
+            submitButton.disabled = false;
+        }
+    });
+}
+
+// ===================================
+// Performance Monitoring
+// ===================================
+if (window.performance && window.performance.timing) {
+    window.addEventListener('load', () => {
+        setTimeout(() => {
+            const perfData = window.performance.timing;
+            const pageLoadTime = perfData.loadEventEnd - perfData.navigationStart;
+            console.log(`⚡ Page loaded in ${pageLoadTime}ms`);
+        }, 0);
+    });
+}
+
+// ===================================
+// Dynamic Chat Animation
+// ===================================
+function initDynamicChat() {
+    const chatMessages = document.getElementById('dynamicChatMessages');
+    const chatInput = document.getElementById('dynamicChatInput');
+    const sendBtn = document.getElementById('dynamicSendBtn');
+    
+    if (!chatMessages) return;
+    
+    let hasAnimated = false;
+    let animationTimeout = null;
+    
+    // Auto-scroll chat when new messages appear
+    function scrollChatIfNeeded(container, element) {
+        if (!container || !element) return;
+        
+        requestAnimationFrame(() => {
+            const containerRect = container.getBoundingClientRect();
+            const elementRect = element.getBoundingClientRect();
+            
+            if (elementRect.bottom > containerRect.bottom) {
+                container.scrollTo({
+                    top: container.scrollTop + (elementRect.bottom - containerRect.bottom) + 10,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    }
+    
+    // Animate chat messages with timing
+    function animateChat() {
+        if (hasAnimated) return;
+        hasAnimated = true;
         
         const elements = chatMessages.querySelectorAll('[data-delay]');
-        
-        elements.forEach(element => {
-            // Show all messages and agent switches
-            if (element.classList.contains('message') || element.classList.contains('agent-switch')) {
-                element.classList.add('show');
-                element.style.animation = 'none';
-            }
-            // Hide all typing indicators
-            if (element.classList.contains('typing-indicator')) {
-                element.classList.add('hide');
-                element.classList.remove('show');
-            }
-        });
-        
-        // Show input with typed text
-        if (heroChatInput) {
-            heroChatInput.value = "Quero saber mais! 😊";
-        }
-    }
-    
-    // ===================================
-    // Chat Animation - Typing before messages
-    // ===================================
-    function initChatAnimation() {
-        const chatMessages = document.getElementById('chatMessages');
-        if (!chatMessages) return;
-        
-        const elements = chatMessages.querySelectorAll('[data-delay]');
+        let maxDelay = 0;
         
         elements.forEach(element => {
             const delay = parseInt(element.getAttribute('data-delay'));
             const duration = parseInt(element.getAttribute('data-duration')) || 0;
             
-            setTimeout(() => {
+            if (delay > maxDelay) maxDelay = delay;
+            
+            animationTimeout = setTimeout(() => {
                 element.classList.add('show');
+                scrollChatIfNeeded(chatMessages, element);
                 
-                // Se for typing-indicator, esconde após a duração
-                if (element.classList.contains('typing-indicator') && duration > 0 && duration < 99999) {
+                // Hide typing indicator after duration
+                if (element.classList.contains('typing-indicator') && duration > 0) {
                     setTimeout(() => {
                         element.classList.add('hide');
                         element.classList.remove('show');
@@ -387,845 +1131,108 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }, delay);
         });
-    }
-    
-    // ===================================
-    // Initialize AOS (Animate On Scroll)
-    // ===================================
-    AOS.init({
-        duration: 1000,
-        easing: 'ease-out-cubic',
-        once: true,
-        offset: 100,
-        delay: 100
-    });
-
-    // ===================================
-    // Initialize Typed.js for Hero Subtitle
-    // ===================================
-    if (typeof Typed !== 'undefined') {
-        const typedElement = document.getElementById('typed-text');
-        if (typedElement) {
-            new Typed('#typed-text', {
-                strings: [
-                    'Transforme o atendimento da sua PME com IA avançada e toque humano',
-                    'Atendimento 24/7 com chatbots inteligentes',
-                    'Integração perfeita com WhatsApp e múltiplos canais',
-                    'Aumente vendas e satisfação dos clientes'
-                ],
-                typeSpeed: 50,
-                backSpeed: 30,
-                backDelay: 2000,
-                startDelay: 500,
-                loop: true,
-                showCursor: true,
-                cursorChar: '|'
-            });
-        }
-    }
-
-    // ===================================
-    // Animated Counter for Stats
-    // ===================================
-    const statNumbers = document.querySelectorAll('.stat-number');
-    
-    function animateCounter(element) {
-        const target = parseInt(element.getAttribute('data-target'));
-        const duration = 2000; // 2 seconds
-        const increment = target / (duration / 16); // 60 FPS
-        let current = 0;
-
-        const updateCounter = () => {
-            current += increment;
-            if (current < target) {
-                element.textContent = Math.floor(current);
-                requestAnimationFrame(updateCounter);
-            } else {
-                element.textContent = target;
-            }
-        };
-
-        updateCounter();
-    }
-
-    // Intersection Observer for stat counters
-    const statsObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                animateCounter(entry.target);
-                statsObserver.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.5 });
-
-    statNumbers.forEach(stat => {
-        statsObserver.observe(stat);
-    });
-
-    // ===================================
-    // Navbar Scroll Effect
-    // ===================================
-    const header = document.getElementById('header');
-    let lastScroll = 0;
-
-    window.addEventListener('scroll', () => {
-        const currentScroll = window.pageYOffset;
-
-        if (currentScroll > 100) {
-            header.classList.add('scrolled');
-        } else {
-            header.classList.remove('scrolled');
-        }
-
-        lastScroll = currentScroll;
-    });
-
-    // ===================================
-    // Mobile Menu Toggle
-    // ===================================
-    const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
-    const navMenu = document.querySelector('.nav-menu');
-
-    if (mobileMenuToggle) {
-        mobileMenuToggle.addEventListener('click', () => {
-            mobileMenuToggle.classList.toggle('active');
-            navMenu.classList.toggle('active');
-            document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
-        });
-
-        // Close menu when clicking on a link
-        const navLinks = document.querySelectorAll('.nav-link');
-        navLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenuToggle.classList.remove('active');
-                navMenu.classList.remove('active');
-                document.body.style.overflow = '';
-            });
-        });
-
-        // Close menu when clicking outside
-        document.addEventListener('click', (e) => {
-            if (!mobileMenuToggle.contains(e.target) && !navMenu.contains(e.target)) {
-                mobileMenuToggle.classList.remove('active');
-                navMenu.classList.remove('active');
-                document.body.style.overflow = '';
-            }
-        });
-    }
-
-    // ===================================
-    // Smooth Scrolling for Anchor Links
-    // ===================================
-    const anchorLinks = document.querySelectorAll('a[href^="#"]');
-    
-    anchorLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            const href = this.getAttribute('href');
-            
-            // Don't prevent default if href is just "#"
-            if (href === '#') return;
-            
-            e.preventDefault();
-            
-            const targetId = href.substring(1);
-            const targetElement = document.getElementById(targetId);
-            
-            if (targetElement) {
-                const headerOffset = 80;
-                const elementPosition = targetElement.getBoundingClientRect().top;
-                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-
-                window.scrollTo({
-                    top: offsetPosition,
-                    behavior: 'smooth'
-                });
-            }
-        });
-    });
-
-    // ===================================
-    // Scroll to Top Button
-    // ===================================
-    const scrollTopBtn = document.getElementById('scrollTop');
-
-    if (scrollTopBtn) {
-        window.addEventListener('scroll', () => {
-            if (window.pageYOffset > 300) {
-                scrollTopBtn.classList.add('visible');
-            } else {
-                scrollTopBtn.classList.remove('visible');
-            }
-        });
-
-        scrollTopBtn.addEventListener('click', () => {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
-    }
-
-    // ===================================
-    // Form Validation & Submission - Web3Forms
-    // ===================================
-    const contactForm = document.getElementById('contactForm');
-    
-    console.log('Contact form found:', contactForm ? 'YES' : 'NO');
-
-    if (contactForm) {
-        const submitButton = contactForm.querySelector('button[type="submit"]');
-        console.log('Submit button found:', submitButton ? 'YES' : 'NO');
         
-        // Remove error state when user starts typing
-        const formInputs = contactForm.querySelectorAll('input, textarea');
-        formInputs.forEach(input => {
-            input.addEventListener('input', function() {
-                this.classList.remove('input-error');
-            });
-        });
-        
-        // Validation function
-        function validateForm() {
-            const fields = [
-                { id: 'name', label: 'Nome Completo', minLength: 3 },
-                { id: 'email', label: 'Email', type: 'email' },
-                { id: 'company', label: 'Empresa', minLength: 2 },
-                { id: 'phone', label: 'Telefone', minLength: 8 },
-                { id: 'message', label: 'Mensagem', minLength: 10 }
-            ];
-            
-            const errors = [];
-            
-            fields.forEach(field => {
-                const input = document.getElementById(field.id);
-                const value = input ? input.value.trim() : '';
-                
-                // Remove previous error state
-                if (input) {
-                    input.classList.remove('input-error');
-                }
-                
-                // Check if empty
-                if (!value) {
-                    errors.push(`O campo "${field.label}" é obrigatório.`);
-                    if (input) input.classList.add('input-error');
-                    return;
-                }
-                
-                // Check minimum length
-                if (field.minLength && value.length < field.minLength) {
-                    errors.push(`O campo "${field.label}" deve ter pelo menos ${field.minLength} caracteres.`);
-                    if (input) input.classList.add('input-error');
-                    return;
-                }
-                
-                // Check email format
-                if (field.type === 'email') {
-                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                    if (!emailRegex.test(value)) {
-                        errors.push('Por favor, insira um email válido.');
-                        if (input) input.classList.add('input-error');
-                    }
-                }
-            });
-            
-            return errors;
-        }
-        
-        // Use click on button instead of form submit to bypass browser validation
-        submitButton.addEventListener('click', async function(e) {
-            e.preventDefault();
-            console.log('Form submission started!');
-            
-            // Validate form
-            const errors = validateForm();
-            console.log('Validation errors:', errors);
-            
-            if (errors.length > 0) {
-                showNotification(errors[0], 'error');
-                return;
-            }
-            
-            const submitBtn = submitButton;
-            const originalBtnText = submitBtn.innerHTML;
-            
-            // Show loading state
-            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
-            submitBtn.disabled = true;
-            
-            // Build JSON object for Web3Forms
-            const formObject = {
-                access_key: '26babe76-46ed-4886-a890-8608325e78c6',
-                subject: 'Nova solicitação de demonstração - EchoHub',
-                from_name: 'EchoHub Website',
-                name: document.getElementById('name').value,
-                email: document.getElementById('email').value,
-                company: document.getElementById('company').value,
-                phone: document.getElementById('phone').value,
-                message: document.getElementById('message').value
-            };
-            
-            try {
-                const response = await fetch('https://api.web3forms.com/submit', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json'
-                    },
-                    body: JSON.stringify(formObject)
-                });
-                
-                const result = await response.json();
-                
-                console.log('Web3Forms response:', result);
-                
-                if (result.success) {
-                    showNotification('Email enviado com sucesso! Entraremos em contato em breve.', 'success');
-                    contactForm.reset();
-                    // Remove error states
-                    contactForm.querySelectorAll('.input-error').forEach(el => el.classList.remove('input-error'));
-                } else {
-                    showNotification('Erro ao enviar: ' + (result.message || 'Tente novamente.'), 'error');
-                    console.error('Form error:', result);
-                }
-            } catch (error) {
-                showNotification('Erro de conexão. Verifique sua internet e tente novamente.', 'error');
-                console.error('Network error:', error);
-            } finally {
-                // Restore button
-                submitBtn.innerHTML = originalBtnText;
-                submitBtn.disabled = false;
-            }
-        });
-    }
-
-    // ===================================
-    // Notification System
-    // ===================================
-    function showNotification(message, type = 'info') {
-        // Remove existing notifications
-        const existingNotification = document.querySelector('.notification');
-        if (existingNotification) {
-            existingNotification.remove();
-        }
-
-        // Define colors based on type
-        const colors = {
-            success: '#25d366',
-            error: '#ef4444',
-            info: '#3b82f6'
-        };
-        
-        const icons = {
-            success: 'fa-check-circle',
-            error: 'fa-exclamation-circle',
-            info: 'fa-info-circle'
-        };
-
-        // Create notification element
-        const notification = document.createElement('div');
-        notification.className = `notification notification-${type}`;
-        notification.innerHTML = `
-            <div class="notification-content">
-                <i class="fas ${icons[type] || icons.info}"></i>
-                <span>${message}</span>
-            </div>
-        `;
-
-        // Add styles
-        notification.style.cssText = `
-            position: fixed;
-            top: 100px;
-            right: 20px;
-            background: ${colors[type] || colors.info};
-            color: white;
-            padding: 1rem 1.5rem;
-            border-radius: 0.5rem;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-            z-index: 9999;
-            animation: slideInRight 0.3s ease-out;
-        `;
-
-        // Add animation
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes slideInRight {
-                from {
-                    transform: translateX(400px);
-                    opacity: 0;
-                }
-                to {
-                    transform: translateX(0);
-                    opacity: 1;
-                }
-            }
-            @keyframes slideOutRight {
-                from {
-                    transform: translateX(0);
-                    opacity: 1;
-                }
-                to {
-                    transform: translateX(400px);
-                    opacity: 0;
-                }
-            }
-            .notification-content {
-                display: flex;
-                align-items: center;
-                gap: 0.75rem;
-            }
-        `;
-        document.head.appendChild(style);
-
-        // Add to DOM
-        document.body.appendChild(notification);
-
-        // Remove after 5 seconds
+        // Animate typing in input after all messages
         setTimeout(() => {
-            notification.style.animation = 'slideOutRight 0.3s ease-out';
-            setTimeout(() => {
-                notification.remove();
-            }, 300);
-        }, 5000);
+            animateInputTyping(chatInput, "Muito obrigada! 😊");
+        }, maxDelay + 500);
     }
-
-    // ===================================
-    // Add Parallax Effect to Hero Section
-    // ===================================
-    const hero = document.querySelector('.hero');
-    const phoneMockup = document.querySelector('.phone-mockup');
     
-    if (hero && phoneMockup) {
-        // Disable scroll parallax effect to keep phone crisp and readable
-        // Phone stays static while scrolling
-    }
-
-    // ===================================
-    // Card Hover 3D Effect
-    // ===================================
-    const cards = document.querySelectorAll('.benefit-card, .feature-card, .use-case-card');
-    
-    cards.forEach(card => {
-        card.addEventListener('mousemove', (e) => {
-            if (window.innerWidth > 1024) {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
-                
-                const rotateX = (y - centerY) / 10;
-                const rotateY = (centerX - x) / 10;
-                
-                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-10px)`;
+    // Animate typing in input field
+    function animateInputTyping(input, text) {
+        if (!input) return;
+        
+        let index = 0;
+        input.value = '';
+        
+        const typeInterval = setInterval(() => {
+            if (index < text.length) {
+                input.value += text.charAt(index);
+                index++;
+            } else {
+                clearInterval(typeInterval);
+                // Animate send button
+                setTimeout(() => {
+                    if (sendBtn) {
+                        sendBtn.classList.add('sending');
+                        setTimeout(() => {
+                            sendBtn.classList.remove('sending');
+                        }, 300);
+                    }
+                }, 400);
             }
+        }, 60);
+    }
+    
+    // Reset animation
+    function resetChat() {
+        hasAnimated = false;
+        if (animationTimeout) clearTimeout(animationTimeout);
+        
+        const elements = chatMessages.querySelectorAll('[data-delay]');
+        elements.forEach(element => {
+            element.classList.remove('show', 'hide');
         });
         
-        card.addEventListener('mouseleave', () => {
-            card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
-        });
-    });
-
-    // ===================================
-    // Lazy Loading Images (if any)
-    // ===================================
-    const images = document.querySelectorAll('img[data-src]');
+        if (chatInput) chatInput.value = '';
+    }
     
-    const imageObserver = new IntersectionObserver((entries, observer) => {
+    // Use Intersection Observer to trigger animation when visible
+    const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const img = entry.target;
-                img.src = img.dataset.src;
-                img.removeAttribute('data-src');
-                observer.unobserve(img);
-            }
-        });
-    });
-    
-    images.forEach(img => imageObserver.observe(img));
-
-    // ===================================
-    // Intersection Observer for Section Animations
-    // ===================================
-    const sections = document.querySelectorAll('section');
-    
-    const sectionObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('section-visible');
+            if (entry.isIntersecting && !hasAnimated) {
+                // Small delay before starting animation
+                setTimeout(() => {
+                    animateChat();
+                }, 500);
             }
         });
     }, {
-        threshold: 0.1
+        threshold: 0.3,
+        rootMargin: '0px 0px -100px 0px'
     });
     
-    sections.forEach(section => {
-        sectionObserver.observe(section);
-    });
-
-    // ===================================
-    // Active Navigation Link Highlighting
-    // ===================================
-    const navLinksForHighlight = document.querySelectorAll('.nav-link');
-    const sectionsForNav = document.querySelectorAll('section[id]');
-
-    function highlightNavLink() {
-        const scrollPos = window.pageYOffset + 100;
-
-        sectionsForNav.forEach(section => {
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.offsetHeight;
-            const sectionId = section.getAttribute('id');
-
-            if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
-                navLinksForHighlight.forEach(link => {
-                    link.classList.remove('active');
-                    if (link.getAttribute('href') === `#${sectionId}`) {
-                        link.classList.add('active');
-                    }
-                });
-            }
+    observer.observe(chatMessages);
+    
+    // Optional: Allow replay on click
+    const whatsappPhone = chatMessages.closest('.whatsapp-phone');
+    if (whatsappPhone) {
+        whatsappPhone.addEventListener('dblclick', () => {
+            resetChat();
+            setTimeout(() => animateChat(), 100);
         });
     }
-
-    window.addEventListener('scroll', highlightNavLink);
-
-    // ===================================
-    // Add Loading State to Buttons
-    // ===================================
-    const buttons = document.querySelectorAll('.btn');
-    
-    buttons.forEach(button => {
-        button.addEventListener('click', function(e) {
-            // Only add loading state for form submit buttons
-            if (this.type === 'submit') {
-                const originalText = this.innerHTML;
-                this.disabled = true;
-                this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> <span>Enviando...</span>';
-                
-                // Reset after form validation/submission
-                setTimeout(() => {
-                    this.disabled = false;
-                    this.innerHTML = originalText;
-                }, 2000);
-            }
-        });
-    });
-
-    // ===================================
-    // Performance: Debounce Scroll Events
-    // ===================================
-    function debounce(func, wait) {
-        let timeout;
-        return function executedFunction(...args) {
-            const later = () => {
-                clearTimeout(timeout);
-                func(...args);
-            };
-            clearTimeout(timeout);
-            timeout = setTimeout(later, wait);
-        };
-    }
-
-    // Apply debounce to scroll-heavy functions
-    const debouncedScroll = debounce(highlightNavLink, 10);
-    window.addEventListener('scroll', debouncedScroll);
-
-    // ===================================
-    // Console Welcome Message
-    // ===================================
-    console.log('%c🚀 EchoHub Website', 'font-size: 20px; font-weight: bold; color: #1e3a8a;');
-    console.log('%cTransforme seu atendimento com IA!', 'font-size: 14px; color: #10b981;');
-
-    // ===================================
-    // Easter Egg: Konami Code
-    // ===================================
-    const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
-    let konamiIndex = 0;
-
-    document.addEventListener('keydown', (e) => {
-        if (e.key === konamiCode[konamiIndex]) {
-            konamiIndex++;
-            if (konamiIndex === konamiCode.length) {
-                showNotification('🎉 Você descobriu o código secreto! Bem-vindo ao EchoHub!', 'success');
-                konamiIndex = 0;
-                // Add some fun animation
-                document.body.style.animation = 'rainbow 2s ease-in-out';
-                setTimeout(() => {
-                    document.body.style.animation = '';
-                }, 2000);
-            }
-        } else {
-            konamiIndex = 0;
-        }
-    });
-
-    // ===================================
-    // Accessibility: Skip to Content
-    // ===================================
-    const skipLink = document.createElement('a');
-    skipLink.href = '#overview';
-    skipLink.className = 'skip-link';
-    skipLink.textContent = 'Pular para o conteúdo principal';
-    skipLink.style.cssText = `
-        position: absolute;
-        top: -40px;
-        left: 0;
-        background: #1e3a8a;
-        color: white;
-        padding: 8px;
-        text-decoration: none;
-        z-index: 100;
-    `;
-    skipLink.addEventListener('focus', function() {
-        this.style.top = '0';
-    });
-    skipLink.addEventListener('blur', function() {
-        this.style.top = '-40px';
-    });
-    document.body.insertBefore(skipLink, document.body.firstChild);
-
-    // ===================================
-    // Initialize Everything
-    // ===================================
-    console.log('✅ EchoHub website initialized successfully!');
-});
-
-// ===================================
-// Hidden Pattern Reveal Effect (Optimized)
-// ===================================
-function initRevealEffect() {
-    const canvas = document.getElementById('revealCanvas');
-    const container = document.getElementById('revealContainer');
-    const glow = document.getElementById('revealGlow');
-    
-    if (!canvas || !container) return;
-    
-    const ctx = canvas.getContext('2d');
-    let elements = [];
-    let mouse = { x: -1000, y: -1000 };
-    let isActive = false;
-    
-    // Set canvas size
-    function resize() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        createElements();
-    }
-    
-    // Create a fixed grid of elements that tiles infinitely
-    function createElements() {
-        elements = [];
-        const spacing = 100;
-        // Create extra rows for seamless scrolling
-        const cols = Math.ceil(canvas.width / spacing) + 1;
-        const rows = Math.ceil(canvas.height / spacing) + 3;
-        
-        const types = ['whatsapp', 'robot', 'chat', 'gear', 'briefcase', 'lightning'];
-        
-        for (let i = 0; i < cols; i++) {
-            for (let j = 0; j < rows; j++) {
-                if (Math.random() < 0.45) continue;
-                
-                elements.push({
-                    baseX: i * spacing + (Math.random() - 0.5) * 30,
-                    baseY: j * spacing + (Math.random() - 0.5) * 30,
-                    baseSize: Math.random() * 4 + 3,
-                    type: types[Math.floor(Math.random() * types.length)],
-                    opacity: 0,
-                    rotation: Math.random() * Math.PI * 2,
-                    color: Math.random() > 0.7 ? '#34e879' : '#25d366',
-                    special: Math.random() > 0.95
-                });
-            }
-        }
-    }
-    
-    // Draw element at given screen position
-    function drawElement(el, screenX, screenY) {
-        const size = el.special ? el.baseSize * 1.5 : el.baseSize;
-        
-        ctx.save();
-        ctx.translate(screenX, screenY);
-        ctx.rotate(el.rotation);
-        ctx.globalAlpha = el.opacity;
-        ctx.strokeStyle = el.color;
-        ctx.fillStyle = el.color;
-        ctx.lineWidth = el.special ? 1.5 : 1;
-        
-        switch(el.type) {
-            case 'whatsapp':
-                // Simple WhatsApp icon
-                ctx.beginPath();
-                ctx.arc(0, 0, size, 0, Math.PI * 2);
-                ctx.stroke();
-                ctx.beginPath();
-                ctx.moveTo(-size * 0.4, 0);
-                ctx.quadraticCurveTo(0, size * 0.5, size * 0.4, 0);
-                ctx.stroke();
-                break;
-                
-            case 'robot':
-                // Simple robot
-                ctx.strokeRect(-size * 0.5, -size * 0.4, size, size * 0.8);
-                ctx.beginPath();
-                ctx.arc(-size * 0.2, -size * 0.1, size * 0.12, 0, Math.PI * 2);
-                ctx.arc(size * 0.2, -size * 0.1, size * 0.12, 0, Math.PI * 2);
-                ctx.fill();
-                break;
-                
-            case 'briefcase':
-                // Simple briefcase
-                ctx.strokeRect(-size * 0.6, -size * 0.25, size * 1.2, size * 0.6);
-                ctx.beginPath();
-                ctx.moveTo(-size * 0.2, -size * 0.25);
-                ctx.lineTo(-size * 0.2, -size * 0.4);
-                ctx.lineTo(size * 0.2, -size * 0.4);
-                ctx.lineTo(size * 0.2, -size * 0.25);
-                ctx.stroke();
-                break;
-                
-            case 'chat':
-                // Simple chat bubble
-                ctx.beginPath();
-                ctx.arc(0, -size * 0.1, size * 0.7, 0, Math.PI * 2);
-                ctx.stroke();
-                ctx.beginPath();
-                ctx.moveTo(-size * 0.3, size * 0.5);
-                ctx.lineTo(0, size * 0.3);
-                ctx.lineTo(size * 0.1, size * 0.5);
-                ctx.stroke();
-                break;
-                
-            case 'gear':
-                // Simple gear
-                ctx.beginPath();
-                ctx.arc(0, 0, size * 0.7, 0, Math.PI * 2);
-                ctx.stroke();
-                ctx.beginPath();
-                ctx.arc(0, 0, size * 0.3, 0, Math.PI * 2);
-                ctx.stroke();
-                break;
-                
-            case 'lightning':
-                // Simple lightning
-                ctx.beginPath();
-                ctx.moveTo(size * 0.2, -size);
-                ctx.lineTo(-size * 0.2, 0);
-                ctx.lineTo(size * 0.2, 0);
-                ctx.lineTo(-size * 0.2, size);
-                ctx.stroke();
-                break;
-        }
-        
-        ctx.restore();
-    }
-    
-    // Animation loop - scroll-aware
-    function animate() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        
-        const revealRadius = 150;
-        const revealRadiusOuter = 220;
-        const scrollY = window.scrollY || window.pageYOffset;
-        const tileHeight = canvas.height;
-        
-        elements.forEach(el => {
-            // Calculate screen position - elements tile vertically
-            let screenY = el.baseY - (scrollY % tileHeight);
-            // Wrap around for seamless tiling
-            if (screenY < -50) screenY += tileHeight;
-            if (screenY > tileHeight + 50) screenY -= tileHeight;
-            
-            const screenX = el.baseX;
-            
-            // Calculate distance from mouse
-            const dx = screenX - mouse.x;
-            const dy = screenY - mouse.y;
-            const distance = Math.sqrt(dx * dx + dy * dy);
-            
-            // Set target opacity based on distance
-            let targetOpacity = 0;
-            if (distance < revealRadius) {
-                targetOpacity = (1 - distance / revealRadius) * 0.65;
-            } else if (distance < revealRadiusOuter) {
-                targetOpacity = (1 - (distance - revealRadius) / (revealRadiusOuter - revealRadius)) * 0.15;
-            }
-            
-            if (el.special) targetOpacity *= 1.4;
-            
-            // Smooth opacity transition
-            el.opacity += (targetOpacity - el.opacity) * 0.15;
-            
-            // Only draw if visible
-            if (el.opacity > 0.02) {
-                drawElement(el, screenX, screenY);
-                el.rotation += 0.003;
-            }
-        });
-        
-        requestAnimationFrame(animate);
-    }
-    
-    // Update glow position
-    function updateGlow() {
-        if (glow) {
-            glow.style.left = mouse.x + 'px';
-            glow.style.top = mouse.y + 'px';
-        }
-    }
-    
-    // Throttled mouse handler
-    let lastMoveTime = 0;
-    document.addEventListener('mousemove', (e) => {
-        const now = Date.now();
-        if (now - lastMoveTime < 16) return; // ~60fps throttle
-        lastMoveTime = now;
-        
-        mouse.x = e.clientX;
-        mouse.y = e.clientY;
-        updateGlow();
-        
-        if (!isActive) {
-            isActive = true;
-            container.classList.add('active');
-        }
-    });
-    
-    // Mouse leave handler
-    document.addEventListener('mouseleave', () => {
-        mouse.x = -1000;
-        mouse.y = -1000;
-        updateGlow();
-    });
-    
-    // Resize handler with debounce
-    let resizeTimeout;
-    window.addEventListener('resize', () => {
-        clearTimeout(resizeTimeout);
-        resizeTimeout = setTimeout(resize, 200);
-    });
-    
-    resize();
-    animate();
-    
-    console.log('Reveal effect initialized with', elements.length, 'elements');
 }
 
-// Initialize reveal effect immediately
-document.addEventListener('DOMContentLoaded', () => {
-    initRevealEffect();
-});
+// ===================================
+// Console Welcome Message
+// ===================================
+console.log(
+    '%c🌊 EchoHub %c- Plataforma SaaS Completa',
+    'color: #25d366; font-size: 24px; font-weight: bold;',
+    'color: #fff; font-size: 16px;'
+);
+console.log(
+    '%cDesenvolvido com ❤️ por EchoHub Team',
+    'color: #667eea; font-size: 14px;'
+);
+console.log(
+    '%cInteressado em trabalhar conosco? Envie um email para: contato@echo-hub.dev',
+    'color: #25d366; font-size: 12px;'
+);
 
 // ===================================
-// Service Worker Registration (for PWA)
+// Export for module systems
 // ===================================
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-        // Uncomment when service worker is ready
-        // navigator.serviceWorker.register('/sw.js')
-        //     .then(reg => console.log('Service Worker registered'))
-        //     .catch(err => console.log('Service Worker registration failed'));
-    });
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = {
+        initNavbar,
+        initParticles,
+        initPricingToggle,
+        initThemeSelector,
+        initInteractiveCalendar,
+        initContactForm,
+        initDynamicChat,
+        showNotification
+    };
 }

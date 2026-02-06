@@ -135,10 +135,10 @@ function initParticles() {
 
 function getRandomColor() {
     const colors = [
-        'rgba(37, 211, 102, 0.5)',
-        'rgba(102, 126, 234, 0.5)',
-        'rgba(245, 87, 108, 0.5)',
-        'rgba(52, 232, 121, 0.5)',
+        'rgba(108, 92, 231, 0.5)',
+        'rgba(0, 206, 255, 0.5)',
+        'rgba(168, 85, 247, 0.5)',
+        'rgba(255, 107, 107, 0.4)',
     ];
     return colors[Math.floor(Math.random() * colors.length)];
 }
@@ -180,17 +180,17 @@ function initThemeSelector() {
     const previewLogo = document.querySelector('.preview-logo i');
     
     const themes = {
-        purple: 'linear-gradient(135deg, #667eea, #764ba2)',
-        green: 'linear-gradient(135deg, #25d366, #128c7e)',
-        blue: 'linear-gradient(135deg, #4facfe, #00f2fe)',
-        red: 'linear-gradient(135deg, #f093fb, #f5576c)'
+        violet: 'linear-gradient(135deg, #6C5CE7, #5A4BD1)',
+        cyan: 'linear-gradient(135deg, #00CEFF, #0095D9)',
+        purple: 'linear-gradient(135deg, #A855F7, #7C3AED)',
+        coral: 'linear-gradient(135deg, #FF6B6B, #FF4757)'
     };
     
     const iconColors = {
-        purple: '#667eea',
-        green: '#25d366',
-        blue: '#4facfe',
-        red: '#f093fb'
+        violet: '#6C5CE7',
+        cyan: '#00CEFF',
+        purple: '#A855F7',
+        coral: '#FF6B6B'
     };
     
     // Apply theme function
@@ -211,8 +211,8 @@ function initThemeSelector() {
         }
     }
     
-    // Apply purple theme on load (default)
-    applyTheme('purple');
+    // Apply violet theme on load (default)
+    applyTheme('violet');
     
     themeButtons.forEach(button => {
         button.addEventListener('click', function() {
@@ -427,12 +427,15 @@ function showNotification(message, type = 'info') {
         top: 100px;
         right: 20px;
         padding: 1rem 1.5rem;
-        background: ${type === 'success' ? '#25d366' : '#667eea'};
+        background: ${type === 'success' ? '#6C5CE7' : type === 'error' ? '#FF6B6B' : '#00CEFF'};
         color: white;
         border-radius: 8px;
         box-shadow: 0 4px 16px rgba(0,0,0,0.3);
         z-index: 10000;
         animation: slideIn 0.3s ease-out;
+        font-family: 'Inter', sans-serif;
+        font-weight: 500;
+        max-width: 400px;
     `;
     
     document.body.appendChild(notification);
@@ -741,7 +744,7 @@ function initInteractiveCalendar() {
         }
         
         // Create new card
-        const colors = ['#667eea', '#25d366', '#f5576c', '#4facfe', '#f093fb', '#fa709a', '#30cfd0'];
+        const colors = ['#6C5CE7', '#00CEFF', '#FF6B6B', '#A855F7', '#FFB86C', '#7C3AED', '#0095D9'];
         const randomColor = colors[Math.floor(Math.random() * colors.length)];
         const endTime = getTimeFromIndex(timeIndex + 1);
         
@@ -1023,8 +1026,8 @@ function initContactForm() {
         
         const formObject = {
             access_key: '26babe76-46ed-4886-a890-8608325e78c6',
-            subject: 'Nova solicitação de demonstração - EchoHub',
-            from_name: 'EchoHub Website',
+            subject: 'Nova solicitação de demonstração - Unexly',
+            from_name: 'Unexly Website',
             name: document.getElementById('name').value,
             email: document.getElementById('email').value,
             company: document.getElementById('company').value,
@@ -1208,17 +1211,17 @@ function initDynamicChat() {
 // Console Welcome Message
 // ===================================
 console.log(
-    '%c🌊 EchoHub %c- Plataforma SaaS Completa',
-    'color: #25d366; font-size: 24px; font-weight: bold;',
+    '%c✦ Unexly %c- Plataforma SaaS Completa',
+    'color: #6C5CE7; font-size: 24px; font-weight: bold;',
     'color: #fff; font-size: 16px;'
 );
 console.log(
-    '%cDesenvolvido com ❤️ por EchoHub Team',
-    'color: #667eea; font-size: 14px;'
+    '%cDesenvolvido com ❤️ por Unexly Team',
+    'color: #00CEFF; font-size: 14px;'
 );
 console.log(
-    '%cInteressado em trabalhar conosco? Envie um email para: contato@echo-hub.dev',
-    'color: #25d366; font-size: 12px;'
+    '%cInteressado em trabalhar conosco? Envie um email para: contato@unexly.com',
+    'color: #6C5CE7; font-size: 12px;'
 );
 
 // ===================================

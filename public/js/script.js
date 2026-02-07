@@ -740,8 +740,13 @@
                 item.style.removeProperty('transform');
                 item.style.removeProperty('display');
                 item.classList.add('show');
+                // Scroll apenas dentro do chat container
                 requestAnimationFrame(() => {
-                    item.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    const itemBottom = item.offsetTop + item.offsetHeight;
+                    const containerBottom = chatContainer.scrollTop + chatContainer.clientHeight;
+                    if (itemBottom > containerBottom) {
+                        chatContainer.scrollTop = itemBottom - chatContainer.clientHeight + 10;
+                    }
                 });
 
                 if (isClientTyping) {
@@ -774,8 +779,13 @@
                                     linkedSent.style.removeProperty('transform');
                                     linkedSent.style.removeProperty('display');
                                     linkedSent.classList.add('show');
+                                    // Scroll apenas dentro do chat container
                                     requestAnimationFrame(() => {
-                                        linkedSent.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                                        const sentBottom = linkedSent.offsetTop + linkedSent.offsetHeight;
+                                        const containerBottom = chatContainer.scrollTop + chatContainer.clientHeight;
+                                        if (sentBottom > containerBottom) {
+                                            chatContainer.scrollTop = sentBottom - chatContainer.clientHeight + 10;
+                                        }
                                     });
                                 }, 150);
                             }

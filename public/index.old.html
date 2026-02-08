@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Unexly — A plataforma SaaS que revoluciona a gestão empresarial com IA, agendamento inteligente, WhatsApp e whitelabel completo.">
+    <meta name="keywords" content="saas, gestão empresarial, agendamento, whatsapp business, inteligência artificial, RBAC, whitelabel, plataforma de gestão">
+    <meta name="author" content="Unexly">
+    <meta property="og:title" content="Unexly — Gestão Empresarial Reimaginada">
+    <meta property="og:description" content="IA, agendamento, WhatsApp, RBAC e whitelabel. Tudo que sua empresa precisa, em uma plataforma única.">
+    <meta property="og:type" content="website">
+    <title>Unexly — Gestão Empresarial Reimaginada</title>
+
+    <!-- Fonts & Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <!-- Custom Cursor -->
+    <div class="cursor-dot" id="cursorDot"></div>
+    <div class="cursor-outline" id="cursorOutline"></div>
+
+    <!-- Scroll Progress Bar -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <!-- Ambient Gradient Orbs -->
+    <div class="ambient-bg" aria-hidden="true">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+        <div class="grid-overlay"></div>
+    </div>
+
+    <!-- ========== NAVIGATION ========== -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <a href="#" class="logo">
+                    <img src="logo_unexly_cortada.png" alt="Unexly" class="logo-img">
+                </a>
+                <div class="nav-menu" id="navMenu">
+                    <a href="#features" class="nav-link">Funcionalidades</a>
+                    <a href="#scheduling" class="nav-link">Agendamento</a>
+                    <a href="#whatsapp" class="nav-link">WhatsApp</a>
+                    <a href="#whitelabel" class="nav-link">Whitelabel</a>
+                    <a href="#pricing" class="nav-link">Planos</a>
+                    <a href="#contact" class="nav-link-cta magnetic-btn">
+                        <span>Começar Agora</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+                <button class="nav-toggle" id="navToggle" aria-label="Menu">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ========== HERO ========== -->
+    <section class="hero" id="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <div class="hero-eyebrow reveal-text">
+                        <div class="eyebrow-pill">
+                            <span class="eyebrow-dot"></span>
+                            <span>Plataforma SaaS de Nova Geração</span>
+                        </div>
+                    </div>
+                    <h1 class="hero-title">
+                        <span class="reveal-line"><span>Gestão empresarial</span></span>
+                        <span class="reveal-line"><span class="gradient-text">reimaginada</span> <span>com</span></span>
+                        <span class="reveal-line"><span>inteligência</span> <span class="gradient-text-alt">artificial.</span></span>
+                    </h1>
+                    <p class="hero-subtitle reveal-up">
+                        Agendamento inteligente, IA conversacional, WhatsApp integrado, 
+                        controle de acesso granular e whitelabel completo — tudo em uma 
+                        plataforma unificada que escala com você.
+                    </p>
+                    <div class="hero-actions reveal-up">
+                        <a href="#contact" class="btn-primary magnetic-btn">
+                            <span>Solicitar Demo Gratuita</span>
+                            <div class="btn-glow"></div>
+                        </a>
+                        <a href="#features" class="btn-ghost magnetic-btn">
+                            <span class="play-icon"><i class="fas fa-play"></i></span>
+                            <span>Ver em Ação</span>
+                        </a>
+                    </div>
+
+                </div>
+                <div class="hero-visual">
+                    <div class="hero-mockup-wrapper">
+                        <div class="mockup-glow"></div>
+                        <div class="dashboard-mockup tilt-card">
+                            <div class="mockup-header">
+                                <div class="mockup-dots"><span></span><span></span><span></span></div>
+                                <div class="mockup-title">Unexly Dashboard</div>
+                                <div class="mockup-actions"><i class="fas fa-bell"></i><i class="fas fa-user-circle"></i></div>
+                            </div>
+                            <div class="mockup-content">
+                                <div class="mockup-sidebar">
+                                    <div class="sidebar-item active"><i class="fas fa-home"></i></div>
+                                    <div class="sidebar-item"><i class="fas fa-calendar"></i></div>
+                                    <div class="sidebar-item"><i class="fas fa-users"></i></div>
+                                    <div class="sidebar-item"><i class="fas fa-chart-bar"></i></div>
+                                    <div class="sidebar-item"><i class="fas fa-cog"></i></div>
+                                </div>
+                                <div class="mockup-main">
+                                    <div class="mockup-card">
+                                        <div class="card-icon" style="background: linear-gradient(135deg, #6C5CE7, #5A4BD1);"><i class="fas fa-calendar-alt"></i></div>
+                                        <div class="card-info"><span>Agendamentos Hoje</span><strong>24</strong></div>
+                                    </div>
+                                    <div class="mockup-card">
+                                        <div class="card-icon" style="background: linear-gradient(135deg, #00CEFF, #0095D9);"><i class="fab fa-whatsapp"></i></div>
+                                        <div class="card-info"><span>Confirmações</span><strong>18</strong></div>
+                                    </div>
+                                    <div class="mockup-card">
+                                        <div class="card-icon" style="background: linear-gradient(135deg, #FF6B6B, #FF4757);"><i class="fas fa-robot"></i></div>
+                                        <div class="card-info"><span>IA Ativos</span><strong>3</strong></div>
+                                    </div>
+                                    <div class="mockup-card">
+                                        <div class="card-icon" style="background: linear-gradient(135deg, #A855F7, #7C3AED);"><i class="fas fa-users"></i></div>
+                                        <div class="card-info"><span>Clientes</span><strong>156</strong></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Floating Elements -->
+                    <div class="floating-elements">
+                        <div class="floating-badge badge-1"><i class="fab fa-whatsapp"></i><span>+50 mensagens</span></div>
+                        <div class="floating-badge badge-2"><i class="fas fa-check-circle"></i><span>Agendado!</span></div>
+                        <div class="floating-badge badge-3"><i class="fas fa-robot"></i><span>IA Ativa</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Gradient transition to next section -->
+        <div class="section-fade-bottom"></div>
+    </section>
+
+
+
+    <!-- ========== FEATURES ========== -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag reveal-up">Funcionalidades</span>
+                <h2 class="section-title reveal-up">Tudo que sua empresa precisa.<br><span class="gradient-text">Em um só lugar.</span></h2>
+                <p class="section-desc reveal-up">Unexly não é apenas mais um sistema. É a plataforma completa que integra todas as necessidades da sua gestão empresarial moderna.</p>
+            </div>
+
+            <div class="bento-grid">
+                <div class="bento-card bento-large feature-card-animated">
+                    <div class="bento-icon"><i class="fas fa-calendar-alt"></i></div>
+                    <h3>Sistema de Agendamento</h3>
+                    <p>Gestão completa com calendário interativo, visualização por unidade e colaborador, e gestão de disponibilidade em tempo real.</p>
+                    <ul class="feature-checklist">
+                        <li><i class="fas fa-check-circle"></i> Calendário visual intuitivo</li>
+                        <li><i class="fas fa-check-circle"></i> Múltiplas visualizações</li>
+                        <li><i class="fas fa-check-circle"></i> Gestão de horários</li>
+                        <li><i class="fas fa-check-circle"></i> Bloqueios e exceções</li>
+                    </ul>
+                    <div class="bento-glow"></div>
+                </div>
+
+                <div class="bento-card feature-card-animated">
+                    <div class="bento-icon icon-cyan"><i class="fab fa-whatsapp"></i></div>
+                    <h3>WhatsApp Integrado</h3>
+                    <p>Confirmações automáticas, lembretes e comunicação bidirecional direto pelo WhatsApp.</p>
+                    <ul class="feature-checklist">
+                        <li><i class="fas fa-check-circle"></i> Confirmações automáticas</li>
+                        <li><i class="fas fa-check-circle"></i> Lembretes programados</li>
+                    </ul>
+                    <div class="bento-glow glow-cyan"></div>
+                </div>
+
+                <div class="bento-card feature-card-animated">
+                    <div class="bento-icon icon-coral"><i class="fas fa-robot"></i></div>
+                    <h3>Agentes de IA</h3>
+                    <p>IAs treinadas com conhecimento da sua empresa para atendimento 24/7 e qualificação de leads.</p>
+                    <ul class="feature-checklist">
+                        <li><i class="fas fa-check-circle"></i> Atendimento 24/7</li>
+                        <li><i class="fas fa-check-circle"></i> Roteamento inteligente</li>
+                    </ul>
+                    <div class="bento-glow glow-coral"></div>
+                </div>
+
+                <div class="bento-card feature-card-animated">
+                    <div class="bento-icon icon-purple"><i class="fas fa-shield-alt"></i></div>
+                    <h3>RBAC & Segurança</h3>
+                    <p>Controle de acesso baseado em funções com permissões granulares para cada usuário e equipe.</p>
+                    <ul class="feature-checklist">
+                        <li><i class="fas fa-check-circle"></i> Permissões granulares</li>
+                        <li><i class="fas fa-check-circle"></i> Auditoria completa</li>
+                    </ul>
+                    <div class="bento-glow glow-purple"></div>
+                </div>
+
+                <div class="bento-card feature-card-animated">
+                    <div class="bento-icon icon-warm"><i class="fas fa-chart-line"></i></div>
+                    <h3>Monitoramento Real-Time</h3>
+                    <p>Dashboards inteligentes com métricas personalizadas e insights de IA em tempo real.</p>
+                    <ul class="feature-checklist">
+                        <li><i class="fas fa-check-circle"></i> Dashboards em tempo real</li>
+                        <li><i class="fas fa-check-circle"></i> Insights de IA</li>
+                    </ul>
+                    <div class="bento-glow glow-warm"></div>
+                </div>
+
+                <div class="bento-card bento-large feature-card-animated">
+                    <div class="bento-icon icon-gradient"><i class="fas fa-layer-group"></i></div>
+                    <h3>Whitelabel Completo</h3>
+                    <p>Personalize completamente a plataforma com sua marca, cores e logo. Suporte para múltiplas empresas e unidades de forma independente.</p>
+                    <ul class="feature-checklist">
+                        <li><i class="fas fa-check-circle"></i> Logo customizável</li>
+                        <li><i class="fas fa-check-circle"></i> Cores personalizadas</li>
+                        <li><i class="fas fa-check-circle"></i> Múltiplas empresas</li>
+                        <li><i class="fas fa-check-circle"></i> Domínio próprio</li>
+                    </ul>
+                    <div class="bento-glow"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== SCHEDULING - INTERACTIVE KANBAN ========== -->
+    <section class="scheduling-section" id="scheduling">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag reveal-up">Agendamento Inteligente</span>
+                <h2 class="section-title reveal-up">Experimente nossa <span class="gradient-text">agenda interativa.</span></h2>
+                <p class="section-desc reveal-up">Clique nos slots vazios para criar agendamentos. Arraste os cards para reagendar. Tudo em tempo real.</p>
+            </div>
+
+            <div class="kanban-wrapper" data-aos="fade-up">
+                <div class="kanban-container">
+                    <div class="kanban-header">
+                        <div class="time-header"><span>Horário</span></div>
+                        <div class="attendant-headers">
+                            <div class="attendant-header" data-attendant="1">
+                                <div class="attendant-avatar" style="background: linear-gradient(135deg, #6C5CE7, #5A4BD1);"><i class="fas fa-user-md"></i></div>
+                                <div class="attendant-info">
+                                    <strong>Dr. Carlos Silva</strong>
+                                    <div class="attendant-meta"><span class="badge">5 agendamentos</span><span class="badge outline">2 slots</span></div>
+                                </div>
+                            </div>
+                            <div class="attendant-header" data-attendant="2">
+                                <div class="attendant-avatar" style="background: linear-gradient(135deg, #00CEFF, #0095D9);"><i class="fas fa-user-nurse"></i></div>
+                                <div class="attendant-info">
+                                    <strong>Dra. Ana Paula</strong>
+                                    <div class="attendant-meta"><span class="badge">3 agendamentos</span><span class="badge outline">1 slot</span></div>
+                                </div>
+                            </div>
+                            <div class="attendant-header" data-attendant="3">
+                                <div class="attendant-avatar" style="background: linear-gradient(135deg, #FF6B6B, #FF4757);"><i class="fas fa-user-md"></i></div>
+                                <div class="attendant-info">
+                                    <strong>Dr. Roberto Alves</strong>
+                                    <div class="attendant-meta"><span class="badge">4 agendamentos</span><span class="badge outline">1 slot</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="kanban-body">
+                        <div class="time-column">
+                            <div class="time-slot-label">07:00</div><div class="time-slot-label">08:00</div>
+                            <div class="time-slot-label">09:00</div><div class="time-slot-label">10:00</div>
+                            <div class="time-slot-label">11:00</div><div class="time-slot-label">12:00</div>
+                            <div class="time-slot-label">13:00</div><div class="time-slot-label">14:00</div>
+                            <div class="time-slot-label">15:00</div><div class="time-slot-label">16:00</div>
+                            <div class="time-slot-label">17:00</div><div class="time-slot-label">18:00</div>
+                        </div>
+                        <div class="attendant-columns">
+                            <!-- Attendant 1 -->
+                            <div class="attendant-column" data-attendant="1">
+                                <div class="slots-container">
+                                    <div class="slot-row" data-time="07:00"></div><div class="slot-row" data-time="08:00"></div>
+                                    <div class="slot-row" data-time="09:00"></div><div class="slot-row" data-time="10:00"></div>
+                                    <div class="slot-row" data-time="11:00"></div><div class="slot-row" data-time="12:00"></div>
+                                    <div class="slot-row" data-time="13:00"></div><div class="slot-row" data-time="14:00"></div>
+                                    <div class="slot-row" data-time="15:00"></div><div class="slot-row" data-time="16:00"></div>
+                                    <div class="slot-row" data-time="17:00"></div><div class="slot-row" data-time="18:00"></div>
+                                </div>
+                                <div class="cards-layer">
+                                    <div class="schedule-card" data-id="1" style="--top: 1; --duration: 2; --color: #6C5CE7;" draggable="true">
+                                        <div class="card-drag-handle"><i class="fas fa-grip-vertical"></i></div>
+                                        <div class="card-content"><div class="card-time">08:00 - 10:00</div><div class="card-client">Maria Oliveira</div><div class="card-service">Consulta Geral</div><div class="card-status confirmed"><i class="fas fa-check-circle"></i> Confirmado</div></div>
+                                    </div>
+                                    <div class="schedule-card" data-id="2" style="--top: 4; --duration: 1; --color: #00CEFF;" draggable="true">
+                                        <div class="card-drag-handle"><i class="fas fa-grip-vertical"></i></div>
+                                        <div class="card-content"><div class="card-time">11:00 - 12:00</div><div class="card-client">João Santos</div><div class="card-service">Retorno</div><div class="card-status pending"><i class="fas fa-clock"></i> Pendente</div></div>
+                                    </div>
+                                    <div class="schedule-block" style="--top: 5; --duration: 1;"><i class="fas fa-ban"></i><span>Almoço</span></div>
+                                    <div class="schedule-card" data-id="3" style="--top: 7; --duration: 2; --color: #FF6B6B;" draggable="true">
+                                        <div class="card-drag-handle"><i class="fas fa-grip-vertical"></i></div>
+                                        <div class="card-content"><div class="card-time">14:00 - 16:00</div><div class="card-client">Ana Costa</div><div class="card-service">Exame Completo</div><div class="card-status confirmed"><i class="fas fa-check-circle"></i> Confirmado</div></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Attendant 2 -->
+                            <div class="attendant-column" data-attendant="2">
+                                <div class="slots-container">
+                                    <div class="slot-row" data-time="07:00"></div><div class="slot-row" data-time="08:00"></div>
+                                    <div class="slot-row" data-time="09:00"></div><div class="slot-row" data-time="10:00"></div>
+                                    <div class="slot-row" data-time="11:00"></div><div class="slot-row" data-time="12:00"></div>
+                                    <div class="slot-row" data-time="13:00"></div><div class="slot-row" data-time="14:00"></div>
+                                    <div class="slot-row" data-time="15:00"></div><div class="slot-row" data-time="16:00"></div>
+                                    <div class="slot-row" data-time="17:00"></div><div class="slot-row" data-time="18:00"></div>
+                                </div>
+                                <div class="cards-layer">
+                                    <div class="schedule-card" data-id="4" style="--top: 2; --duration: 2; --color: #A855F7;" draggable="true">
+                                        <div class="card-drag-handle"><i class="fas fa-grip-vertical"></i></div>
+                                        <div class="card-content"><div class="card-time">09:00 - 11:00</div><div class="card-client">Pedro Lima</div><div class="card-service">Avaliação</div><div class="card-status confirmed"><i class="fas fa-check-circle"></i> Confirmado</div></div>
+                                    </div>
+                                    <div class="schedule-block" style="--top: 5; --duration: 2;"><i class="fas fa-ban"></i><span>Almoço</span></div>
+                                    <div class="schedule-card" data-id="5" style="--top: 8; --duration: 1; --color: #FFB86C;" draggable="true">
+                                        <div class="card-drag-handle"><i class="fas fa-grip-vertical"></i></div>
+                                        <div class="card-content"><div class="card-time">15:00 - 16:00</div><div class="card-client">Carla Mendes</div><div class="card-service">Tratamento</div><div class="card-status pending"><i class="fas fa-clock"></i> Pendente</div></div>
+                                    </div>
+                                    <div class="schedule-card" data-id="6" style="--top: 10; --duration: 1; --color: #FF6B6B;" draggable="true">
+                                        <div class="card-drag-handle"><i class="fas fa-grip-vertical"></i></div>
+                                        <div class="card-content"><div class="card-time">17:00 - 18:00</div><div class="card-client">Lucas Ferreira</div><div class="card-service">Consulta</div><div class="card-status confirmed"><i class="fas fa-check-circle"></i> Confirmado</div></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Attendant 3 -->
+                            <div class="attendant-column" data-attendant="3">
+                                <div class="slots-container">
+                                    <div class="slot-row" data-time="07:00"></div><div class="slot-row" data-time="08:00"></div>
+                                    <div class="slot-row" data-time="09:00"></div><div class="slot-row" data-time="10:00"></div>
+                                    <div class="slot-row" data-time="11:00"></div><div class="slot-row" data-time="12:00"></div>
+                                    <div class="slot-row" data-time="13:00"></div><div class="slot-row" data-time="14:00"></div>
+                                    <div class="slot-row" data-time="15:00"></div><div class="slot-row" data-time="16:00"></div>
+                                    <div class="slot-row" data-time="17:00"></div><div class="slot-row" data-time="18:00"></div>
+                                </div>
+                                <div class="cards-layer">
+                                    <div class="schedule-card" data-id="7" style="--top: 0; --duration: 1; --color: #00CEFF;" draggable="true">
+                                        <div class="card-drag-handle"><i class="fas fa-grip-vertical"></i></div>
+                                        <div class="card-content"><div class="card-time">07:00 - 08:00</div><div class="card-client">Fernanda Dias</div><div class="card-service">Check-up</div><div class="card-status confirmed"><i class="fas fa-check-circle"></i> Confirmado</div></div>
+                                    </div>
+                                    <div class="schedule-card" data-id="8" style="--top: 3; --duration: 2; --color: #6C5CE7;" draggable="true">
+                                        <div class="card-drag-handle"><i class="fas fa-grip-vertical"></i></div>
+                                        <div class="card-content"><div class="card-time">10:00 - 12:00</div><div class="card-client">Ricardo Gomes</div><div class="card-service">Eletrocardiograma</div><div class="card-status pending"><i class="fas fa-clock"></i> Pendente</div></div>
+                                    </div>
+                                    <div class="schedule-block" style="--top: 5; --duration: 1;"><i class="fas fa-ban"></i><span>Almoço</span></div>
+                                    <div class="schedule-card" data-id="9" style="--top: 7; --duration: 1; --color: #00CEFF;" draggable="true">
+                                        <div class="card-drag-handle"><i class="fas fa-grip-vertical"></i></div>
+                                        <div class="card-content"><div class="card-time">14:00 - 15:00</div><div class="card-client">Patrícia Souza</div><div class="card-service">Retorno</div><div class="card-status confirmed"><i class="fas fa-check-circle"></i> Confirmado</div></div>
+                                    </div>
+                                    <div class="schedule-card" data-id="10" style="--top: 9; --duration: 2; --color: #FF6B6B;" draggable="true">
+                                        <div class="card-drag-handle"><i class="fas fa-grip-vertical"></i></div>
+                                        <div class="card-content"><div class="card-time">16:00 - 18:00</div><div class="card-client">Bruno Martins</div><div class="card-service">Consulta Completa</div><div class="card-status confirmed"><i class="fas fa-check-circle"></i> Confirmado</div></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="kanban-footer">
+                    <div class="kanban-legend">
+                        <div class="legend-item"><span class="legend-dot" style="background: #00CEFF;"></span><span>Confirmado</span></div>
+                        <div class="legend-item"><span class="legend-dot" style="background: #FFB86C;"></span><span>Pendente</span></div>
+                        <div class="legend-item"><span class="legend-dot" style="background: rgba(255,255,255,0.1);"></span><span>Disponível</span></div>
+                        <div class="legend-item"><span class="legend-dot blocked"></span><span>Bloqueado</span></div>
+                    </div>
+                    <div class="kanban-tip"><i class="fas fa-lightbulb"></i><span>Clique em um slot vazio para criar. Arraste para reagendar.</span></div>
+                </div>
+            </div>
+
+            <!-- Appointment Modal -->
+            <div class="appointment-modal" id="appointmentModal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3><i class="fas fa-calendar-plus"></i> Novo Agendamento (Demo)</h3>
+                        <button class="modal-close" id="closeModal"><i class="fas fa-times"></i></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group"><label>Nome do Cliente</label><input type="text" id="clientName" placeholder="Digite o nome do cliente"></div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Atendente</label>
+                                <select id="selectAttendant"><option value="1">Dr. Carlos Silva</option><option value="2">Dra. Ana Paula</option><option value="3">Dr. Roberto Alves</option></select>
+                            </div>
+                            <div class="form-group">
+                                <label>Horário</label>
+                                <select id="selectTime"><option value="07:00">07:00</option><option value="08:00">08:00</option><option value="09:00">09:00</option><option value="10:00">10:00</option><option value="11:00">11:00</option><option value="13:00">13:00</option><option value="14:00">14:00</option><option value="15:00">15:00</option><option value="16:00">16:00</option><option value="17:00">17:00</option><option value="18:00">18:00</option></select>
+                            </div>
+                        </div>
+                        <div class="form-group"><label>Serviço</label><select id="selectService"><option value="Consulta Geral">Consulta Geral</option><option value="Retorno">Retorno</option><option value="Exame">Exame</option><option value="Avaliação">Avaliação</option><option value="Tratamento">Tratamento</option></select></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn-ghost" id="cancelModal">Cancelar</button>
+                        <button class="btn-primary" id="confirmAppointment"><i class="fas fa-check"></i><span>Agendar</span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== WHATSAPP ========== -->
+    <section class="whatsapp-section" id="whatsapp">
+        <div class="container">
+            <div class="split-content">
+                <div class="split-text" data-aos="fade-right">
+                    <span class="section-tag"><i class="fab fa-whatsapp"></i> Integração WhatsApp</span>
+                    <h2 class="section-title-left">Comunicação <span class="gradient-text">direta</span> com seus clientes.</h2>
+                    <p class="section-desc-left">Confirmações automáticas, lembretes e toda comunicação acontece pelo WhatsApp. Seus clientes adoram, sua equipe agradece.</p>
+
+                    <div class="benefit-list">
+                        <div class="benefit-item"><div class="benefit-icon"><i class="fas fa-check-double"></i></div><div><h4>Confirmações Automáticas</h4><p>Assim que um agendamento é criado, o cliente recebe confirmação instantânea.</p></div></div>
+                        <div class="benefit-item"><div class="benefit-icon"><i class="fas fa-clock"></i></div><div><h4>Lembretes Programados</h4><p>Configure lembretes automáticos 24h, 12h, 1h antes do agendamento.</p></div></div>
+                        <div class="benefit-item"><div class="benefit-icon"><i class="fas fa-comments"></i></div><div><h4>Chat Bidirecional</h4><p>Clientes podem responder, tirar dúvidas e reagendar via WhatsApp.</p></div></div>
+                        <div class="benefit-item"><div class="benefit-icon"><i class="fas fa-chart-pie"></i></div><div><h4>Relatórios de Engajamento</h4><p>Veja taxas de confirmação, resposta e no-show em tempo real.</p></div></div>
+                    </div>
+
+
+                </div>
+                <div class="split-visual" data-aos="fade-left">
+                    <div class="whatsapp-phone">
+                        <div class="phone-frame">
+                            <div class="phone-notch"></div>
+                            <div class="phone-screen">
+                                <div class="whatsapp-header">
+                                    <i class="fas fa-arrow-left"></i>
+                                    <div class="chat-info"><div class="chat-avatar"><i class="fas fa-building"></i></div><div><div class="chat-name">Sua Empresa</div><div class="chat-status">online</div></div></div>
+                                    <i class="fas fa-ellipsis-v"></i>
+                                </div>
+                                <div class="whatsapp-messages" id="dynamicChatMessages">
+                                    <div class="typing-indicator client-typing" data-delay="300" data-duration="600"><span></span><span></span><span></span></div>
+                                    <div class="wa-message sent" data-delay="900"><p>Oi! Quais serviços vocês oferecem?</p><span class="msg-time">09:14 <i class="fas fa-check-double"></i></span></div>
+                                    <div class="agent-switch" data-delay="1400"><span class="agent-switch-badge"><i class="fas fa-brain"></i> Motor IA → <i class="fas fa-robot"></i> IA de Vendas</span></div>
+                                    <div class="typing-indicator" data-delay="1800" data-duration="800"><span></span><span></span><span></span></div>
+                                    <div class="wa-message received" data-delay="2600"><div class="agent-label"><i class="fas fa-robot"></i> IA de Vendas</div><p>Olá! 😊 Oferecemos consultoria, suporte e treinamentos. Posso ajudar a agendar?</p><span class="msg-time">09:14</span></div>
+                                    <div class="typing-indicator client-typing" data-delay="3200" data-duration="600"><span></span><span></span><span></span></div>
+                                    <div class="wa-message sent" data-delay="3800"><p>Sim! Quero agendar uma consulta</p><span class="msg-time">09:15 <i class="fas fa-check-double"></i></span></div>
+                                    <div class="agent-switch" data-delay="4300"><span class="agent-switch-badge"><i class="fas fa-brain"></i> Motor IA → <i class="fas fa-calendar-check"></i> IA de Agendamento</span></div>
+                                    <div class="typing-indicator" data-delay="4700" data-duration="800"><span></span><span></span><span></span></div>
+                                    <div class="wa-message received" data-delay="5500"><div class="agent-label"><i class="fas fa-calendar-check"></i> IA de Agendamento</div><p>Perfeito! 📅 Temos horários disponíveis amanhã:</p><div class="time-options"><span class="time-option">08:00</span><span class="time-option">10:00</span><span class="time-option selected">14:00</span></div><span class="msg-time">09:15</span></div>
+                                    <div class="typing-indicator client-typing" data-delay="6200" data-duration="500"><span></span><span></span><span></span></div>
+                                    <div class="wa-message sent" data-delay="6700"><p>14:00 está ótimo! ✅</p><span class="msg-time">09:16 <i class="fas fa-check-double"></i></span></div>
+                                    <div class="typing-indicator" data-delay="7200" data-duration="800"><span></span><span></span><span></span></div>
+                                    <div class="wa-message received" data-delay="8000"><p>Agendamento confirmado! 🎉</p><div class="appointment-card"><div class="apt-icon"><i class="fas fa-calendar-check"></i></div><div class="apt-details"><strong>Terça-feira, 4 de Fevereiro</strong><span>14:00 - 15:00</span><span>📍 Unidade Centro</span></div></div><p>Enviaremos um lembrete 1h antes! 🔔</p><span class="msg-time">09:16</span></div>
+                                </div>
+                                <div class="whatsapp-input"><i class="fas fa-smile"></i><input type="text" id="dynamicChatInput" placeholder="Mensagem" readonly><i class="fas fa-paperclip"></i><div class="send-btn" id="dynamicSendBtn"><i class="fas fa-paper-plane"></i></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== CLIENT MANAGEMENT ========== -->
+    <section class="client-section">
+        <div class="container">
+            <div class="split-content reverse">
+                <div class="split-visual" data-aos="fade-right">
+                    <div class="client-card tilt-card">
+                        <div class="client-header">
+                            <div class="client-avatar-large"><i class="fas fa-user"></i></div>
+                            <div class="client-info"><h3>MARIA OLIVEIRA SANTOS</h3><p><i class="fas fa-phone"></i> (11) 98765-4321</p></div>
+                            <div class="client-actions"><button class="btn-icon"><i class="fas fa-edit"></i></button><button class="btn-icon danger"><i class="fas fa-trash"></i></button></div>
+                        </div>
+                        <div class="client-stats-grid">
+                            <div class="client-stat"><div class="stat-label">PAGAMENTOS</div><div class="stat-value">0</div></div>
+                            <div class="client-stat"><div class="stat-label">SERVIÇOS</div><div class="stat-value">0</div></div>
+                            <div class="client-stat"><div class="stat-label">AGENDAMENTOS</div><div class="stat-value">1</div></div>
+                        </div>
+                        <div class="client-details">
+                            <div class="detail-section"><h4>CRÉDITO</h4><div class="credit-amount">R$ 0,00</div></div>
+                            <div class="detail-section">
+                                <h4>Agenda em destaque</h4>
+                                <p class="highlight-text">Último atendimento e próximo compromisso</p>
+                                <div class="appointment-highlight"><i class="fas fa-calendar"></i><div><strong>Último agendamento</strong><p>Consulta - MARIA OLIVEIRA SANTOS</p><span>31/01/2026 às 18:00 • Agendado</span></div></div>
+                                <div class="appointment-highlight"><i class="fas fa-clock"></i><div><strong>Próximo agendamento</strong><p>Nenhum agendamento futuro.</p></div></div>
+                            </div>
+                            <div class="detail-section">
+                                <h4>Insights do cliente</h4>
+                                <div class="insights-grid">
+                                    <div class="insight-card"><div class="insight-label">FATURAMENTO (30D)</div><div class="insight-value">R$ 0,00</div><div class="insight-sub">Ticket médio: R$ 0,00</div></div>
+                                    <div class="insight-card"><div class="insight-label">PRODUTOS (30D)</div><div class="insight-value">R$ 0,00</div><div class="insight-sub">Total: R$ 0,00</div></div>
+                                    <div class="insight-card"><div class="insight-label">PENDÊNCIAS</div><div class="insight-value">R$ 0,00</div><div class="insight-sub">Último pgto: -</div></div>
+                                    <div class="insight-card"><div class="insight-label">ENGAJAMENTO</div><div class="insight-value">0%</div><div class="insight-sub">Faltas: 0 • Dias: 2</div></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="split-text" data-aos="fade-left">
+                    <span class="section-tag">Gestão de Clientes</span>
+                    <h2 class="section-title-left">Conheça seus clientes como <span class="gradient-text">nunca antes.</span></h2>
+                    <p class="section-desc-left">Tenha acesso a insights detalhados sobre cada cliente: histórico completo, padrões de comportamento, engajamento e muito mais.</p>
+                    <div class="benefit-list">
+                        <div class="benefit-item"><div class="benefit-icon icon-coral"><i class="fas fa-chart-line"></i></div><div><h4>Insights Inteligentes</h4><p>IA analisa o comportamento e fornece insights acionáveis.</p></div></div>
+                        <div class="benefit-item"><div class="benefit-icon icon-purple"><i class="fas fa-history"></i></div><div><h4>Histórico Completo</h4><p>Agendamentos, pagamentos e interações em um só lugar.</p></div></div>
+                        <div class="benefit-item"><div class="benefit-icon icon-warm"><i class="fas fa-tags"></i></div><div><h4>Segmentação Avançada</h4><p>Crie segmentos e campanhas direcionadas.</p></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== WHITELABEL ========== -->
+    <section class="whitelabel-section" id="whitelabel">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag reveal-up">Whitelabel</span>
+                <h2 class="section-title reveal-up">Sua marca. <span class="gradient-text">Sua plataforma.</span></h2>
+                <p class="section-desc reveal-up">Personalize completamente o Unexly com suas cores, logo e identidade visual. Suporte completo para múltiplas empresas e unidades.</p>
+            </div>
+            <div class="whitelabel-demo" data-aos="zoom-in">
+                <div class="theme-selector">
+                    <button class="theme-btn active" data-theme="violet"><span class="theme-color" style="background: linear-gradient(135deg, #6C5CE7, #5A4BD1);"></span>Violeta</button>
+                    <button class="theme-btn" data-theme="cyan"><span class="theme-color" style="background: linear-gradient(135deg, #00CEFF, #0095D9);"></span>Cyan</button>
+                    <button class="theme-btn" data-theme="purple"><span class="theme-color" style="background: linear-gradient(135deg, #A855F7, #7C3AED);"></span>Roxo</button>
+                    <button class="theme-btn" data-theme="coral"><span class="theme-color" style="background: linear-gradient(135deg, #FF6B6B, #FF4757);"></span>Coral</button>
+                </div>
+                <div class="customization-preview tilt-card">
+                    <div class="preview-sidebar">
+                        <div class="preview-logo"><i class="fas fa-wave-square"></i><span>Sua Empresa</span></div>
+                        <div class="preview-menu">
+                            <div class="menu-item active"><i class="fas fa-home"></i> Dashboard</div>
+                            <div class="menu-item"><i class="fas fa-calendar"></i> Agenda</div>
+                            <div class="menu-item"><i class="fas fa-users"></i> Clientes</div>
+                            <div class="menu-item"><i class="fas fa-chart-bar"></i> Relatórios</div>
+                        </div>
+                    </div>
+                    <div class="preview-main">
+                        <div class="preview-header"><h3>Dashboard Personalizado</h3><div class="preview-actions"><button class="preview-btn"><i class="fas fa-bell"></i></button><button class="preview-btn"><i class="fas fa-user-circle"></i></button></div></div>
+                        <div class="preview-cards">
+                            <div class="preview-card"><i class="fas fa-calendar-check"></i><div><span>Agendamentos</span><strong>--</strong></div></div>
+                            <div class="preview-card"><i class="fas fa-users"></i><div><span>Clientes</span><strong>--</strong></div></div>
+                            <div class="preview-card"><i class="fas fa-dollar-sign"></i><div><span>Receita</span><strong>--</strong></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="wl-features-grid">
+                <div class="wl-feature" data-aos="fade-up"><div class="wl-icon"><i class="fas fa-palette"></i></div><h3>Cores Personalizadas</h3><p>Todo o sistema se adapta automaticamente à sua marca.</p></div>
+                <div class="wl-feature" data-aos="fade-up" data-aos-delay="100"><div class="wl-icon"><i class="fas fa-image"></i></div><h3>Logo Customizável</h3><p>Seu logo aparece em toda a plataforma.</p></div>
+                <div class="wl-feature" data-aos="fade-up" data-aos-delay="200"><div class="wl-icon"><i class="fas fa-building"></i></div><h3>Múltiplas Empresas</h3><p>Gerencie várias empresas em uma única conta.</p></div>
+                <div class="wl-feature" data-aos="fade-up" data-aos-delay="300"><div class="wl-icon"><i class="fas fa-store"></i></div><h3>Múltiplas Unidades</h3><p>Cada empresa com quantas unidades precisar.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== PRICING ========== -->
+    <section class="pricing-section" id="pricing">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag reveal-up">Planos</span>
+                <h2 class="section-title reveal-up">Invista no crescimento <span class="gradient-text">do seu negócio.</span></h2>
+                <p class="section-desc reveal-up">Teremos planos flexíveis para empresas de todos os tamanhos. Detalhes serão divulgados no lançamento oficial.</p>
+            </div>
+            <div class="pricing-grid">
+                <div class="pricing-card featured" data-aos="fade-up" style="grid-column: 1 / -1; max-width: 500px; margin: 0 auto;">
+                    <div class="pricing-header"><h3>Acesso Antecipado</h3><p>Garanta sua vaga no lançamento</p></div>
+                    <div class="pricing-price"><span class="amount" style="font-size: 1.5rem; color: var(--text-secondary);">Preços a definir</span></div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check-circle"></i> Notificação prioritária de lançamento</li>
+                        <li><i class="fas fa-check-circle"></i> Acesso antecipado à plataforma</li>
+                        <li><i class="fas fa-check-circle"></i> Condições especiais para early adopters</li>
+                        <li><i class="fas fa-check-circle"></i> Suporte dedicado no onboarding</li>
+                    </ul>
+                    <a href="#contact" class="btn-primary btn-block"><span>Entrar na Lista</span></a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+
+    <!-- ========== CTA SECTION ========== -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content reveal-up">
+                <h2>Pronto para transformar<br>sua <span class="gradient-text">gestão empresarial?</span></h2>
+                <p>Seja uma das primeiras empresas a testar o Unexly no lançamento.</p>
+                <div class="cta-actions">
+                    <a href="#contact" class="btn-primary btn-xl magnetic-btn"><span>Entrar na Lista de Espera</span><i class="fas fa-arrow-right"></i><div class="btn-glow"></div></a>
+                </div>
+                <div class="cta-guarantees">
+                    <span><i class="fas fa-check-circle"></i> Beta privada exclusiva</span>
+                    <span><i class="fas fa-check-circle"></i> Acesso antecipado</span>
+                    <span><i class="fas fa-check-circle"></i> Sem compromisso</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== CONTACT ========== -->
+    <section class="contact-section" id="contact">
+        <div class="container">
+            <div class="contact-wrapper">
+                <div class="contact-info" data-aos="fade-right">
+                    <span class="section-tag">Contato</span>
+                    <h2>Vamos conversar sobre o <span class="gradient-text">futuro</span> da sua empresa.</h2>
+                    <p>Entre em contato para receber novidades e garantir acesso antecipado ao lançamento.</p>
+                    <div class="contact-features">
+                        <div class="contact-feature"><i class="fas fa-check-circle"></i><span>Acesso antecipado</span></div>
+                        <div class="contact-feature"><i class="fas fa-check-circle"></i><span>Convite para beta</span></div>
+                        <div class="contact-feature"><i class="fas fa-check-circle"></i><span>Atualizacoes em primeira mao</span></div>
+                        <div class="contact-feature"><i class="fas fa-check-circle"></i><span>Sem compromisso</span></div>
+                    </div>
+                    <div class="contact-details">
+                        <div class="contact-item"><i class="fas fa-envelope"></i><div><strong>Email</strong><p>contato@unexly.com</p></div></div>
+                    </div>
+                </div>
+                <div class="contact-form-wrapper" data-aos="fade-left">
+                    <form class="contact-form" id="contactForm">
+                        <h3>Solicitar Acesso Antecipado</h3>
+                        <div class="form-group"><label for="name">Nome Completo</label><input type="text" id="name" name="name" placeholder="Seu nome completo" required></div>
+                        <div class="form-group"><label for="email">Email Profissional</label><input type="email" id="email" name="email" placeholder="seu@email.com" required></div>
+                        <div class="form-row">
+                            <div class="form-group"><label for="company">Empresa</label><input type="text" id="company" name="company" placeholder="Nome da empresa" required></div>
+                            <div class="form-group"><label for="phone">Telefone</label><input type="tel" id="phone" name="phone" placeholder="(00) 00000-0000" required></div>
+                        </div>
+                        <div class="form-group"><label for="message">Como podemos ajudar?</label><textarea id="message" name="message" rows="4" placeholder="Conte-nos sobre sua empresa..." required></textarea></div>
+                        <button type="submit" class="btn-primary btn-block"><span>Entrar na Lista</span><i class="fas fa-paper-plane"></i></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <div class="footer-logo"><img src="logo_unexly_cortada.png" alt="Unexly" class="logo-img"></div>
+                    <p>Plataforma SaaS para gestão empresarial inteligente com IA.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-linkedin"></i></a><a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col"><h4>Produto</h4><a href="#features">Funcionalidades</a><a href="#pricing">Planos</a></div>
+                <div class="footer-col"><h4>Empresa</h4><a href="#contact">Contato</a></div>
+                <div class="footer-col"><h4>Suporte</h4><a href="#contact">Fale Conosco</a></div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Unexly. Todos os direitos reservados.</p>
+
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>

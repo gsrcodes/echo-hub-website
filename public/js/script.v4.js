@@ -1,7 +1,6 @@
 /* ===================================
-   UNEXLY v5 — Script
-   Lay audience, pain-focused
-   All bug-fix lessons applied
+   UNEXLY — Script v4
+   Complete rewrite with all bug fixes
    =================================== */
 
 (() => {
@@ -39,6 +38,7 @@
     const navLinks = document.getElementById('navLinks');
     const navToggle = document.getElementById('navToggle');
 
+    // Scroll effect
     if (nav) {
         ScrollTrigger.create({
             start: 50,
@@ -49,6 +49,7 @@
         });
     }
 
+    // Mobile toggle
     if (navToggle && navLinks) {
         navToggle.addEventListener('click', () => {
             navToggle.classList.toggle('active');
@@ -87,11 +88,11 @@
         );
     }
 
-    heroLines.forEach((line) => {
+    heroLines.forEach((line, i) => {
         heroTl.fromTo(line,
             { opacity: 0, y: 50, rotateX: 10 },
             { opacity: 1, y: 0, rotateX: 0, duration: 0.9 },
-            '-=0.65'
+            `-=0.65`
         );
     });
 
@@ -120,156 +121,46 @@
     }
 
     /* ========================================
-       HERO DEVICE — Phone entrance + scroll out
+       HERO DEVICE — Entrance + Scroll
        RULE: gsap.set() → gsap.to() → onComplete → ScrollTrigger
+       This prevents competing animations
        ======================================== */
-    // Initialize WhatsApp interactive buttons on page load
-    initWhatsAppInteractions();
+    const heroDeviceWrapper = document.querySelector('.hero-device-wrapper');
+    if (heroDeviceWrapper) {
+        // 1) Set initial state
+        gsap.set(heroDeviceWrapper, { opacity: 0, y: 80, scale: 0.92, rotateX: 6 });
 
-    /* ========================================
-       v1-STYLE CHAT ANIMATION (show/hide classes)
-       Uses .show / .hide on .message, .typing-indicator, .agent-switch
-       ======================================== */
-    function animateChatMessages(containerId) {
-        const container = document.getElementById(containerId);
-        if (!container) return;
-
-        const elements = container.querySelectorAll('[data-delay]');
-
-        function scrollIfOverflowing() {
-            if (container.scrollHeight > container.clientHeight) {
-                container.scrollTo({ top: container.scrollHeight, behavior: 'smooth' });
-            }
-        }
-
-        elements.forEach(element => {
-            const delay = parseInt(element.getAttribute('data-delay'), 10);
-            const duration = parseInt(element.getAttribute('data-duration') || '0', 10);
-
-            setTimeout(() => {
-                element.classList.add('show');
-                scrollIfOverflowing();
-
-                // Hide typing indicator after its duration
-                if (element.classList.contains('typing-indicator') && duration > 0) {
-                    setTimeout(() => {
-                        element.classList.add('hide');
-                        element.classList.remove('show');
-                    }, duration);
-                }
-            }, delay);
-        });
-    }
-
-    /* ========================================
-       WHATSAPP INTERACTIVE BUTTONS (from v1)
-       ======================================== */
-    function initWhatsAppInteractions() {
-        const chatInterfaces = document.querySelectorAll('.chat-interface');
-
-        chatInterfaces.forEach(chatInterface => {
-            const phoneScreen = chatInterface.closest('.phone-screen');
-            const callPopup = phoneScreen ? phoneScreen.querySelector('.call-popup') : null;
-            const emojiPopup = phoneScreen ? phoneScreen.querySelector('.emoji-popup') : null;
-            const attachPopup = phoneScreen ? phoneScreen.querySelector('.attach-popup') : null;
-            const menuPopup = chatInterface.querySelector('.header-menu-popup');
-            const chatInput = chatInterface.querySelector('.chat-input');
-
-            const headerActions = chatInterface.querySelectorAll('[data-action]');
-
-            headerActions.forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    const action = btn.dataset.action;
-
-                    // Check if current popup is already open
-                    let currentPopupOpen = false;
-                    if (action === 'emoji' && emojiPopup) currentPopupOpen = emojiPopup.classList.contains('show');
-                    if (action === 'attach' && attachPopup) currentPopupOpen = attachPopup.classList.contains('show');
-                    if (action === 'menu' && menuPopup) currentPopupOpen = menuPopup.classList.contains('show');
-
-                    // Close all popups first
-                    closeAllPopups(chatInterface, phoneScreen);
-
-                    if (currentPopupOpen) return;
-
-                    switch (action) {
-                        case 'video':
-                        case 'call':
-                            if (callPopup) {
-                                callPopup.classList.add('show');
-                                setTimeout(() => { callPopup.classList.remove('show'); }, 3000);
-                            }
-                            break;
-                        case 'menu':
-                            if (menuPopup) menuPopup.classList.add('show');
-                            break;
-                        case 'emoji':
-                            if (emojiPopup) emojiPopup.classList.add('show');
-                            break;
-                        case 'attach':
-                            if (attachPopup) attachPopup.classList.add('show');
-                            break;
-                        case 'back':
-                            btn.style.animation = 'none';
-                            btn.offsetHeight;
-                            btn.style.animation = 'backShake 0.3s ease';
-                            break;
-                        case 'send':
-                            const sendBtn = btn.closest('.chat-send-btn') || btn;
-                            sendBtn.classList.add('sending');
-                            setTimeout(() => sendBtn.classList.remove('sending'), 300);
-                            break;
+        // 2) Entrance animation
+        gsap.to(heroDeviceWrapper, {
+            opacity: 1, y: 0, scale: 1, rotateX: 0,
+            duration: 1.3, ease: 'expo.out', delay: 0.9,
+            onComplete: () => {
+                // 3) ONLY after entrance, create scroll-out trigger
+                ScrollTrigger.create({
+                    trigger: '.hero',
+                    start: 'center center',
+                    end: 'bottom top',
+                    scrub: 0.5,
+                    onUpdate: (self) => {
+                        const p = self.progress;
+                        gsap.set(heroDeviceWrapper, {
+                            opacity: 1 - p * 0.8,
+                            scale: 1 - p * 0.1,
+                            y: p * -60
+                        });
                     }
                 });
-            });
-
-            // Emoji selection
-            if (emojiPopup && chatInput) {
-                const emojis = emojiPopup.querySelectorAll('.emoji-grid span');
-                emojis.forEach(emoji => {
-                    emoji.addEventListener('click', () => {
-                        chatInput.value += emoji.textContent;
-                        emojiPopup.classList.remove('show');
-                    });
-                });
             }
-
-            // Close call popup with end button
-            if (callPopup) {
-                const endBtn = callPopup.querySelector('.call-end-btn');
-                if (endBtn) {
-                    endBtn.addEventListener('click', () => { callPopup.classList.remove('show'); });
-                }
-            }
-
-            // Close popups on outside click
-            document.addEventListener('click', (e) => {
-                if (!e.target.closest('.chat-header-actions') &&
-                    !e.target.closest('.header-menu-popup') &&
-                    !e.target.closest('.emoji-btn') &&
-                    !e.target.closest('.emoji-popup') &&
-                    !e.target.closest('.attach-btn') &&
-                    !e.target.closest('.attach-popup')) {
-                    closeAllPopups(chatInterface, phoneScreen);
-                }
-            });
         });
-
-        function closeAllPopups(container, phoneScreen) {
-            const popups = container.querySelectorAll('.header-menu-popup');
-            popups.forEach(popup => popup.classList.remove('show'));
-            if (phoneScreen) {
-                const screenPopups = phoneScreen.querySelectorAll('.emoji-popup, .attach-popup');
-                screenPopups.forEach(popup => popup.classList.remove('show'));
-            }
-        }
     }
 
     /* ── Scroll Cue fade ── */
     const scrollCue = document.getElementById('scrollCue');
     if (scrollCue) {
-        gsap.fromTo(scrollCue, { opacity: 0 }, { opacity: 1, delay: 2, duration: 0.6 });
+        gsap.fromTo(scrollCue,
+            { opacity: 0 },
+            { opacity: 1, delay: 2, duration: 0.6 }
+        );
         ScrollTrigger.create({
             start: 100,
             onUpdate: (self) => {
@@ -324,7 +215,7 @@
 
     /* ========================================
        TEXT REVEAL — Word-by-word
-       RULE: CSS margin-right: 0.3em, NOT trailing spaces
+       RULE: Words use CSS margin-right: 0.3em, NOT trailing spaces
        ======================================== */
     const revealParagraph = document.querySelector('.reveal-paragraph');
     if (revealParagraph) {
@@ -332,13 +223,17 @@
         revealParagraph.innerHTML = '';
 
         const words = text.split(/\s+/);
-        const highlights = ['assistente', 'inteligente', 'WhatsApp', 'lembretes'];
+        const highlights = ['Unexly', 'IA', 'WhatsApp', 'plataforma'];
 
         words.forEach(word => {
             const span = document.createElement('span');
             span.classList.add('word');
-            if (highlights.some(h => word.includes(h))) span.classList.add('highlight');
+            // Check highlights
+            if (highlights.some(h => word.includes(h))) {
+                span.classList.add('highlight');
+            }
             span.textContent = word;
+            // spacing is handled by CSS margin-right: 0.3em
             revealParagraph.appendChild(span);
         });
 
@@ -359,6 +254,28 @@
     }
 
     /* ========================================
+       FEATURE CARDS — stagger + mouse glow
+       ======================================== */
+    const featureCards = document.querySelectorAll('.feature-card');
+    featureCards.forEach((card, i) => {
+        gsap.fromTo(card,
+            { opacity: 0, y: 50 },
+            {
+                opacity: 1, y: 0, duration: 0.8,
+                delay: i * 0.1,
+                ease: 'expo.out',
+                scrollTrigger: { trigger: card, start: 'top 85%', once: true }
+            }
+        );
+
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            card.style.setProperty('--mx', (e.clientX - rect.left) + 'px');
+            card.style.setProperty('--my', (e.clientY - rect.top) + 'px');
+        });
+    });
+
+    /* ========================================
        SECTION HEADERS — Reveals
        ======================================== */
     document.querySelectorAll('.section-header').forEach(header => {
@@ -372,88 +289,7 @@
     });
 
     /* ========================================
-       PAIN CARDS — Stagger
-       ======================================== */
-    document.querySelectorAll('.pain-card').forEach((card, i) => {
-        gsap.fromTo(card,
-            { opacity: 0, y: 50 },
-            {
-                opacity: 1, y: 0, duration: 0.8,
-                delay: i * 0.12,
-                ease: 'expo.out',
-                scrollTrigger: { trigger: card, start: 'top 85%', once: true }
-            }
-        );
-    });
-
-    /* ========================================
-       BENEFIT CARDS — Stagger
-       ======================================== */
-    document.querySelectorAll('.benefit-card').forEach((card, i) => {
-        gsap.fromTo(card,
-            { opacity: 0, y: 50 },
-            {
-                opacity: 1, y: 0, duration: 0.8,
-                delay: i * 0.15,
-                ease: 'expo.out',
-                scrollTrigger: { trigger: card, start: 'top 85%', once: true }
-            }
-        );
-    });
-
-    /* ========================================
-       DEMO PHONE — Apple-style Scale
-       ======================================== */
-    const phoneScaler = document.getElementById('phoneScaler');
-    if (phoneScaler) {
-        gsap.fromTo(phoneScaler,
-            { scale: 0.6, opacity: 0.2 },
-            {
-                scale: 1, opacity: 1,
-                ease: 'none',
-                scrollTrigger: {
-                    trigger: phoneScaler,
-                    start: 'top 90%',
-                    end: 'top 30%',
-                    scrub: 0.5
-                }
-            }
-        );
-    }
-
-    /* ── Demo WhatsApp Chat Sequence ── */
-    /* Uses v1-style show/hide — NO auto-scroll */
-    const waChat = document.getElementById('waChat');
-    if (waChat) {
-        let chatAnimated = false;
-
-        ScrollTrigger.create({
-            trigger: waChat,
-            start: 'top 75%',
-            once: true,
-            onEnter: () => {
-                if (chatAnimated) return;
-                chatAnimated = true;
-                animateChatMessages('waChat');
-            }
-        });
-    }
-
-    /* ── Demo Highlights ── */
-    document.querySelectorAll('.demo-item').forEach((item, i) => {
-        gsap.fromTo(item,
-            { opacity: 0, y: 35 },
-            {
-                opacity: 1, y: 0, duration: 0.7,
-                delay: i * 0.15,
-                ease: 'expo.out',
-                scrollTrigger: { trigger: item, start: 'top 88%', once: true }
-            }
-        );
-    });
-
-    /* ========================================
-       LAPTOP PANEL — Apple-style Scale
+       CONVERSATIONS DEVICE — Apple-style Scale
        ======================================== */
     const convDevice = document.getElementById('convDevice');
     if (convDevice) {
@@ -472,6 +308,19 @@
         );
     }
 
+    /* ── Device Features Row ── */
+    document.querySelectorAll('.df-item').forEach((item, i) => {
+        gsap.fromTo(item,
+            { opacity: 0, y: 35 },
+            {
+                opacity: 1, y: 0, duration: 0.7,
+                delay: i * 0.15,
+                ease: 'expo.out',
+                scrollTrigger: { trigger: item, start: 'top 88%', once: true }
+            }
+        );
+    });
+
     /* ========================================
        HOW IT WORKS — Step Cards
        ======================================== */
@@ -487,6 +336,124 @@
     });
 
     /* ========================================
+       PHONE DEVICE — Apple-style Scale
+       ======================================== */
+    const phoneScaler = document.getElementById('phoneScaler');
+    if (phoneScaler) {
+        gsap.fromTo(phoneScaler,
+            { scale: 0.6, opacity: 0.2 },
+            {
+                scale: 1, opacity: 1,
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: phoneScaler,
+                    start: 'top 90%',
+                    end: 'top 30%',
+                    scrub: 0.5
+                }
+            }
+        );
+    }
+
+    /* ========================================
+       WHATSAPP CHAT SEQUENCE
+       RULE: NO auto-scroll (waChat.scrollTop = ...)
+       ======================================== */
+    const waChat = document.getElementById('waChat');
+    if (waChat) {
+        const chatItems = waChat.querySelectorAll('.wa-msg, .wa-typing, .wa-switch');
+
+        let chatAnimated = false;
+        ScrollTrigger.create({
+            trigger: waChat,
+            start: 'top 75%',
+            once: true,
+            onEnter: () => {
+                if (chatAnimated) return;
+                chatAnimated = true;
+
+                chatItems.forEach(item => {
+                    const delay = parseInt(item.dataset.delay || '0', 10);
+                    const isTyping = item.classList.contains('wa-typing');
+
+                    setTimeout(() => {
+                        item.classList.add('visible');
+
+                        // Hide typing indicators after showing next msg
+                        if (isTyping) {
+                            const next = item.nextElementSibling;
+                            const nextDelay = next ? parseInt(next.dataset.delay || '0', 10) : delay + 800;
+                            setTimeout(() => {
+                                item.classList.remove('visible');
+                            }, nextDelay - delay - 100);
+                        }
+                    }, delay);
+                });
+            }
+        });
+    }
+
+    /* ========================================
+       SCHEDULING CARDS — Stagger
+       ======================================== */
+    document.querySelectorAll('.sched-card').forEach((card, i) => {
+        gsap.fromTo(card,
+            { opacity: 0, y: 40, scale: 0.95 },
+            {
+                opacity: 1, y: 0, scale: 1, duration: 0.7,
+                delay: i * 0.08,
+                ease: 'expo.out',
+                scrollTrigger: { trigger: card, start: 'top 88%', once: true }
+            }
+        );
+    });
+
+    /* ========================================
+       EXTENDED FEATURES — Stagger
+       ======================================== */
+    document.querySelectorAll('.ext-card').forEach((card, i) => {
+        gsap.fromTo(card,
+            { opacity: 0, y: 35 },
+            {
+                opacity: 1, y: 0, duration: 0.7,
+                delay: i * 0.07,
+                ease: 'expo.out',
+                scrollTrigger: { trigger: card, start: 'top 88%', once: true }
+            }
+        );
+    });
+
+    /* ========================================
+       SECURITY BADGES — Stagger
+       ======================================== */
+    document.querySelectorAll('.security-badge').forEach((badge, i) => {
+        gsap.fromTo(badge,
+            { opacity: 0, y: 25, scale: 0.9 },
+            {
+                opacity: 1, y: 0, scale: 1, duration: 0.6,
+                delay: i * 0.06,
+                ease: 'expo.out',
+                scrollTrigger: { trigger: badge, start: 'top 90%', once: true }
+            }
+        );
+    });
+
+    /* ========================================
+       WA FEATURES GRID — Stagger
+       ======================================== */
+    document.querySelectorAll('.wa-feature').forEach((feat, i) => {
+        gsap.fromTo(feat,
+            { opacity: 0, y: 35 },
+            {
+                opacity: 1, y: 0, duration: 0.7,
+                delay: i * 0.1,
+                ease: 'expo.out',
+                scrollTrigger: { trigger: feat, start: 'top 88%', once: true }
+            }
+        );
+    });
+
+    /* ========================================
        PROOF CARDS — Stagger
        ======================================== */
     document.querySelectorAll('.proof-card').forEach((card, i) => {
@@ -497,35 +464,6 @@
                 delay: i * 0.12,
                 ease: 'expo.out',
                 scrollTrigger: { trigger: card, start: 'top 85%', once: true }
-            }
-        );
-    });
-
-    /* ========================================
-       FAQ ACCORDION
-       ======================================== */
-    document.querySelectorAll('.faq-question').forEach(btn => {
-        btn.addEventListener('click', () => {
-            const item = btn.closest('.faq-item');
-            const isActive = item.classList.contains('active');
-
-            // Close all
-            document.querySelectorAll('.faq-item.active').forEach(i => i.classList.remove('active'));
-
-            // Open clicked if it wasn't active
-            if (!isActive) item.classList.add('active');
-        });
-    });
-
-    // FAQ items reveal
-    document.querySelectorAll('.faq-item').forEach((item, i) => {
-        gsap.fromTo(item,
-            { opacity: 0, y: 25 },
-            {
-                opacity: 1, y: 0, duration: 0.6,
-                delay: i * 0.08,
-                ease: 'expo.out',
-                scrollTrigger: { trigger: item, start: 'top 90%', once: true }
             }
         );
     });
@@ -560,50 +498,23 @@
        ======================================== */
     const ctaForm = document.getElementById('ctaForm');
     if (ctaForm) {
-        const submitBtn = ctaForm.querySelector('button[type="submit"]');
-
-        ctaForm.addEventListener('submit', async (e) => {
+        ctaForm.addEventListener('submit', (e) => {
             e.preventDefault();
-
-            const formData = new FormData(ctaForm);
-
-            const originalHTML = submitBtn.innerHTML;
-            submitBtn.innerHTML = '<span>Enviando...</span>';
-            submitBtn.disabled = true;
-            submitBtn.style.opacity = 0.7;
-
-            try {
-                const response = await fetch('https://api.web3forms.com/submit', {
-                    method: 'POST',
-                    body: formData
-                });
-
-                const data = await response.json();
-
-                if (response.ok) {
-                    submitBtn.innerHTML = '<span>Recebemos! Vamos te chamar no WhatsApp 😉</span>';
-                    ctaForm.reset();
-                    setTimeout(() => {
-                        submitBtn.innerHTML = originalHTML;
-                        submitBtn.disabled = false;
-                        submitBtn.style.opacity = 1;
-                    }, 4000);
-                } else {
-                    submitBtn.innerHTML = '<span>Erro ao enviar. Tente novamente.</span>';
-                    setTimeout(() => {
-                        submitBtn.innerHTML = originalHTML;
-                        submitBtn.disabled = false;
-                        submitBtn.style.opacity = 1;
-                    }, 3000);
-                }
-            } catch (error) {
-                submitBtn.innerHTML = '<span>Erro de conexão. Tente novamente.</span>';
-                setTimeout(() => {
-                    submitBtn.innerHTML = originalHTML;
-                    submitBtn.disabled = false;
-                    submitBtn.style.opacity = 1;
-                }, 3000);
+            const btn = ctaForm.querySelector('.btn-primary');
+            if (btn) {
+                btn.innerHTML = '<span>Solicitação enviada! ✅</span>';
+                btn.style.pointerEvents = 'none';
+                btn.style.opacity = 0.7;
             }
+            // Reset after 4s
+            setTimeout(() => {
+                if (btn) {
+                    btn.innerHTML = '<span>Entrar na lista de espera</span><i class="fas fa-arrow-right"></i>';
+                    btn.style.pointerEvents = 'auto';
+                    btn.style.opacity = 1;
+                }
+                ctaForm.reset();
+            }, 4000);
         });
     }
 

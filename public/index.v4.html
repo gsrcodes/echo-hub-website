@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unexly — ERP de Atendimento Inteligente via WhatsApp</title>
+    <meta name="description" content="Agentes de IA coordenados que atendem, agendam e vendem pelo WhatsApp. CRM, agenda, marketplace e analytics em uma única plataforma.">
+    <meta property="og:title" content="Unexly — ERP de Atendimento Inteligente via WhatsApp">
+    <meta property="og:description" content="Agentes de IA coordenados no seu WhatsApp. A plataforma completa de atendimento ao cliente.">
+    <meta property="og:type" content="website">
+
+    <script>document.documentElement.classList.add('js');</script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <!-- Scroll Progress -->
+    <div class="progress-bar" id="progressBar"></div>
+
+    <!-- ========== NAVIGATION ========== -->
+    <nav class="nav" id="nav">
+        <div class="nav-inner">
+            <a href="#" class="nav-logo">
+                <img src="logo_unexly_cortada.png" alt="Unexly" class="nav-logo-img">
+            </a>
+            <div class="nav-links" id="navLinks">
+                <a href="#platform" class="nav-link">Plataforma</a>
+                <a href="#conversations" class="nav-link">Conversas</a>
+                <a href="#agents" class="nav-link">Agentes IA</a>
+                <a href="#scheduling" class="nav-link">Agenda</a>
+                <a href="#how" class="nav-link">Como funciona</a>
+                <a href="#contact" class="nav-cta">
+                    <span>Começar agora</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+            <button class="nav-toggle" id="navToggle" aria-label="Menu">
+                <span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- ========== HERO ========== -->
+    <section class="hero" id="hero">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span class="badge-dot"></span>
+                ERP de Atendimento Inteligente
+            </div>
+            <h1 class="hero-title">
+                <span class="line">Atendimento via WhatsApp</span>
+                <span class="line"><span class="gradient-text">reinventado</span> com</span>
+                <span class="line">agentes de <span class="gradient-text-alt">IA.</span></span>
+            </h1>
+            <p class="hero-sub">
+                Agentes de IA coordenados que atendem, agendam e vendem pelo
+                WhatsApp da sua empresa. CRM, agenda inteligente, marketplace
+                e analytics — tudo em uma única plataforma.
+            </p>
+            <div class="hero-actions">
+                <a href="#contact" class="btn-primary magnetic-btn">
+                    <span>Solicitar acesso ao beta</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+                <a href="#platform" class="btn-secondary">
+                    <span class="play-circle"><i class="fas fa-play"></i></span>
+                    <span>Conhecer a plataforma</span>
+                </a>
+            </div>
+            <div class="hero-metrics">
+                <div class="metric">
+                    <span class="metric-val" data-target="3" data-suffix="">0</span>
+                    <span class="metric-label">Empresas no beta</span>
+                </div>
+                <div class="metric-sep"></div>
+                <div class="metric">
+                    <span class="metric-val" data-target="18" data-suffix="+">0</span>
+                    <span class="metric-label">Módulos integrados</span>
+                </div>
+                <div class="metric-sep"></div>
+                <div class="metric">
+                    <span class="metric-val" data-target="24" data-suffix="/7">0</span>
+                    <span class="metric-label">IA disponível</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hero Device — Conversations Panel -->
+        <div class="hero-device-wrapper">
+            <div class="hero-device" id="heroDevice">
+                <div class="device-browser">
+                    <div class="browser-bar">
+                        <div class="browser-dots"><span></span><span></span><span></span></div>
+                        <div class="browser-url"><i class="fas fa-lock"></i> app.unexly.com/conversations</div>
+                        <div class="browser-spacer"></div>
+                    </div>
+                    <div class="browser-body">
+                        <!-- Sidebar Icons -->
+                        <div class="conv-sidebar">
+                            <div class="conv-sidebar-logo"><i class="fas fa-wave-square"></i></div>
+                            <div class="conv-sidebar-item active"><i class="fas fa-comment-dots"></i></div>
+                            <div class="conv-sidebar-item"><i class="fas fa-calendar-alt"></i></div>
+                            <div class="conv-sidebar-item"><i class="fas fa-users"></i></div>
+                            <div class="conv-sidebar-item"><i class="fas fa-robot"></i></div>
+                            <div class="conv-sidebar-item"><i class="fas fa-chart-bar"></i></div>
+                            <div class="conv-sidebar-item"><i class="fas fa-store"></i></div>
+                            <div class="conv-sidebar-item bottom"><i class="fas fa-cog"></i></div>
+                        </div>
+                        <!-- Conversation List -->
+                        <div class="conv-list">
+                            <div class="conv-search">
+                                <i class="fas fa-search"></i>
+                                <span>Buscar conversas...</span>
+                            </div>
+                            <div class="conv-filters">
+                                <span class="conv-filter active">Todas</span>
+                                <span class="conv-filter">IA <span class="filter-count">4</span></span>
+                                <span class="conv-filter">Humano <span class="filter-count">2</span></span>
+                            </div>
+                            <div class="conv-items">
+                                <div class="conv-item active">
+                                    <div class="conv-avatar" style="background: #6C5CE7">MO</div>
+                                    <div class="conv-info">
+                                        <div class="conv-top"><strong>Maria Oliveira</strong><span class="conv-time">14:32</span></div>
+                                        <div class="conv-bottom"><span class="conv-preview">Agendamento confirmado para 16h ✅</span><span class="conv-agent-badge ai"><i class="fas fa-robot"></i></span></div>
+                                    </div>
+                                </div>
+                                <div class="conv-item">
+                                    <div class="conv-avatar" style="background: #00CEFF">JS</div>
+                                    <div class="conv-info">
+                                        <div class="conv-top"><strong>João Santos</strong><span class="conv-time">14:18</span></div>
+                                        <div class="conv-bottom"><span class="conv-preview">Preciso falar com um atendente</span><span class="conv-agent-badge human"><i class="fas fa-user"></i></span></div>
+                                    </div>
+                                </div>
+                                <div class="conv-item">
+                                    <div class="conv-avatar" style="background: #A855F7">PL</div>
+                                    <div class="conv-info">
+                                        <div class="conv-top"><strong>Pedro Lima</strong><span class="conv-time">13:45</span></div>
+                                        <div class="conv-bottom"><span class="conv-preview">Quais serviços vocês oferecem?</span><span class="conv-agent-badge ai"><i class="fas fa-robot"></i></span></div>
+                                    </div>
+                                </div>
+                                <div class="conv-item">
+                                    <div class="conv-avatar" style="background: #FF6B6B">AC</div>
+                                    <div class="conv-info">
+                                        <div class="conv-top"><strong>Ana Costa</strong><span class="conv-time">12:20</span></div>
+                                        <div class="conv-bottom"><span class="conv-preview">Obrigada pelo atendimento! 😊</span><span class="conv-agent-badge ai"><i class="fas fa-robot"></i></span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Active Chat -->
+                        <div class="conv-chat">
+                            <div class="conv-chat-header">
+                                <div class="conv-chat-contact">
+                                    <div class="conv-avatar sm" style="background: #6C5CE7">MO</div>
+                                    <div>
+                                        <strong>Maria Oliveira</strong>
+                                        <span class="conv-chat-status"><i class="fab fa-whatsapp"></i> WhatsApp · <span class="status-online">online</span></span>
+                                    </div>
+                                </div>
+                                <div class="conv-chat-actions">
+                                    <i class="fas fa-user-plus" title="Escalar"></i>
+                                    <i class="fas fa-ellipsis-v"></i>
+                                </div>
+                            </div>
+                            <div class="conv-messages">
+                                <div class="msg received">
+                                    <span class="msg-text">Oi, gostaria de agendar um horário para amanhã!</span>
+                                    <span class="msg-meta">14:28 <i class="fas fa-check-double read"></i></span>
+                                </div>
+                                <div class="msg-agent-switch"><i class="fas fa-brain"></i> IA → <i class="fas fa-robot"></i> Agente de Agendamento</div>
+                                <div class="msg sent">
+                                    <div class="msg-ai-tag"><i class="fas fa-robot"></i> IA de Agendamento</div>
+                                    <span class="msg-text">Olá Maria! 😊 Temos horários disponíveis amanhã às 10h, 14h e 16h. Qual prefere?</span>
+                                    <span class="msg-meta">14:29 <i class="fas fa-check-double read"></i></span>
+                                </div>
+                                <div class="msg received">
+                                    <span class="msg-text">16h está perfeito!</span>
+                                    <span class="msg-meta">14:31 <i class="fas fa-check-double read"></i></span>
+                                </div>
+                                <div class="msg sent">
+                                    <div class="msg-ai-tag"><i class="fas fa-robot"></i> IA de Agendamento</div>
+                                    <span class="msg-text">Agendado com sucesso! ✅ Amanhã, 16h. Enviarei um lembrete 1h antes.</span>
+                                    <span class="msg-meta">14:32 <i class="fas fa-check-double read"></i></span>
+                                </div>
+                            </div>
+                            <div class="conv-input-bar">
+                                <i class="fas fa-paperclip"></i>
+                                <span>Digite uma mensagem...</span>
+                                <i class="fas fa-paper-plane"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="device-glow"></div>
+            </div>
+        </div>
+        <div class="hero-bg">
+            <div class="glow glow-1"></div>
+            <div class="glow glow-2"></div>
+            <div class="glow glow-3"></div>
+        </div>
+        <div class="scroll-cue" id="scrollCue">
+            <div class="scroll-mouse"><div class="scroll-wheel"></div></div>
+            <span>Role para explorar</span>
+        </div>
+    </section>
+
+    <!-- ========== MARQUEE ========== -->
+    <div class="marquee-section">
+        <div class="marquee">
+            <div class="marquee-track">
+                <span>WhatsApp + IA</span><span class="sep">◆</span>
+                <span>Agentes Coordenados</span><span class="sep">◆</span>
+                <span>CRM Integrado</span><span class="sep">◆</span>
+                <span>Agenda Inteligente</span><span class="sep">◆</span>
+                <span>Fila Humana</span><span class="sep">◆</span>
+                <span>NPS & CSAT</span><span class="sep">◆</span>
+                <span>Marketplace</span><span class="sep">◆</span>
+                <span>BI com IA</span><span class="sep">◆</span>
+                <span>WhatsApp + IA</span><span class="sep">◆</span>
+                <span>Agentes Coordenados</span><span class="sep">◆</span>
+                <span>CRM Integrado</span><span class="sep">◆</span>
+                <span>Agenda Inteligente</span><span class="sep">◆</span>
+                <span>Fila Humana</span><span class="sep">◆</span>
+                <span>NPS & CSAT</span><span class="sep">◆</span>
+                <span>Marketplace</span><span class="sep">◆</span>
+                <span>BI com IA</span><span class="sep">◆</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== TEXT REVEAL ========== -->
+    <section class="text-reveal" id="about">
+        <div class="text-reveal-sticky">
+            <p class="reveal-paragraph">
+                A Unexly é o ERP completo de atendimento ao cliente. Agentes de IA coordenados atendem seus clientes no WhatsApp 24 horas por dia. Agenda inteligente, CRM integrado, marketplace de extensões e analytics com inteligência artificial. Tudo em uma única plataforma poderosa e simples.
+            </p>
+        </div>
+    </section>
+
+    <!-- ========== PLATFORM FEATURES ========== -->
+    <section class="features" id="platform">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Plataforma</span>
+                <h2 class="section-title">18+ módulos integrados.<br><span class="gradient-text">Um único painel.</span></h2>
+                <p class="section-desc">Tudo que seu negócio precisa para atender, agendar, vender e crescer — com inteligência artificial em cada camada.</p>
+            </div>
+            <div class="features-grid">
+                <!-- Large card -->
+                <div class="feature-card feature-large">
+                    <div class="feature-icon"><i class="fas fa-comment-dots"></i></div>
+                    <h3>Central de Conversas</h3>
+                    <p>Gerencie todas as conversas com clientes via WhatsApp em tempo real. Atendimento por IA ou humano, envio de mídias, histórico completo e status de entrega do WhatsApp.</p>
+                    <ul class="feature-checks">
+                        <li><i class="fas fa-check"></i> WhatsApp Cloud API oficial do Meta</li>
+                        <li><i class="fas fa-check"></i> Status de entrega (enviado → entregue → lido)</li>
+                        <li><i class="fas fa-check"></i> Escalação IA → humano transparente</li>
+                        <li><i class="fas fa-check"></i> Envio de imagens, documentos e áudios</li>
+                    </ul>
+                    <div class="feature-card-glow"></div>
+                </div>
+                <!-- Regular cards -->
+                <div class="feature-card">
+                    <div class="feature-icon icon-cyan"><i class="fas fa-robot"></i></div>
+                    <h3>Agentes IA Coordenados</h3>
+                    <p>Crie múltiplos agentes com personalidades e funções distintas. Orquestre pipelines de IA que trabalham juntos para resolver qualquer demanda.</p>
+                    <ul class="feature-checks">
+                        <li><i class="fas fa-check"></i> Prompts e ferramentas por agente</li>
+                        <li><i class="fas fa-check"></i> Pipeline de orquestração (ai-core)</li>
+                    </ul>
+                    <div class="feature-card-glow glow-cyan"></div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon icon-coral"><i class="fas fa-calendar-alt"></i></div>
+                    <h3>Agenda Inteligente</h3>
+                    <p>Sistema completo de agendamento com 6 ferramentas de IA integradas ao chatbot. Agendamento, reagendamento e cancelamento automáticos.</p>
+                    <ul class="feature-checks">
+                        <li><i class="fas fa-check"></i> 6 ferramentas IA de agendamento</li>
+                        <li><i class="fas fa-check"></i> Lembretes automáticos 24h e 1h antes</li>
+                    </ul>
+                    <div class="feature-card-glow glow-coral"></div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon icon-green"><i class="fas fa-users"></i></div>
+                    <h3>CRM Integrado</h3>
+                    <p>Gestão completa da base de clientes com histórico de interações, tags, segmentação e detecção automática de abuso.</p>
+                    <ul class="feature-checks">
+                        <li><i class="fas fa-check"></i> Tags e segmentação inteligente</li>
+                        <li><i class="fas fa-check"></i> Detecção de abuso com bloqueio</li>
+                    </ul>
+                    <div class="feature-card-glow glow-green"></div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon icon-purple"><i class="fas fa-chart-line"></i></div>
+                    <h3>Dashboard & Analytics</h3>
+                    <p>Métricas em tempo real, KPIs de atendimento, taxa de resolução e tempo de resposta. Tudo que você precisa para tomar decisões.</p>
+                    <ul class="feature-checks">
+                        <li><i class="fas fa-check"></i> KPIs em tempo real</li>
+                        <li><i class="fas fa-check"></i> Insights acionáveis com IA</li>
+                    </ul>
+                    <div class="feature-card-glow glow-purple"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== DEVICE: CONVERSATIONS ========== -->
+    <section class="device-section" id="conversations">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label"><i class="fab fa-whatsapp"></i> Conversas</span>
+                <h2 class="section-title">Cada conversa, um<br><span class="gradient-text">atendimento perfeito.</span></h2>
+                <p class="section-desc">Seus agentes de IA atendem pelo WhatsApp e escalam para humanos quando preciso. Tudo em um painel unificado e em tempo real.</p>
+            </div>
+        </div>
+        <!-- Laptop that scales on scroll -->
+        <div class="device-scaler" id="convDevice">
+            <div class="device-laptop">
+                <div class="laptop-screen">
+                    <div class="laptop-bar">
+                        <div class="browser-dots"><span></span><span></span><span></span></div>
+                        <div class="browser-url"><i class="fas fa-lock"></i> app.unexly.com/conversations</div>
+                        <div class="browser-spacer"></div>
+                    </div>
+                    <div class="laptop-content">
+                        <div class="full-conv-list">
+                            <div class="full-conv-header">
+                                <strong>Conversas</strong>
+                                <span class="full-conv-count">6 ativas</span>
+                            </div>
+                            <div class="full-conv-items">
+                                <div class="full-conv-item active">
+                                    <div class="conv-avatar sm" style="background:#6C5CE7">MO</div>
+                                    <div class="full-conv-info">
+                                        <strong>Maria Oliveira</strong>
+                                        <small>Agendamento confirmado ✅</small>
+                                    </div>
+                                    <span class="conv-agent-badge ai"><i class="fas fa-robot"></i></span>
+                                </div>
+                                <div class="full-conv-item">
+                                    <div class="conv-avatar sm" style="background:#00CEFF">JS</div>
+                                    <div class="full-conv-info">
+                                        <strong>João Santos</strong>
+                                        <small>Aguardando atendente...</small>
+                                    </div>
+                                    <span class="conv-agent-badge human"><i class="fas fa-user"></i></span>
+                                </div>
+                                <div class="full-conv-item">
+                                    <div class="conv-avatar sm" style="background:#A855F7">PL</div>
+                                    <div class="full-conv-info">
+                                        <strong>Pedro Lima</strong>
+                                        <small>Consultando serviços...</small>
+                                    </div>
+                                    <span class="conv-agent-badge ai"><i class="fas fa-robot"></i></span>
+                                </div>
+                                <div class="full-conv-item">
+                                    <div class="conv-avatar sm" style="background:#FF6B6B">AC</div>
+                                    <div class="full-conv-info">
+                                        <strong>Ana Costa</strong>
+                                        <small>NPS enviado · 9/10</small>
+                                    </div>
+                                    <span class="conv-agent-badge ai"><i class="fas fa-robot"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="full-conv-chat">
+                            <div class="full-chat-header">
+                                <div class="conv-avatar sm" style="background:#6C5CE7">MO</div>
+                                <div><strong>Maria Oliveira</strong><small><i class="fab fa-whatsapp"></i> WhatsApp</small></div>
+                            </div>
+                            <div class="full-chat-body">
+                                <div class="chat-bubble in">Quero reagendar minha consulta de amanhã</div>
+                                <div class="chat-ai-switch"><i class="fas fa-brain"></i> Motor IA → Agente de Agendamento</div>
+                                <div class="chat-bubble out"><div class="chat-ai-tag"><i class="fas fa-robot"></i> IA</div>Claro! Para qual data e horário você gostaria de remarcar?</div>
+                                <div class="chat-bubble in">Quinta-feira, qualquer horário à tarde</div>
+                                <div class="chat-bubble out"><div class="chat-ai-tag"><i class="fas fa-robot"></i> IA</div>Quinta temos: 14h, 15h30 e 17h. Qual prefere?</div>
+                                <div class="chat-bubble in">15h30! 🙌</div>
+                                <div class="chat-bubble out"><div class="chat-ai-tag"><i class="fas fa-robot"></i> IA</div>Reagendado! ✅ Quinta, 15h30. Lembrete 1h antes.</div>
+                            </div>
+                            <div class="full-chat-input">
+                                <i class="fas fa-paperclip"></i>
+                                <span>Responder como IA ou assumir...</span>
+                                <i class="fas fa-paper-plane"></i>
+                            </div>
+                        </div>
+                        <div class="full-conv-panel">
+                            <div class="panel-section">
+                                <h4>Dados do cliente</h4>
+                                <div class="panel-field"><span>Telefone</span><strong>+55 11 9****-1234</strong></div>
+                                <div class="panel-field"><span>E-mail</span><strong>maria@email.com</strong></div>
+                                <div class="panel-field"><span>Desde</span><strong>Jan 2026</strong></div>
+                            </div>
+                            <div class="panel-section">
+                                <h4>Tags</h4>
+                                <div class="panel-tags">
+                                    <span class="tag">VIP</span>
+                                    <span class="tag">Recorrente</span>
+                                </div>
+                            </div>
+                            <div class="panel-section">
+                                <h4>Próximo agendamento</h4>
+                                <div class="panel-appointment">
+                                    <i class="fas fa-calendar-check"></i>
+                                    <div><strong>Qui, 15h30</strong><small>Consulta Geral</small></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="laptop-base"></div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="device-features-row">
+                <div class="df-item">
+                    <div class="df-icon"><i class="fas fa-bolt"></i></div>
+                    <h4>Tempo real</h4>
+                    <p>Mensagens, status e escalações sincronizados instantaneamente.</p>
+                </div>
+                <div class="df-item">
+                    <div class="df-icon"><i class="fas fa-user-shield"></i></div>
+                    <h4>IA + Humano</h4>
+                    <p>A IA resolve o que pode. O humano assume quando precisa.</p>
+                </div>
+                <div class="df-item">
+                    <div class="df-icon"><i class="fas fa-check-double"></i></div>
+                    <h4>Status WhatsApp</h4>
+                    <p>Enviado, entregue, lido — acompanhe cada mensagem.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== HOW IT WORKS ========== -->
+    <section class="how-section" id="how">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Como funciona</span>
+                <h2 class="section-title">Três passos para<br><span class="gradient-text">transformar seu atendimento.</span></h2>
+            </div>
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-number">01</div>
+                    <div class="step-content">
+                        <h3>Configure e conecte</h3>
+                        <p>Cadastre sua unidade, conecte seu WhatsApp Business via Meta e configure seus serviços e horários. Tudo em minutos.</p>
+                    </div>
+                    <div class="step-visual"><div class="step-icon-wrap"><i class="fas fa-plug"></i></div></div>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">02</div>
+                    <div class="step-content">
+                        <h3>Crie seus agentes IA</h3>
+                        <p>Configure agentes especializados — vendas, agendamento, suporte. Cada um com personalidade, prompt e ferramentas próprias.</p>
+                    </div>
+                    <div class="step-visual"><div class="step-icon-wrap"><i class="fas fa-robot"></i></div></div>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">03</div>
+                    <div class="step-content">
+                        <h3>A IA cuida do resto</h3>
+                        <p>Seus agentes atendem 24/7, agendam, confirmam e escalam. Você acompanha tudo pelo painel em tempo real.</p>
+                    </div>
+                    <div class="step-visual"><div class="step-icon-wrap"><i class="fas fa-magic"></i></div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== AI AGENTS + WHATSAPP PHONE ========== -->
+    <section class="phone-section" id="agents">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label"><i class="fas fa-robot"></i> Agentes IA</span>
+                <h2 class="section-title">Múltiplos agentes.<br><span class="gradient-text">Uma orquestração perfeita.</span></h2>
+                <p class="section-desc">Cada agente é um especialista. O motor de IA decide automaticamente qual agente assume cada conversa com base no contexto.</p>
+            </div>
+        </div>
+        <!-- Phone scales on scroll -->
+        <div class="phone-scaler" id="phoneScaler">
+            <div class="phone-device">
+                <div class="phone-frame">
+                    <div class="phone-notch"></div>
+                    <div class="phone-screen">
+                        <div class="wa-header">
+                            <i class="fas fa-arrow-left"></i>
+                            <div class="wa-contact">
+                                <div class="wa-avatar"><i class="fas fa-building"></i></div>
+                                <div>
+                                    <strong>Sua Empresa</strong>
+                                    <span>online</span>
+                                </div>
+                            </div>
+                            <i class="fas fa-ellipsis-v"></i>
+                        </div>
+                        <div class="wa-chat" id="waChat">
+                            <div class="wa-msg sent" data-delay="0">Olá! Quais serviços vocês oferecem? 🤔</div>
+                            <div class="wa-typing" data-delay="800"><span></span><span></span><span></span></div>
+                            <div class="wa-switch" data-delay="1400"><i class="fas fa-brain"></i> Motor IA → <i class="fas fa-robot"></i> Agente de Vendas</div>
+                            <div class="wa-msg received" data-delay="2000">
+                                <div class="wa-ai-badge"><i class="fas fa-robot"></i> Agente de Vendas</div>
+                                Olá! 😊 Oferecemos consultas, avaliações e tratamentos. Quer saber valores e agendar?
+                            </div>
+                            <div class="wa-msg sent" data-delay="3500">Sim! Quero agendar uma consulta</div>
+                            <div class="wa-typing" data-delay="4300"><span></span><span></span><span></span></div>
+                            <div class="wa-switch" data-delay="5000"><i class="fas fa-brain"></i> Motor IA → <i class="fas fa-robot"></i> Agente de Agendamento</div>
+                            <div class="wa-msg received" data-delay="5600">
+                                <div class="wa-ai-badge"><i class="fas fa-robot"></i> Agente de Agendamento</div>
+                                Perfeito! Horários disponíveis para amanhã:
+                                <div class="wa-time-options">
+                                    <span>10:00</span>
+                                    <span>14:00</span>
+                                    <span class="selected">16:00</span>
+                                </div>
+                            </div>
+                            <div class="wa-msg sent" data-delay="7000">16:00 por favor! ✅</div>
+                            <div class="wa-typing" data-delay="7800"><span></span><span></span><span></span></div>
+                            <div class="wa-msg received" data-delay="8600">
+                                <div class="wa-ai-badge"><i class="fas fa-robot"></i> Agente de Agendamento</div>
+                                Agendado! 🎉
+                                <div class="wa-card">
+                                    <i class="fas fa-calendar-check"></i>
+                                    <div>
+                                        <strong>Amanhã, 16:00</strong>
+                                        <span>Consulta · Dr. Carlos Silva</span>
+                                    </div>
+                                </div>
+                                Lembrete automático 1h antes 🔔
+                            </div>
+                        </div>
+                        <div class="wa-input-bar">
+                            <i class="fas fa-smile"></i>
+                            <span>Mensagem</span>
+                            <i class="fas fa-microphone"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="phone-glow"></div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="wa-features-grid">
+                <div class="wa-feature">
+                    <div class="wa-f-icon"><i class="fas fa-layer-group"></i></div>
+                    <h4>Pipeline de IA</h4>
+                    <p>Agentes coordenados em pipelines inteligentes via ai-core.</p>
+                </div>
+                <div class="wa-feature">
+                    <div class="wa-f-icon"><i class="fas fa-tools"></i></div>
+                    <h4>6 Tools de Agenda</h4>
+                    <p>Agendar, reagendar, cancelar, listar — tudo automatizado.</p>
+                </div>
+                <div class="wa-feature">
+                    <div class="wa-f-icon"><i class="fas fa-exchange-alt"></i></div>
+                    <h4>Escalação Humana</h4>
+                    <p>A IA sabe quando parar e escalar para um atendente real.</p>
+                </div>
+                <div class="wa-feature">
+                    <div class="wa-f-icon"><i class="fas fa-sliders-h"></i></div>
+                    <h4>Prompts Custom</h4>
+                    <p>Cada agente com sua personalidade, instruções e tools.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== SCHEDULING ========== -->
+    <section class="scheduling-section" id="scheduling">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label"><i class="fas fa-calendar-alt"></i> Agenda</span>
+                <h2 class="section-title">Agendamento que funciona<br><span class="gradient-text">no piloto automático.</span></h2>
+                <p class="section-desc">6 ferramentas de IA integradas ao WhatsApp. Seus clientes agendam, reagendam e cancelam em linguagem natural.</p>
+            </div>
+            <div class="scheduling-grid">
+                <div class="sched-card">
+                    <div class="sched-icon"><i class="fas fa-clock"></i></div>
+                    <h4>get_available_slots</h4>
+                    <p>Consulta horários disponíveis com base na configuração real da empresa.</p>
+                </div>
+                <div class="sched-card">
+                    <div class="sched-icon"><i class="fas fa-calendar-plus"></i></div>
+                    <h4>create_scheduling</h4>
+                    <p>Cria agendamento validando dias, horários e durações configuradas.</p>
+                </div>
+                <div class="sched-card">
+                    <div class="sched-icon"><i class="fas fa-list"></i></div>
+                    <h4>list_appointments</h4>
+                    <p>Lista os compromissos do cliente quando ele pergunta sobre sua agenda.</p>
+                </div>
+                <div class="sched-card">
+                    <div class="sched-icon"><i class="fas fa-sync-alt"></i></div>
+                    <h4>reschedule</h4>
+                    <p>Reagenda automaticamente com validação de disponibilidade.</p>
+                </div>
+                <div class="sched-card">
+                    <div class="sched-icon"><i class="fas fa-times-circle"></i></div>
+                    <h4>cancel</h4>
+                    <p>Cancela agendamento e libera o horário imediatamente.</p>
+                </div>
+                <div class="sched-card">
+                    <div class="sched-icon"><i class="fas fa-bell"></i></div>
+                    <h4>Lembretes Auto</h4>
+                    <p>Confirmação automática 24h e 1h antes via WhatsApp.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== EXTENDED FEATURES ========== -->
+    <section class="ext-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">E muito mais</span>
+                <h2 class="section-title">Uma plataforma.<br><span class="gradient-text">Infinitas possibilidades.</span></h2>
+            </div>
+            <div class="ext-grid">
+                <div class="ext-card">
+                    <div class="ext-icon"><i class="fas fa-store"></i></div>
+                    <h4>Marketplace</h4>
+                    <p>Extensões, integrações e módulos adicionais. Ative com um clique.</p>
+                </div>
+                <div class="ext-card">
+                    <div class="ext-icon"><i class="fas fa-brain"></i></div>
+                    <h4>Uni — BI com IA</h4>
+                    <p>Pergunte sobre seus dados em linguagem natural. Relatórios sob demanda.</p>
+                </div>
+                <div class="ext-card">
+                    <div class="ext-icon"><i class="fas fa-globe"></i></div>
+                    <h4>Landing Pages</h4>
+                    <p>Página pública personalizada com subdomínio: empresa.unexly.dev</p>
+                </div>
+                <div class="ext-card">
+                    <div class="ext-icon"><i class="fas fa-star"></i></div>
+                    <h4>NPS & CSAT</h4>
+                    <p>Pesquisa de satisfação automática ao final de cada atendimento.</p>
+                </div>
+                <div class="ext-card">
+                    <div class="ext-icon"><i class="fas fa-coins"></i></div>
+                    <h4>Comissões</h4>
+                    <p>Cálculo automático de comissões com regras configuráveis por serviço.</p>
+                </div>
+                <div class="ext-card">
+                    <div class="ext-icon"><i class="fas fa-headset"></i></div>
+                    <h4>Fila Humana</h4>
+                    <p>Gestão de escalações com SLA, prioridade e distribuição automática.</p>
+                </div>
+                <div class="ext-card">
+                    <div class="ext-icon"><i class="fas fa-paper-plane"></i></div>
+                    <h4>Notificações Proativas</h4>
+                    <p>Disparos em lote, templates HSM e agendamento de envios.</p>
+                </div>
+                <div class="ext-card">
+                    <div class="ext-icon"><i class="fas fa-shield-alt"></i></div>
+                    <h4>RBAC Granular</h4>
+                    <p>Controle de acesso por rotas. Cada função vê apenas o que precisa.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== ENTERPRISE SECURITY ========== -->
+    <section class="security-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label"><i class="fas fa-lock"></i> Segurança</span>
+                <h2 class="section-title">Segurança de<br><span class="gradient-text">nível enterprise.</span></h2>
+            </div>
+            <div class="security-grid">
+                <div class="security-badge">
+                    <i class="fas fa-key"></i>
+                    <strong>AES-256-GCM</strong>
+                    <span>Criptografia de tokens</span>
+                </div>
+                <div class="security-badge">
+                    <i class="fas fa-building"></i>
+                    <strong>Multi-tenant</strong>
+                    <span>Isolamento por empresa</span>
+                </div>
+                <div class="security-badge">
+                    <i class="fas fa-user-lock"></i>
+                    <strong>RBAC</strong>
+                    <span>Acesso por rotas</span>
+                </div>
+                <div class="security-badge">
+                    <i class="fas fa-clipboard-list"></i>
+                    <strong>Auditoria</strong>
+                    <span>Log completo de ações</span>
+                </div>
+                <div class="security-badge">
+                    <i class="fas fa-ban"></i>
+                    <strong>Anti-abuso</strong>
+                    <span>Detecção automática</span>
+                </div>
+                <div class="security-badge">
+                    <i class="fas fa-fingerprint"></i>
+                    <strong>CSRF</strong>
+                    <span>Proteção em OAuth</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== STATS ========== -->
+    <section class="proof-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Resultados</span>
+                <h2 class="section-title">Construído para quem quer<br><span class="gradient-text">escalar de verdade.</span></h2>
+            </div>
+            <div class="proof-grid">
+                <div class="proof-card">
+                    <span class="proof-number" data-target="73" data-suffix="%">0</span>
+                    <span class="proof-label">Redução de faltas com confirmação automática via WhatsApp</span>
+                </div>
+                <div class="proof-card">
+                    <span class="proof-number" data-target="18" data-suffix="+">0</span>
+                    <span class="proof-label">Módulos integrados em uma única plataforma de atendimento</span>
+                </div>
+                <div class="proof-card">
+                    <span class="proof-number" data-target="6" data-suffix="">0</span>
+                    <span class="proof-label">Ferramentas de IA para agendamento automático via WhatsApp</span>
+                </div>
+                <div class="proof-card">
+                    <span class="proof-number" data-target="100" data-suffix="%">0</span>
+                    <span class="proof-label">Atendimento automatizado 24/7 sem intervenção humana</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== CTA + CONTACT ========== -->
+    <section class="cta-section" id="contact">
+        <div class="container">
+            <div class="cta-wrapper">
+                <div class="cta-content">
+                    <h2 class="section-title">Pronto para reinventar<br><span class="gradient-text">seu atendimento?</span></h2>
+                    <p class="section-desc">Solicite acesso ao beta e seja um dos primeiros a usar o ERP de atendimento mais avançado do mercado.</p>
+                    <div class="cta-guarantees">
+                        <span><i class="fas fa-check-circle"></i> Beta privado com suporte direto</span>
+                        <span><i class="fas fa-check-circle"></i> Configuração assistida inclusa</span>
+                        <span><i class="fas fa-check-circle"></i> Sem cartão de crédito</span>
+                        <span><i class="fas fa-check-circle"></i> Cancele quando quiser</span>
+                    </div>
+                </div>
+                <div class="cta-form-wrap">
+                    <form class="cta-form" id="ctaForm">
+                        <h3>Solicitar acesso ao beta</h3>
+                        <div class="form-group">
+                            <label>Nome completo</label>
+                            <input type="text" placeholder="Seu nome" required>
+                        </div>
+                        <div class="form-group">
+                            <label>E-mail profissional</label>
+                            <input type="email" placeholder="seu@email.com" required>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Empresa</label>
+                                <input type="text" placeholder="Nome da empresa">
+                            </div>
+                            <div class="form-group">
+                                <label>WhatsApp</label>
+                                <input type="tel" placeholder="(00) 00000-0000">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Como podemos ajudar?</label>
+                            <textarea placeholder="Conte sobre seu negócio e volume de atendimentos..." rows="3"></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary btn-full">
+                            <span>Entrar na lista de espera</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <img src="logo_unexly_cortada.png" alt="Unexly" class="footer-logo-img">
+                    <p>ERP de atendimento inteligente<br>via WhatsApp com agentes de IA.</p>
+                    <div class="footer-social">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-col">
+                        <h4>Plataforma</h4>
+                        <a href="#platform">Funcionalidades</a>
+                        <a href="#conversations">Conversas</a>
+                        <a href="#agents">Agentes IA</a>
+                        <a href="#scheduling">Agenda</a>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Recursos</h4>
+                        <a href="#about">Sobre</a>
+                        <a href="#how">Como funciona</a>
+                        <a href="#contact">Contato</a>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Legal</h4>
+                        <a href="#">Termos de uso</a>
+                        <a href="#">Privacidade</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Unexly. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>

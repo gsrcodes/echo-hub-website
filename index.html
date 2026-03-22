@@ -4,17 +4,24 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Unexly — A plataforma que cuida do seu negócio</title>
-  <meta name="description" content="Agentes IA no WhatsApp, agenda inteligente, CRM, financeiro e mais 40 módulos. Tudo que seu negócio precisa em uma plataforma.">
-  <meta property="og:title" content="Unexly — A plataforma que cuida do seu negócio">
-  <meta property="og:description" content="Atendimento 24/7 que parece humano. Agenda sem no-show. Clientes que voltam automaticamente.">
-  <meta property="og:type" content="website">
-  <meta name="theme-color" content="#FFFFFF">
+  <meta name="description" content="Agentes IA no WhatsApp, agenda inteligente, CRM, financeiro e +40 módulos. Tudo que seu negócio precisa.">
+  <meta name="theme-color" content="#09090B">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
+
+  <!-- Custom Cursor -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-follower" id="cursorFollower"></div>
+
+  <!-- Scroll Progress -->
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <!-- Grain overlay -->
+  <div class="grain"></div>
 
   <!-- ========== NAVIGATION ========== -->
   <nav class="nav" id="nav">
@@ -29,192 +36,170 @@
         <li><a href="#features">Funcionalidades</a></li>
         <li><a href="#modules">Módulos</a></li>
         <li><a href="#pricing">Preços</a></li>
-        <li><a href="#final-cta" class="nav-cta">Começar grátis</a></li>
+        <li><a href="#cta" class="nav-cta magnetic" data-magnetic>Começar grátis</a></li>
       </ul>
     </div>
   </nav>
 
   <!-- ========== HERO ========== -->
   <section class="hero" id="hero">
-    <div class="hero-inner">
+    <div class="hero-orbs">
+      <div class="orb orb--1"></div>
+      <div class="orb orb--2"></div>
+      <div class="orb orb--3"></div>
+    </div>
+
+    <div class="hero-grid">
+      <!-- Left: Content -->
       <div class="hero-content">
-        <span class="hero-badge reveal">
-          <span class="badge-dot"></span>
-          Novo — Agentes IA no WhatsApp
-        </span>
-        <h1 class="hero-headline">
-          <span class="hero-line">Sua empresa no</span>
-          <span class="hero-line hero-line--accent">piloto automático.</span>
+        <div class="hero-badge">
+          <span class="badge-pulse"></span>
+          <span>Novo — Agentes IA no WhatsApp</span>
+        </div>
+        <h1 class="hero-title" data-split-words>
+          Sua empresa no piloto automático.
         </h1>
         <p class="hero-sub">
-          A Unexly cuida do atendimento, agenda, vendas e fidelização — enquanto você foca no que realmente importa.
+          A Unexly responde no WhatsApp, agenda, vende e fideliza — enquanto você foca no que realmente importa.
         </p>
         <div class="hero-actions">
-          <a href="#final-cta" class="btn btn-primary">Testar grátis por 10 dias</a>
-          <a href="#features" class="btn btn-outline">Ver funcionalidades</a>
+          <a href="#cta" class="btn btn-glow magnetic" data-magnetic>
+            <span>Testar grátis por 10 dias</span>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a href="#features" class="btn btn-ghost magnetic" data-magnetic>
+            <span>Explorar plataforma</span>
+          </a>
         </div>
-        <p class="hero-trust">Sem cartão de crédito · Configuração em 2 min · Cancele quando quiser</p>
+        <p class="hero-micro">Sem cartão de crédito · Setup em 2 min · Cancele quando quiser</p>
       </div>
-      <div class="hero-visual">
-        <div class="hero-image-wrapper">
+
+      <!-- Right: Visual -->
+      <div class="hero-visual" data-parallax-container>
+        <div class="hero-photo-wrap">
           <img
             src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80"
-            alt="Empreendedora usando a plataforma Unexly"
+            alt="Empreendedora usando a Unexly"
             class="hero-photo"
-            loading="eager"
+            data-parallax="0.05"
           >
-          <!-- Floating cards -->
-          <div class="float-card float-card--chat">
-            <div class="float-card-icon float-card-icon--green">💬</div>
-            <div class="float-card-text">
-              <strong>Novo agendamento</strong>
-              <span>João Silva — 15:30 hoje</span>
-            </div>
+          <div class="hero-photo-gradient"></div>
+        </div>
+
+        <!-- Floating glass cards -->
+        <div class="glass-card glass-card--notif" data-parallax="-0.08" data-tilt>
+          <div class="glass-icon glass-icon--green">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
           </div>
-          <div class="float-card float-card--metric">
-            <span class="float-metric-label">Atendimentos hoje</span>
-            <span class="float-metric-value">127</span>
-            <span class="float-metric-change">+23% vs ontem</span>
+          <div class="glass-text">
+            <strong>Novo agendamento</strong>
+            <span>João Silva — 15:30 hoje</span>
           </div>
-          <div class="float-card float-card--reply">
-            <div class="float-card-icon float-card-icon--blue">🤖</div>
-            <div class="float-card-text">
-              <strong>IA respondeu em 8s</strong>
-              <span>94% resolvidos automaticamente</span>
-            </div>
+        </div>
+
+        <div class="glass-card glass-card--metric" data-parallax="0.12" data-tilt>
+          <span class="glass-metric-label">Atendimentos hoje</span>
+          <span class="glass-metric-value count-up" data-target="127">0</span>
+          <span class="glass-metric-change">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 9V3M6 3L3 6M6 3l3 3" stroke="#10B981" stroke-width="1.5" stroke-linecap="round"/></svg>
+            +23% vs ontem
+          </span>
+        </div>
+
+        <div class="glass-card glass-card--ai" data-parallax="-0.06" data-tilt>
+          <div class="glass-icon glass-icon--purple">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#A78BFA" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+          </div>
+          <div class="glass-text">
+            <strong>IA respondeu em 8s</strong>
+            <span>94% resolvidos automaticamente</span>
           </div>
         </div>
       </div>
     </div>
+
+    <!-- Scroll indicator -->
+    <div class="scroll-indicator">
+      <div class="scroll-mouse">
+        <div class="scroll-wheel"></div>
+      </div>
+      <span>Scroll</span>
+    </div>
   </section>
 
-  <!-- ========== METRICS STRIP ========== -->
-  <section class="metrics">
-    <div class="metrics-inner">
-      <div class="metric-item reveal">
-        <span class="metric-value">8s</span>
-        <span class="metric-label">Tempo médio de resposta</span>
+  <!-- ========== MARQUEE METRICS ========== -->
+  <section class="marquee">
+    <div class="marquee-track">
+      <div class="marquee-content">
+        <span class="marquee-item"><strong>8s</strong> tempo médio de resposta</span>
+        <span class="marquee-divider">✦</span>
+        <span class="marquee-item"><strong>94%</strong> resolvidos pela IA</span>
+        <span class="marquee-divider">✦</span>
+        <span class="marquee-item"><strong>-40%</strong> redução em no-show</span>
+        <span class="marquee-divider">✦</span>
+        <span class="marquee-item"><strong>+35%</strong> mais ocupação na agenda</span>
+        <span class="marquee-divider">✦</span>
+        <span class="marquee-item"><strong>24/7</strong> atendimento automático</span>
+        <span class="marquee-divider">✦</span>
+        <span class="marquee-item"><strong>+67%</strong> gasto de clientes fiéis</span>
+        <span class="marquee-divider">✦</span>
       </div>
-      <div class="metric-divider"></div>
-      <div class="metric-item reveal">
-        <span class="metric-value">94%</span>
-        <span class="metric-label">Resolvidos pela IA</span>
-      </div>
-      <div class="metric-divider"></div>
-      <div class="metric-item reveal">
-        <span class="metric-value">-40%</span>
-        <span class="metric-label">Redução em no-show</span>
-      </div>
-      <div class="metric-divider"></div>
-      <div class="metric-item reveal">
-        <span class="metric-value">+35%</span>
-        <span class="metric-label">Mais ocupação na agenda</span>
+      <div class="marquee-content" aria-hidden="true">
+        <span class="marquee-item"><strong>8s</strong> tempo médio de resposta</span>
+        <span class="marquee-divider">✦</span>
+        <span class="marquee-item"><strong>94%</strong> resolvidos pela IA</span>
+        <span class="marquee-divider">✦</span>
+        <span class="marquee-item"><strong>-40%</strong> redução em no-show</span>
+        <span class="marquee-divider">✦</span>
+        <span class="marquee-item"><strong>+35%</strong> mais ocupação na agenda</span>
+        <span class="marquee-divider">✦</span>
+        <span class="marquee-item"><strong>24/7</strong> atendimento automático</span>
+        <span class="marquee-divider">✦</span>
+        <span class="marquee-item"><strong>+67%</strong> gasto de clientes fiéis</span>
+        <span class="marquee-divider">✦</span>
       </div>
     </div>
   </section>
 
-  <!-- ========== WHY SECTION ========== -->
-  <section class="why" id="why">
+  <!-- ========== MANIFESTO ========== -->
+  <section class="manifesto">
     <div class="container">
-      <div class="section-header reveal">
-        <span class="section-tag">Por que a Unexly?</span>
-        <h2 class="section-title">Problemas que você conhece bem.</h2>
-        <p class="section-subtitle">A maioria dos negócios perde dinheiro com processos manuais. A Unexly resolve isso.</p>
-      </div>
-      <div class="why-grid">
-        <div class="why-card reveal">
-          <div class="why-icon">📱</div>
-          <h3>Clientes sem resposta</h3>
-          <p>67% dos clientes desistem após 5 minutos sem resposta no WhatsApp. Enquanto você não responde, seu concorrente já respondeu.</p>
-        </div>
-        <div class="why-card reveal">
-          <div class="why-icon">📅</div>
-          <h3>Agenda desorganizada</h3>
-          <p>23% dos horários perdidos por no-show. Sem confirmação automática, sem lembrete, sem reposição. Horário vazio é dinheiro perdido.</p>
-        </div>
-        <div class="why-card reveal">
-          <div class="why-icon">📊</div>
-          <h3>Dados espalhados</h3>
-          <p>Planilhas, cadernos, WhatsApp pessoal. Se um funcionário sair amanhã, quanto do seu negócio vai junto?</p>
-        </div>
-      </div>
+      <p class="manifesto-text reveal-words">
+        67% dos clientes desistem após 5 minutos sem resposta. 23% dos horários são perdidos por no-show. 4 horas por dia gastas com perguntas repetitivas. Seus dados estão numa planilha — ou pior, na cabeça de alguém. E se nada disso precisasse acontecer?
+      </p>
     </div>
   </section>
 
   <!-- ========== FEATURES ========== -->
   <section class="features" id="features">
 
-    <!-- Feature 1: AI Agents -->
-    <div class="feature-section feature-section--alt">
+    <!-- Feature 1 -->
+    <div class="feat">
       <div class="container">
-        <div class="feature-row reveal">
-          <div class="feature-content">
-            <span class="feature-tag">Agentes IA</span>
-            <h3 class="feature-title">Funcionários que nunca dormem.</h3>
-            <p class="feature-desc">Agentes de IA que atendem no WhatsApp com personalidade, contexto e inteligência real. Não é chatbot — é um funcionário digital que aprende sobre cada cliente.</p>
-            <ul class="feature-list">
-              <li>Responde perguntas sobre preços, horários e serviços</li>
+        <div class="feat-grid reveal">
+          <div class="feat-content">
+            <span class="feat-tag">Agentes IA</span>
+            <h3 class="feat-title">Funcionários que<br>nunca dormem.</h3>
+            <p class="feat-desc">Agentes de IA no WhatsApp com personalidade, contexto e inteligência real. Não é chatbot — é um funcionário digital que aprende sobre cada cliente, lembra preferências e fecha agendamentos sozinho.</p>
+            <ul class="feat-checks">
+              <li>Responde sobre preços, horários e serviços</li>
               <li>Agenda compromissos automaticamente</li>
               <li>Lembra preferências de cada cliente</li>
-              <li>Funciona 24 horas, 7 dias por semana</li>
+              <li>Funciona 24/7, sem pausas</li>
             </ul>
           </div>
-          <div class="feature-visual">
-            <img
-              src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=700&q=80"
-              alt="Pessoa usando WhatsApp no celular"
-              class="feature-photo"
-              loading="lazy"
-            >
-            <div class="feature-float feature-float--chat">
-              <div class="mini-chat">
-                <div class="mini-chat-msg mini-chat-msg--in">Tem horário pra hoje?</div>
-                <div class="mini-chat-msg mini-chat-msg--out">Olá! 😊 Temos às 14:00, 15:30 e 17:00 com a Carla. Qual prefere?</div>
-                <div class="mini-chat-msg mini-chat-msg--in">15:30</div>
-                <div class="mini-chat-msg mini-chat-msg--out">Perfeito! Agendado ✅</div>
-              </div>
+          <div class="feat-visual">
+            <div class="feat-photo-wrap">
+              <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=800&q=80" alt="Pessoa usando WhatsApp" class="feat-photo" loading="lazy">
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Feature 2: Smart Agenda -->
-    <div class="feature-section">
-      <div class="container">
-        <div class="feature-row feature-row--reverse reveal">
-          <div class="feature-content">
-            <span class="feature-tag">Agenda Inteligente</span>
-            <h3 class="feature-title">Sua agenda cheia. Sem você tocar nela.</h3>
-            <p class="feature-desc">Clientes agendam pelo WhatsApp ou por um link público. A IA confirma, envia lembrete e reagenda automaticamente quando alguém cancela.</p>
-            <div class="feature-stats">
-              <div class="feature-stat">
-                <span class="feature-stat-value feature-stat--green">-40%</span>
-                <span class="feature-stat-label">No-show</span>
-              </div>
-              <div class="feature-stat">
-                <span class="feature-stat-value feature-stat--green">+35%</span>
-                <span class="feature-stat-label">Ocupação</span>
-              </div>
-            </div>
-          </div>
-          <div class="feature-visual">
-            <img
-              src="https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=700&q=80"
-              alt="Ambiente de salão de beleza profissional"
-              class="feature-photo"
-              loading="lazy"
-            >
-            <div class="feature-float feature-float--calendar">
-              <div class="mini-calendar">
-                <div class="mini-cal-header">Março 2026</div>
-                <div class="mini-cal-slots">
-                  <div class="mini-cal-slot mini-cal-slot--booked">09:00 — Corte</div>
-                  <div class="mini-cal-slot mini-cal-slot--booked">10:00 — Barba</div>
-                  <div class="mini-cal-slot mini-cal-slot--auto">10:30 — Coloração ✨</div>
-                  <div class="mini-cal-slot mini-cal-slot--booked">14:00 — Escova</div>
-                  <div class="mini-cal-slot mini-cal-slot--rescheduled">15:00 — Reagendado ↻</div>
+            <div class="feat-glass feat-glass--chat" data-tilt>
+              <div class="minichat">
+                <div class="minichat-msg minichat-msg--user">Tem horário pra hoje?</div>
+                <div class="minichat-msg minichat-msg--bot">
+                  Olá! 😊 Temos às 14:00, 15:30 e 17:00 com a Carla. Qual prefere?
                 </div>
+                <div class="minichat-msg minichat-msg--user">15:30</div>
+                <div class="minichat-msg minichat-msg--bot">Perfeito! Agendado ✅</div>
               </div>
             </div>
           </div>
@@ -222,43 +207,78 @@
       </div>
     </div>
 
-    <!-- Feature 3: WhatsApp Panel -->
-    <div class="feature-section feature-section--alt">
+    <!-- Feature 2 -->
+    <div class="feat feat--alt">
       <div class="container">
-        <div class="feature-row reveal">
-          <div class="feature-content">
-            <span class="feature-tag">WhatsApp Central</span>
-            <h3 class="feature-title">Todas as conversas. Um painel. Zero caos.</h3>
-            <p class="feature-desc">Cada mensagem no lugar certo. A IA cuida do básico. Você cuida do que importa. Veja quem é lead, quem precisa de suporte e quem acabou de agendar.</p>
-            <ul class="feature-list">
-              <li>Conversas organizadas por status e prioridade</li>
-              <li>Tags automáticas: Lead, Agendado, VIP, Suporte</li>
+        <div class="feat-grid feat-grid--reverse reveal">
+          <div class="feat-content">
+            <span class="feat-tag">Agenda Inteligente</span>
+            <h3 class="feat-title">Agenda cheia.<br>Sem tocar nela.</h3>
+            <p class="feat-desc">Clientes agendam pelo WhatsApp ou por link. A IA confirma, envia lembrete e reagenda automaticamente quando alguém cancela.</p>
+            <div class="feat-stats">
+              <div class="feat-stat">
+                <span class="feat-stat-val count-up" data-target="40" data-prefix="-" data-suffix="%">0</span>
+                <span class="feat-stat-label">No-show</span>
+              </div>
+              <div class="feat-stat">
+                <span class="feat-stat-val count-up" data-target="35" data-prefix="+" data-suffix="%">0</span>
+                <span class="feat-stat-label">Ocupação</span>
+              </div>
+            </div>
+          </div>
+          <div class="feat-visual">
+            <div class="feat-photo-wrap">
+              <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=800&q=80" alt="Salão de beleza profissional" class="feat-photo" loading="lazy">
+            </div>
+            <div class="feat-glass feat-glass--calendar" data-tilt>
+              <div class="minical">
+                <div class="minical-header">Março 2026</div>
+                <div class="minical-slot minical-slot--booked">09:00 — Corte</div>
+                <div class="minical-slot minical-slot--booked">10:00 — Barba</div>
+                <div class="minical-slot minical-slot--auto">10:30 — Coloração ✨</div>
+                <div class="minical-slot minical-slot--booked">14:00 — Escova</div>
+                <div class="minical-slot minical-slot--reschedule">15:00 — Reagendado ↻</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Feature 3 -->
+    <div class="feat">
+      <div class="container">
+        <div class="feat-grid reveal">
+          <div class="feat-content">
+            <span class="feat-tag">WhatsApp Central</span>
+            <h3 class="feat-title">Todas as conversas.<br>Zero caos.</h3>
+            <p class="feat-desc">Cada mensagem no lugar certo. A IA cuida do básico. Você cuida do que importa. Tags automáticas organizam tudo: Lead, Agendado, VIP, Suporte.</p>
+            <ul class="feat-checks">
+              <li>Conversas organizadas por status</li>
+              <li>Tags automáticas inteligentes</li>
               <li>Métricas de atendimento em tempo real</li>
             </ul>
           </div>
-          <div class="feature-visual">
-            <img
-              src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=700&q=80"
-              alt="Equipe trabalhando colaborativamente"
-              class="feature-photo"
-              loading="lazy"
-            >
-            <div class="feature-float feature-float--panel">
-              <div class="mini-panel">
-                <div class="mini-panel-row">
-                  <span class="mini-avatar" style="background:#10B981">J</span>
-                  <span class="mini-name">João Silva</span>
-                  <span class="mini-tag mini-tag--green">Agendado</span>
+          <div class="feat-visual">
+            <div class="feat-photo-wrap">
+              <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80" alt="Equipe trabalhando" class="feat-photo" loading="lazy">
+            </div>
+            <div class="feat-glass feat-glass--panel" data-tilt>
+              <div class="minipanel">
+                <div class="minipanel-row minipanel-row--active">
+                  <span class="minipanel-avatar" style="background:#10B981">J</span>
+                  <span class="minipanel-name">João Silva</span>
+                  <span class="minipanel-tag minipanel-tag--green">Agendado</span>
                 </div>
-                <div class="mini-panel-row">
-                  <span class="mini-avatar" style="background:#4F6EF7">M</span>
-                  <span class="mini-name">Maria Costa</span>
-                  <span class="mini-tag mini-tag--blue">Lead</span>
+                <div class="minipanel-row">
+                  <span class="minipanel-avatar" style="background:#7C5CFC">M</span>
+                  <span class="minipanel-name">Maria Costa</span>
+                  <span class="minipanel-tag minipanel-tag--blue">Lead</span>
                 </div>
-                <div class="mini-panel-row">
-                  <span class="mini-avatar" style="background:#F59E0B">P</span>
-                  <span class="mini-name">Pedro Almeida</span>
-                  <span class="mini-tag mini-tag--orange">Suporte</span>
+                <div class="minipanel-row">
+                  <span class="minipanel-avatar" style="background:#F59E0B">P</span>
+                  <span class="minipanel-name">Pedro Almeida</span>
+                  <span class="minipanel-tag minipanel-tag--orange">Suporte</span>
                 </div>
               </div>
             </div>
@@ -267,46 +287,34 @@
       </div>
     </div>
 
-    <!-- Feature 4: Complete Management -->
-    <div class="feature-section">
+    <!-- Feature 4 -->
+    <div class="feat feat--alt">
       <div class="container">
-        <div class="feature-row feature-row--reverse reveal">
-          <div class="feature-content">
-            <span class="feature-tag">Gestão Completa</span>
-            <h3 class="feature-title">CRM, financeiro e fidelidade. Tudo conectado.</h3>
-            <p class="feature-desc">Saiba quem são seus melhores clientes, acompanhe receitas e despesas em tempo real, e fidelize automaticamente com programa de pontos.</p>
-            <div class="feature-stats">
-              <div class="feature-stat">
-                <span class="feature-stat-value">R$ 48.320</span>
-                <span class="feature-stat-label">Receita mensal</span>
+        <div class="feat-grid feat-grid--reverse reveal">
+          <div class="feat-content">
+            <span class="feat-tag">Gestão Completa</span>
+            <h3 class="feat-title">CRM, financeiro<br>e fidelidade.</h3>
+            <p class="feat-desc">Saiba quem são seus melhores clientes, acompanhe receitas em tempo real, e fidelize automaticamente com programa de pontos.</p>
+            <div class="feat-stats">
+              <div class="feat-stat">
+                <span class="feat-stat-val">R$ 48k</span>
+                <span class="feat-stat-label">Receita mensal média</span>
               </div>
-              <div class="feature-stat">
-                <span class="feature-stat-value feature-stat--green">+67%</span>
-                <span class="feature-stat-label">Gasto de clientes fiéis</span>
+              <div class="feat-stat">
+                <span class="feat-stat-val count-up" data-target="67" data-prefix="+" data-suffix="%">0</span>
+                <span class="feat-stat-label">Gasto de clientes fiéis</span>
               </div>
             </div>
           </div>
-          <div class="feature-visual">
-            <img
-              src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=700&q=80"
-              alt="Dashboard de análise de dados"
-              class="feature-photo"
-              loading="lazy"
-            >
-            <div class="feature-float feature-float--crm">
-              <div class="mini-crm">
-                <div class="mini-crm-row">
-                  <span class="mini-crm-label">Cliente VIP</span>
-                  <span class="mini-crm-name">Ana Clara M.</span>
-                </div>
-                <div class="mini-crm-row">
-                  <span class="mini-crm-label">Gasto total</span>
-                  <span class="mini-crm-value">R$ 4.280</span>
-                </div>
-                <div class="mini-crm-row">
-                  <span class="mini-crm-label">Nível</span>
-                  <span class="mini-crm-tier">🥇 Gold</span>
-                </div>
+          <div class="feat-visual">
+            <div class="feat-photo-wrap">
+              <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80" alt="Dashboard de analytics" class="feat-photo" loading="lazy">
+            </div>
+            <div class="feat-glass feat-glass--crm" data-tilt>
+              <div class="minicrm">
+                <div class="minicrm-row"><span class="minicrm-label">Cliente VIP</span><span class="minicrm-val">Ana Clara M.</span></div>
+                <div class="minicrm-row"><span class="minicrm-label">Gasto total</span><span class="minicrm-val minicrm-val--accent">R$ 4.280</span></div>
+                <div class="minicrm-row"><span class="minicrm-label">Nível</span><span class="minicrm-val">🥇 Gold</span></div>
               </div>
             </div>
           </div>
@@ -319,70 +327,69 @@
   <section class="modules" id="modules">
     <div class="container">
       <div class="section-header reveal">
-        <span class="section-tag">+40 módulos</span>
-        <h2 class="section-title">Tudo que seu negócio precisa. Num lugar só.</h2>
+        <span class="section-tag">+40 Módulos integrados</span>
+        <h2 class="section-title">Tudo num lugar só.</h2>
       </div>
       <div class="module-grid">
-        <div class="module-card reveal"><span class="module-icon">🤖</span><span class="module-name">Agentes IA</span><span class="module-desc">Atendimento automático 24/7</span></div>
-        <div class="module-card reveal"><span class="module-icon">💬</span><span class="module-name">WhatsApp</span><span class="module-desc">Conversas organizadas num painel</span></div>
-        <div class="module-card reveal"><span class="module-icon">📅</span><span class="module-name">Agenda</span><span class="module-desc">Agendamento com confirmação automática</span></div>
-        <div class="module-card reveal"><span class="module-icon">👥</span><span class="module-name">Clientes</span><span class="module-desc">Ficha completa atualizada sozinha</span></div>
-        <div class="module-card reveal"><span class="module-icon">💰</span><span class="module-name">Financeiro</span><span class="module-desc">Entradas, saídas e lucro em tempo real</span></div>
-        <div class="module-card reveal"><span class="module-icon">🧮</span><span class="module-name">Comissões</span><span class="module-desc">Cálculo automático por funcionário</span></div>
-        <div class="module-card reveal"><span class="module-icon">⭐</span><span class="module-name">Fidelidade</span><span class="module-desc">Programa de pontos e recompensas</span></div>
-        <div class="module-card reveal"><span class="module-icon">📋</span><span class="module-name">Pesquisa NPS</span><span class="module-desc">Saiba o que seus clientes acham</span></div>
-        <div class="module-card module-card--soon reveal"><span class="module-soon-badge">Em breve</span><span class="module-icon">📢</span><span class="module-name">Campanhas</span><span class="module-desc">Promoções por WhatsApp</span></div>
-        <div class="module-card reveal"><span class="module-icon">🌐</span><span class="module-name">Páginas de Venda</span><span class="module-desc">Crie páginas bonitas com IA</span></div>
-        <div class="module-card reveal"><span class="module-icon">🛍️</span><span class="module-name">Produtos</span><span class="module-desc">Catálogo e pedidos online</span></div>
-        <div class="module-card reveal"><span class="module-icon">👔</span><span class="module-name">Equipe</span><span class="module-desc">Controle quem acessa o quê</span></div>
-        <div class="module-card reveal"><span class="module-icon">🏢</span><span class="module-name">Filiais</span><span class="module-desc">Gerencie várias unidades</span></div>
-        <div class="module-card reveal"><span class="module-icon">⚡</span><span class="module-name">Respostas Rápidas</span><span class="module-desc">Mensagens prontas pra ganhar tempo</span></div>
-        <div class="module-card reveal"><span class="module-icon">📚</span><span class="module-name">Base de Conhecimento</span><span class="module-desc">Ensine a IA sobre seu negócio</span></div>
-        <div class="module-card reveal"><span class="module-icon">🏪</span><span class="module-name">Loja de Agentes</span><span class="module-desc">Agentes prontos com 1 clique</span></div>
-        <div class="module-card reveal"><span class="module-icon">📊</span><span class="module-name">Relatórios</span><span class="module-desc">Números em gráficos simples</span></div>
-        <div class="module-card module-card--soon reveal"><span class="module-soon-badge">Em breve</span><span class="module-icon">⚙️</span><span class="module-name">Automações</span><span class="module-desc">Regras automáticas</span></div>
-        <div class="module-card reveal"><span class="module-icon">✍️</span><span class="module-name">Contratos</span><span class="module-desc">Assinatura digital por link</span></div>
-        <div class="module-card module-card--soon reveal"><span class="module-soon-badge">Em breve</span><span class="module-icon">🎯</span><span class="module-name">Leads</span><span class="module-desc">Acompanhe oportunidades</span></div>
-        <div class="module-card reveal"><span class="module-icon">🔔</span><span class="module-name">Notificações</span><span class="module-desc">Lembretes automáticos</span></div>
-        <div class="module-card reveal"><span class="module-icon">🔗</span><span class="module-name">Link de Agendamento</span><span class="module-desc">Agende sem precisar de conta</span></div>
-        <div class="module-card reveal"><span class="module-icon">⏳</span><span class="module-name">Lista de Espera</span><span class="module-desc">Avisa quando abrir vaga</span></div>
-        <div class="module-card module-card--soon reveal"><span class="module-soon-badge">Em breve</span><span class="module-icon">🎙️</span><span class="module-name">Áudio IA</span><span class="module-desc">Transcreve e responde por voz</span></div>
-        <div class="module-card reveal"><span class="module-icon">📜</span><span class="module-name">Histórico</span><span class="module-desc">Tudo sobre cada cliente</span></div>
-        <div class="module-card reveal"><span class="module-icon">📦</span><span class="module-name">Pacotes</span><span class="module-desc">Venda combos de serviços</span></div>
-        <div class="module-card module-card--soon reveal"><span class="module-soon-badge">Em breve</span><span class="module-icon">📋</span><span class="module-name">Estoque</span><span class="module-desc">Controle por unidade</span></div>
-        <div class="module-card module-card--soon reveal"><span class="module-soon-badge">Em breve</span><span class="module-icon">🤝</span><span class="module-name">Indicações</span><span class="module-desc">Recompense quem indica</span></div>
+        <div class="module-card tilt-card reveal"><span class="mc-icon">🤖</span><span class="mc-name">Agentes IA</span><span class="mc-desc">Atendimento 24/7</span></div>
+        <div class="module-card tilt-card reveal"><span class="mc-icon">💬</span><span class="mc-name">WhatsApp</span><span class="mc-desc">Painel centralizado</span></div>
+        <div class="module-card tilt-card reveal"><span class="mc-icon">📅</span><span class="mc-name">Agenda</span><span class="mc-desc">Confirmação automática</span></div>
+        <div class="module-card tilt-card reveal"><span class="mc-icon">👥</span><span class="mc-name">Clientes</span><span class="mc-desc">CRM inteligente</span></div>
+        <div class="module-card tilt-card reveal"><span class="mc-icon">💰</span><span class="mc-name">Financeiro</span><span class="mc-desc">Lucro em tempo real</span></div>
+        <div class="module-card tilt-card reveal"><span class="mc-icon">🧮</span><span class="mc-name">Comissões</span><span class="mc-desc">Cálculo automático</span></div>
+        <div class="module-card tilt-card reveal"><span class="mc-icon">⭐</span><span class="mc-name">Fidelidade</span><span class="mc-desc">Pontos e recompensas</span></div>
+        <div class="module-card tilt-card reveal"><span class="mc-icon">📋</span><span class="mc-name">Pesquisa NPS</span><span class="mc-desc">Feedback dos clientes</span></div>
+        <div class="module-card module-card--soon tilt-card reveal"><span class="mc-soon">Em breve</span><span class="mc-icon">📢</span><span class="mc-name">Campanhas</span><span class="mc-desc">Promoções por WhatsApp</span></div>
+        <div class="module-card tilt-card reveal"><span class="mc-icon">🌐</span><span class="mc-name">Páginas de Venda</span><span class="mc-desc">Landing pages com IA</span></div>
+        <div class="module-card tilt-card reveal"><span class="mc-icon">🛍️</span><span class="mc-name">Produtos</span><span class="mc-desc">Catálogo online</span></div>
+        <div class="module-card tilt-card reveal"><span class="mc-icon">👔</span><span class="mc-name">Equipe</span><span class="mc-desc">Controle de acesso</span></div>
+        <div class="module-card tilt-card reveal"><span class="mc-icon">🏢</span><span class="mc-name">Filiais</span><span class="mc-desc">Multi-unidades</span></div>
+        <div class="module-card tilt-card reveal"><span class="mc-icon">⚡</span><span class="mc-name">Respostas Rápidas</span><span class="mc-desc">Templates prontos</span></div>
+        <div class="module-card tilt-card reveal"><span class="mc-icon">📚</span><span class="mc-name">Base de Conhecimento</span><span class="mc-desc">Treine a IA</span></div>
+        <div class="module-card tilt-card reveal"><span class="mc-icon">🏪</span><span class="mc-name">Loja de Agentes</span><span class="mc-desc">1 clique pra instalar</span></div>
+        <div class="module-card tilt-card reveal"><span class="mc-icon">📊</span><span class="mc-name">Relatórios</span><span class="mc-desc">Gráficos intuitivos</span></div>
+        <div class="module-card module-card--soon tilt-card reveal"><span class="mc-soon">Em breve</span><span class="mc-icon">⚙️</span><span class="mc-name">Automações</span><span class="mc-desc">Regras automáticas</span></div>
+        <div class="module-card tilt-card reveal"><span class="mc-icon">✍️</span><span class="mc-name">Contratos</span><span class="mc-desc">Assinatura digital</span></div>
+        <div class="module-card module-card--soon tilt-card reveal"><span class="mc-soon">Em breve</span><span class="mc-icon">🎯</span><span class="mc-name">Leads</span><span class="mc-desc">Pipeline de vendas</span></div>
+        <div class="module-card tilt-card reveal"><span class="mc-icon">🔔</span><span class="mc-name">Notificações</span><span class="mc-desc">Lembretes por WhatsApp</span></div>
+        <div class="module-card tilt-card reveal"><span class="mc-icon">🔗</span><span class="mc-name">Link de Agenda</span><span class="mc-desc">Sem precisar de conta</span></div>
+        <div class="module-card tilt-card reveal"><span class="mc-icon">⏳</span><span class="mc-name">Lista de Espera</span><span class="mc-desc">Aviso de vaga</span></div>
+        <div class="module-card module-card--soon tilt-card reveal"><span class="mc-soon">Em breve</span><span class="mc-icon">🎙️</span><span class="mc-name">Áudio IA</span><span class="mc-desc">Voz para texto</span></div>
+        <div class="module-card tilt-card reveal"><span class="mc-icon">📜</span><span class="mc-name">Histórico</span><span class="mc-desc">Timeline do cliente</span></div>
+        <div class="module-card tilt-card reveal"><span class="mc-icon">📦</span><span class="mc-name">Pacotes</span><span class="mc-desc">Combos de serviços</span></div>
+        <div class="module-card module-card--soon tilt-card reveal"><span class="mc-soon">Em breve</span><span class="mc-icon">📋</span><span class="mc-name">Estoque</span><span class="mc-desc">Controle por unidade</span></div>
+        <div class="module-card module-card--soon tilt-card reveal"><span class="mc-soon">Em breve</span><span class="mc-icon">🤝</span><span class="mc-name">Indicações</span><span class="mc-desc">Recompense indicações</span></div>
       </div>
     </div>
   </section>
 
-  <!-- ========== TRUST / SECURITY ========== -->
-  <section class="trust" id="trust">
+  <!-- ========== SECURITY ========== -->
+  <section class="security">
     <div class="container">
       <div class="section-header reveal">
         <span class="section-tag">Segurança</span>
-        <h2 class="section-title">Seus dados estão seguros. Levamos isso a sério.</h2>
-        <p class="section-subtitle">Usamos as mesmas práticas de proteção que grandes empresas de tecnologia.</p>
+        <h2 class="section-title">Seus dados, nossa<br>responsabilidade.</h2>
       </div>
-      <div class="trust-grid">
-        <div class="trust-card reveal">
-          <div class="trust-icon">🔒</div>
-          <h4>Dados isolados</h4>
-          <p>Suas informações ficam 100% separadas. Nenhuma outra empresa acessa seus dados.</p>
+      <div class="security-grid">
+        <div class="security-card tilt-card reveal">
+          <div class="sec-icon">🔒</div>
+          <h4>Dados 100% isolados</h4>
+          <p>Nenhuma empresa acessa os dados de outra. Jamais.</p>
         </div>
-        <div class="trust-card reveal">
-          <div class="trust-icon">🔐</div>
+        <div class="security-card tilt-card reveal">
+          <div class="sec-icon">🔐</div>
           <h4>Criptografia bancária</h4>
-          <p>Senhas e dados sensíveis protegidos com a mesma tecnologia usada por bancos.</p>
+          <p>Mesma proteção que os maiores bancos do mundo.</p>
         </div>
-        <div class="trust-card reveal">
-          <div class="trust-icon">👥</div>
+        <div class="security-card tilt-card reveal">
+          <div class="sec-icon">👥</div>
           <h4>Controle de acesso</h4>
-          <p>Defina o que cada pessoa da equipe pode ver e fazer na plataforma.</p>
+          <p>Defina permissões por pessoa, por função.</p>
         </div>
-        <div class="trust-card reveal">
-          <div class="trust-icon">📋</div>
+        <div class="security-card tilt-card reveal">
+          <div class="sec-icon">📋</div>
           <h4>Conforme a LGPD</h4>
-          <p>Exporte ou exclua dados de qualquer cliente com um clique.</p>
+          <p>Exporte ou exclua dados com um clique.</p>
         </div>
       </div>
     </div>
@@ -393,62 +400,65 @@
     <div class="container">
       <div class="section-header reveal">
         <span class="section-tag">Preços</span>
-        <h2 class="section-title">Comece simples. Escale quando quiser.</h2>
+        <h2 class="section-title">Simples. Transparente.</h2>
       </div>
       <div class="pricing-grid">
-        <div class="plan-card reveal">
-          <div class="plan-header">
-            <span class="plan-name">Trial</span>
-            <div class="plan-price-row">
-              <span class="plan-price">Grátis</span>
-            </div>
-            <span class="plan-duration">10 dias para testar tudo</span>
+        <div class="price-card tilt-card reveal">
+          <div class="price-header">
+            <span class="price-name">Trial</span>
+            <span class="price-amount">Grátis</span>
+            <span class="price-sub">10 dias com acesso total</span>
           </div>
-          <ul class="plan-features">
+          <ul class="price-features">
             <li>Acesso completo à plataforma</li>
             <li>Agente IA no WhatsApp</li>
             <li>Agenda com confirmação automática</li>
-            <li>Ficha de clientes</li>
-            <li>Financeiro e comissões</li>
+            <li>CRM + Financeiro + Comissões</li>
             <li>Sem cartão de crédito</li>
           </ul>
-          <a href="#final-cta" class="btn btn-outline btn-full">Começar grátis</a>
+          <a href="#cta" class="btn btn-outline btn-full magnetic" data-magnetic>Começar grátis</a>
         </div>
-        <div class="plan-card plan-card--featured reveal">
-          <div class="plan-badge">Recomendado</div>
-          <div class="plan-header">
-            <span class="plan-name">Pro</span>
-            <div class="plan-price-row">
-              <span class="plan-price">R$ 199</span>
-              <span class="plan-period">/mês</span>
+        <div class="price-card price-card--pro tilt-card reveal">
+          <div class="price-badge">Recomendado</div>
+          <div class="price-header">
+            <span class="price-name">Pro</span>
+            <div class="price-row">
+              <span class="price-amount">R$ 199</span>
+              <span class="price-period">/mês</span>
             </div>
           </div>
-          <ul class="plan-features">
-            <li>Tudo da plataforma, sem limite</li>
+          <ul class="price-features">
+            <li>Tudo, sem limites</li>
             <li>Agentes IA ilimitados</li>
             <li>WhatsApp sem restrições</li>
-            <li>Agenda, clientes e financeiro completo</li>
-            <li>Fidelidade, campanhas e automações</li>
-            <li>Relatórios e métricas</li>
+            <li>Fidelidade + Campanhas + Automações</li>
+            <li>Relatórios avançados</li>
             <li>Equipe e filiais</li>
             <li>Suporte prioritário</li>
           </ul>
-          <a href="#final-cta" class="btn btn-primary btn-full">Começar agora</a>
+          <a href="#cta" class="btn btn-glow btn-full magnetic" data-magnetic>
+            <span>Começar agora</span>
+          </a>
         </div>
       </div>
     </div>
   </section>
 
   <!-- ========== FINAL CTA ========== -->
-  <section class="final-cta" id="final-cta">
+  <section class="cta" id="cta">
+    <div class="cta-orbs">
+      <div class="orb orb--4"></div>
+      <div class="orb orb--5"></div>
+    </div>
     <div class="container">
-      <div class="cta-wrapper reveal">
-        <h2 class="cta-title">Pronto para colocar seu negócio no piloto automático?</h2>
-        <p class="cta-subtitle">Junte-se a centenas de negócios que já usam a Unexly para atender, agendar e fidelizar automaticamente.</p>
-        <div class="cta-actions">
-          <a href="#" class="btn btn-white btn-large">Testar grátis por 10 dias</a>
-        </div>
-        <p class="cta-micro">Sem cartão · Configuração em 2 minutos · Seus agentes IA começam a trabalhar hoje</p>
+      <div class="cta-inner reveal">
+        <h2 class="cta-title" data-split-words>Pronto para o piloto automático?</h2>
+        <p class="cta-sub">Junte-se a centenas de negócios que já automatizaram atendimento, agenda e fidelização com a Unexly.</p>
+        <a href="#" class="btn btn-white btn-large magnetic" data-magnetic>
+          <span>Testar grátis por 10 dias</span>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <p class="cta-micro">Sem cartão · 2 minutos · Seus agentes IA começam hoje</p>
       </div>
     </div>
   </section>
@@ -456,30 +466,32 @@
   <!-- ========== FOOTER ========== -->
   <footer class="footer">
     <div class="container footer-inner">
-      <div class="footer-brand">
-        <img src="out/prints/logo/logo_unexly.png" alt="Unexly" class="footer-logo-img">
-        <p class="footer-tagline">A plataforma completa para seu negócio.</p>
+      <div class="footer-top">
+        <div class="footer-brand">
+          <img src="out/prints/logo/logo_unexly.png" alt="Unexly" class="footer-logo">
+          <p>A plataforma completa para seu negócio.</p>
+        </div>
+        <nav class="footer-nav">
+          <div class="footer-col">
+            <span class="footer-col-title">Produto</span>
+            <a href="#features">Funcionalidades</a>
+            <a href="#modules">Módulos</a>
+            <a href="#pricing">Preços</a>
+          </div>
+          <div class="footer-col">
+            <span class="footer-col-title">Empresa</span>
+            <a href="#">Sobre</a>
+            <a href="#">Contato</a>
+            <a href="#">Blog</a>
+          </div>
+          <div class="footer-col">
+            <span class="footer-col-title">Legal</span>
+            <a href="#">Termos de Uso</a>
+            <a href="#">Privacidade</a>
+            <a href="#">LGPD</a>
+          </div>
+        </nav>
       </div>
-      <nav class="footer-nav">
-        <div class="footer-col">
-          <span class="footer-col-title">Produto</span>
-          <a href="#features">Funcionalidades</a>
-          <a href="#modules">Módulos</a>
-          <a href="#pricing">Preços</a>
-        </div>
-        <div class="footer-col">
-          <span class="footer-col-title">Empresa</span>
-          <a href="#">Sobre</a>
-          <a href="#">Contato</a>
-          <a href="#">Blog</a>
-        </div>
-        <div class="footer-col">
-          <span class="footer-col-title">Legal</span>
-          <a href="#">Termos de Uso</a>
-          <a href="#">Privacidade</a>
-          <a href="#">LGPD</a>
-        </div>
-      </nav>
       <div class="footer-bottom">
         <span>&copy; 2026 Unexly. Todos os direitos reservados.</span>
       </div>

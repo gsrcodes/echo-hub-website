@@ -13,6 +13,46 @@
   const $$ = (s, p = document) => [...p.querySelectorAll(s)];
 
   /* ═══════════════════════════════════════════════════
+     FLOATING ICONS (cursor-following, replaces grain)
+     ═══════════════════════════════════════════════════ */
+  const floatingContainer = $('#floatingIcons');
+  if (floatingContainer) {
+    const icons = ['💬','📅','🤖','⭐','📊','💰','🔔','👥','📋','⚡','🛍️','🎯','📦','🔗','✍️','🏢'];
+    const positions = [];
+    const count = 18;
+
+    for (let i = 0; i < count; i++) {
+      const span = document.createElement('span');
+      span.className = 'floating-icon';
+      span.textContent = icons[i % icons.length];
+      const x = Math.random() * 100;
+      const y = Math.random() * 100;
+      span.style.left = x + '%';
+      span.style.top = y + '%';
+      floatingContainer.appendChild(span);
+      positions.push({ el: span, baseX: x, baseY: y, speed: 0.02 + Math.random() * 0.04 });
+    }
+
+    if (!isTouch) {
+      let iconMx = window.innerWidth / 2;
+      let iconMy = window.innerHeight / 2;
+      document.addEventListener('mousemove', e => { iconMx = e.clientX; iconMy = e.clientY; });
+
+      (function iconTick() {
+        const cx = (iconMx / window.innerWidth - 0.5) * 2;
+        const cy = (iconMy / window.innerHeight - 0.5) * 2;
+        for (let i = 0; i < positions.length; i++) {
+          const p = positions[i];
+          const dx = cx * p.speed * 120;
+          const dy = cy * p.speed * 120;
+          p.el.style.transform = 'translate(' + dx + 'px,' + dy + 'px)';
+        }
+        requestAnimationFrame(iconTick);
+      })();
+    }
+  }
+
+  /* ═══════════════════════════════════════════════════
      CUSTOM CURSOR (desktop only)
      ═══════════════════════════════════════════════════ */
   if (!isTouch) {
@@ -176,18 +216,27 @@
       /* Skip elements with parallax — transform is managed there */
       if (card.dataset.parallax) return;
 
+      let ticking = false;
+      let lastRotX = 0, lastRotY = 0;
+
       card.addEventListener('mousemove', e => {
-        const r = card.getBoundingClientRect();
-        const rotX = ((e.clientY - r.top) / r.height - 0.5) * -8;
-        const rotY = ((e.clientX - r.left) / r.width - 0.5) * 8;
-        card.style.transform =
-          'perspective(800px) rotateX(' + rotX + 'deg) rotateY(' + rotY + 'deg) translateY(-4px) scale3d(1.02,1.02,1)';
-        card.style.transition = 'transform .1s ease';
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(() => {
+          const r = card.getBoundingClientRect();
+          lastRotX = ((e.clientY - r.top) / r.height - 0.5) * -6;
+          lastRotY = ((e.clientX - r.left) / r.width - 0.5) * 6;
+          card.style.transform =
+            'perspective(800px) rotateX(' + lastRotX + 'deg) rotateY(' + lastRotY + 'deg) translateZ(0) scale3d(1.01,1.01,1)';
+          card.style.transition = 'transform .15s ease';
+          ticking = false;
+        });
       });
 
       card.addEventListener('mouseleave', () => {
+        ticking = false;
         card.style.transform = '';
-        card.style.transition = '';
+        card.style.transition = 'transform .4s cubic-bezier(.34,1.56,.64,1)';
       });
     });
   }

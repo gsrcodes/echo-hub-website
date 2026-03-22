@@ -109,27 +109,24 @@ button { font: inherit; cursor: none; border: none; background: none; }
   transition: none;
 }
 
-/* ---------- Grain Overlay ---------- */
-.grain {
+/* ---------- Floating Icons (cursor-following) ---------- */
+.floating-icons {
   position: fixed;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
+  inset: 0;
   pointer-events: none;
-  z-index: 9000;
-  opacity: 0.035;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-  background-repeat: repeat;
-  animation: grainShift 0.5s steps(1) infinite;
+  z-index: 1;
+  overflow: hidden;
 }
-@keyframes grainShift {
-  0% { transform: translate(0, 0); }
-  25% { transform: translate(-5%, -5%); }
-  50% { transform: translate(5%, 0); }
-  75% { transform: translate(0, 5%); }
-  100% { transform: translate(-5%, 5%); }
+.floating-icon {
+  position: absolute;
+  font-size: 28px;
+  opacity: 0.045;
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+  filter: blur(0.5px);
 }
+.floating-icon:nth-child(odd) { font-size: 32px; opacity: 0.055; }
+.floating-icon:nth-child(3n) { font-size: 22px; opacity: 0.035; }
 
 /* ---------- Reveal Animation ---------- */
 .reveal {
@@ -499,10 +496,10 @@ button { font: inherit; cursor: none; border: none; background: none; }
 /* Glass Cards */
 .glass-card {
   position: absolute;
-  background: rgba(255,255,255,0.08);
-  backdrop-filter: blur(20px) saturate(1.4);
-  -webkit-backdrop-filter: blur(20px) saturate(1.4);
-  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(20,20,25,0.75);
+  backdrop-filter: blur(12px) saturate(1.2);
+  -webkit-backdrop-filter: blur(12px) saturate(1.2);
+  border: 1px solid rgba(255,255,255,0.1);
   border-radius: var(--radius);
   padding: 16px 20px;
   display: flex;
@@ -512,6 +509,7 @@ button { font: inherit; cursor: none; border: none; background: none; }
   opacity: 0;
   transition: transform 0.4s var(--ease), box-shadow 0.4s;
   box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  will-change: transform;
 }
 .glass-card--notif {
   top: 40px;
@@ -774,19 +772,20 @@ button { font: inherit; cursor: none; border: none; background: none; }
 .feat-glass {
   position: absolute;
   z-index: 5;
-  background: rgba(255,255,255,0.08);
-  backdrop-filter: blur(20px) saturate(1.4);
-  -webkit-backdrop-filter: blur(20px) saturate(1.4);
-  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(20,20,25,0.75);
+  backdrop-filter: blur(12px) saturate(1.2);
+  -webkit-backdrop-filter: blur(12px) saturate(1.2);
+  border: 1px solid rgba(255,255,255,0.1);
   border-radius: var(--radius);
   box-shadow: 0 8px 32px rgba(0,0,0,0.3);
   opacity: 0;
-  transform: translateY(24px);
+  transform: translateY(24px) translateZ(0);
   transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+  will-change: transform, opacity;
 }
 .reveal.visible .feat-glass {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(0) translateZ(0);
   transition-delay: 0.4s;
 }
 
@@ -1236,7 +1235,7 @@ button { font: inherit; cursor: none; border: none; background: none; }
   .hero-photo { opacity: 1; transform: none; animation: none; }
   .glass-card { opacity: 1; animation: none; }
   .orb { animation: none; }
-  .grain { animation: none; }
+  .floating-icon { transition: none; }
   .marquee-track { animation: none; }
   .scroll-indicator { opacity: 1; animation: none; }
 }

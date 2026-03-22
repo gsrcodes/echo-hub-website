@@ -13,43 +13,106 @@
   const $$ = (s, p = document) => [...p.querySelectorAll(s)];
 
   /* ═══════════════════════════════════════════════════
-     FLOATING ICONS (cursor-following, replaces grain)
+     WEB MESH (translucent connecting lines, cursor-reactive)
      ═══════════════════════════════════════════════════ */
-  const floatingContainer = $('#floatingIcons');
-  if (floatingContainer) {
-    const icons = ['💬','📅','🤖','⭐','📊','💰','🔔','👥','📋','⚡','🛍️','🎯','📦','🔗','✍️','🏢'];
-    const positions = [];
-    const count = 18;
+  const meshCanvas = $('#webMesh');
+  if (meshCanvas) {
+    const ctx = meshCanvas.getContext('2d');
+    const nodes = [];
+    const NODE_COUNT = 60;
+    const CONNECT_DIST = 180;
+    const MOUSE_RADIUS = 250;
+    let meshMx = -9999, meshMy = -9999;
 
-    for (let i = 0; i < count; i++) {
-      const span = document.createElement('span');
-      span.className = 'floating-icon';
-      span.textContent = icons[i % icons.length];
-      const x = Math.random() * 100;
-      const y = Math.random() * 100;
-      span.style.left = x + '%';
-      span.style.top = y + '%';
-      floatingContainer.appendChild(span);
-      positions.push({ el: span, baseX: x, baseY: y, speed: 0.02 + Math.random() * 0.04 });
+    function resizeMesh() {
+      meshCanvas.width = window.innerWidth;
+      meshCanvas.height = window.innerHeight;
+    }
+    resizeMesh();
+    window.addEventListener('resize', resizeMesh);
+
+    for (let i = 0; i < NODE_COUNT; i++) {
+      nodes.push({
+        x: Math.random() * window.innerWidth,
+        y: Math.random() * window.innerHeight,
+        vx: (Math.random() - 0.5) * 0.4,
+        vy: (Math.random() - 0.5) * 0.4
+      });
     }
 
     if (!isTouch) {
-      let iconMx = window.innerWidth / 2;
-      let iconMy = window.innerHeight / 2;
-      document.addEventListener('mousemove', e => { iconMx = e.clientX; iconMy = e.clientY; });
-
-      (function iconTick() {
-        const cx = (iconMx / window.innerWidth - 0.5) * 2;
-        const cy = (iconMy / window.innerHeight - 0.5) * 2;
-        for (let i = 0; i < positions.length; i++) {
-          const p = positions[i];
-          const dx = cx * p.speed * 120;
-          const dy = cy * p.speed * 120;
-          p.el.style.transform = 'translate(' + dx + 'px,' + dy + 'px)';
-        }
-        requestAnimationFrame(iconTick);
-      })();
+      document.addEventListener('mousemove', e => { meshMx = e.clientX; meshMy = e.clientY; });
+      document.addEventListener('mouseleave', () => { meshMx = -9999; meshMy = -9999; });
     }
+
+    (function meshTick() {
+      ctx.clearRect(0, 0, meshCanvas.width, meshCanvas.height);
+      const w = meshCanvas.width, h = meshCanvas.height;
+
+      for (let i = 0; i < nodes.length; i++) {
+        const n = nodes[i];
+        n.x += n.vx;
+        n.y += n.vy;
+        if (n.x < 0 || n.x > w) n.vx *= -1;
+        if (n.y < 0 || n.y > h) n.vy *= -1;
+
+        // Mouse repulsion for subtle interactivity
+        const dmx = n.x - meshMx;
+        const dmy = n.y - meshMy;
+        const dm = Math.sqrt(dmx * dmx + dmy * dmy);
+        if (dm < MOUSE_RADIUS && dm > 0) {
+          const force = (MOUSE_RADIUS - dm) / MOUSE_RADIUS * 0.8;
+          n.x += (dmx / dm) * force;
+          n.y += (dmy / dm) * force;
+        }
+      }
+
+      // Draw connecting lines between nearby nodes
+      for (let i = 0; i < nodes.length; i++) {
+        for (let j = i + 1; j < nodes.length; j++) {
+          const dx = nodes[i].x - nodes[j].x;
+          const dy = nodes[i].y - nodes[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < CONNECT_DIST) {
+            const alpha = (1 - dist / CONNECT_DIST) * 0.07;
+            ctx.beginPath();
+            ctx.moveTo(nodes[i].x, nodes[i].y);
+            ctx.lineTo(nodes[j].x, nodes[j].y);
+            ctx.strokeStyle = 'rgba(167, 139, 250, ' + alpha + ')';
+            ctx.lineWidth = 0.8;
+            ctx.stroke();
+          }
+        }
+      }
+
+      // Draw nodes
+      for (let i = 0; i < nodes.length; i++) {
+        ctx.beginPath();
+        ctx.arc(nodes[i].x, nodes[i].y, 1.5, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(167, 139, 250, 0.08)';
+        ctx.fill();
+      }
+
+      // Brighter lines near cursor
+      if (meshMx > 0) {
+        for (let i = 0; i < nodes.length; i++) {
+          const dx = nodes[i].x - meshMx;
+          const dy = nodes[i].y - meshMy;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < MOUSE_RADIUS) {
+            const alpha = (1 - dist / MOUSE_RADIUS) * 0.15;
+            ctx.beginPath();
+            ctx.moveTo(meshMx, meshMy);
+            ctx.lineTo(nodes[i].x, nodes[i].y);
+            ctx.strokeStyle = 'rgba(167, 139, 250, ' + alpha + ')';
+            ctx.lineWidth = 0.6;
+            ctx.stroke();
+          }
+        }
+      }
+
+      requestAnimationFrame(meshTick);
+    })();
   }
 
   /* ═══════════════════════════════════════════════════

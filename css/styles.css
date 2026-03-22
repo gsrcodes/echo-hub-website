@@ -109,24 +109,15 @@ button { font: inherit; cursor: none; border: none; background: none; }
   transition: none;
 }
 
-/* ---------- Floating Icons (cursor-following) ---------- */
-.floating-icons {
+/* ---------- Web Mesh Background ---------- */
+.web-mesh-canvas {
   position: fixed;
   inset: 0;
   pointer-events: none;
   z-index: 1;
-  overflow: hidden;
+  width: 100%;
+  height: 100%;
 }
-.floating-icon {
-  position: absolute;
-  font-size: 28px;
-  opacity: 0.045;
-  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: transform;
-  filter: blur(0.5px);
-}
-.floating-icon:nth-child(odd) { font-size: 32px; opacity: 0.055; }
-.floating-icon:nth-child(3n) { font-size: 22px; opacity: 0.035; }
 
 /* ---------- Reveal Animation ---------- */
 .reveal {
@@ -1132,6 +1123,67 @@ button { font: inherit; cursor: none; border: none; background: none; }
 }
 
 /* ================================================================
+   CONTACT FORM
+   ================================================================ */
+.contact {
+  padding: 120px 0;
+  position: relative;
+}
+.contact-form {
+  max-width: 640px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.contact-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+.contact-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.contact-field label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.contact-field input,
+.contact-field textarea {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px 16px;
+  font-size: 15px;
+  color: var(--text);
+  font-family: inherit;
+  transition: border-color 0.25s, box-shadow 0.25s;
+  outline: none;
+  resize: vertical;
+}
+.contact-field input::placeholder,
+.contact-field textarea::placeholder {
+  color: var(--text-muted);
+}
+.contact-field input:focus,
+.contact-field textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(124, 92, 252, 0.15);
+}
+.contact-form .btn {
+  align-self: flex-start;
+  margin-top: 8px;
+}
+@media (max-width: 600px) {
+  .contact-row { grid-template-columns: 1fr; }
+}
+
+/* ================================================================
    FOOTER
    ================================================================ */
 .footer {
@@ -1148,6 +1200,7 @@ button { font: inherit; cursor: none; border: none; background: none; }
 .footer-logo {
   height: 28px; width: auto;
   opacity: 0.9;
+  object-fit: contain;
 }
 .footer-brand p { font-size: 14px; color: var(--text-muted); }
 .footer-nav { display: flex; gap: 64px; }

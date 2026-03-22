@@ -349,6 +349,46 @@
   $$('.count-up').forEach(el => countObs.observe(el));
 
   /* ═══════════════════════════════════════════════════
+     CONTACT FORM (AJAX + toast)
+     ═══════════════════════════════════════════════════ */
+  const contactForm = $('#contactForm');
+  const toast = $('#toast');
+  if (contactForm && toast) {
+    function showToast(msg, isError) {
+      toast.textContent = msg;
+      toast.classList.toggle('toast--error', !!isError);
+      toast.classList.add('toast--visible');
+      setTimeout(() => { toast.classList.remove('toast--visible', 'toast--error'); }, 5000);
+    }
+
+    contactForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const btn = contactForm.querySelector('button[type="submit"]');
+      btn.disabled = true;
+
+      const data = new FormData(contactForm);
+
+      fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: data
+      })
+      .then(r => r.json())
+      .then(res => {
+        if (res.success) {
+          showToast('✅ Mensagem enviada! Responderemos em breve.');
+          contactForm.reset();
+        } else {
+          showToast('Erro ao enviar. Tente novamente.', true);
+        }
+      })
+      .catch(() => {
+        showToast('Erro de conexão. Tente novamente.', true);
+      })
+      .finally(() => { btn.disabled = false; });
+    });
+  }
+
+  /* ═══════════════════════════════════════════════════
      HERO PHOTO PARALLAX (desktop only)
      ═══════════════════════════════════════════════════ */
   if (!isTouch) {

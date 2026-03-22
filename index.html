@@ -38,7 +38,7 @@
         <li><a href="#modules">Módulos</a></li>
         <li><a href="#pricing">Preços</a></li>
         <li><a href="#contact">Contato</a></li>
-        <li><a href="#cta" class="nav-cta magnetic" data-magnetic>Começar grátis</a></li>
+        <li><a href="#contact" class="nav-cta magnetic" data-magnetic>Começar grátis</a></li>
       </ul>
     </div>
   </nav>
@@ -65,7 +65,7 @@
           A Unexly responde no WhatsApp, agenda, vende e fideliza — enquanto você foca no que realmente importa.
         </p>
         <div class="hero-actions">
-          <a href="#cta" class="btn btn-glow magnetic" data-magnetic>
+          <a href="#contact" class="btn btn-glow magnetic" data-magnetic>
             <span>Testar grátis por 10 dias</span>
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </a>
@@ -418,7 +418,7 @@
             <li>CRM + Financeiro + Comissões</li>
             <li>Sem cartão de crédito</li>
           </ul>
-          <a href="#cta" class="btn btn-outline btn-full magnetic" data-magnetic>Começar grátis</a>
+          <a href="#contact" class="btn btn-outline btn-full magnetic" data-magnetic>Começar grátis</a>
         </div>
         <div class="price-card price-card--pro tilt-card reveal">
           <div class="price-badge">Recomendado</div>
@@ -438,7 +438,7 @@
             <li>Equipe e filiais</li>
             <li>Suporte prioritário</li>
           </ul>
-          <a href="#cta" class="btn btn-glow btn-full magnetic" data-magnetic>
+          <a href="#contact" class="btn btn-glow btn-full magnetic" data-magnetic>
             <span>Começar agora</span>
           </a>
         </div>
@@ -456,7 +456,7 @@
       <div class="cta-inner reveal">
         <h2 class="cta-title" data-split-words>Pronto para o piloto automático?</h2>
         <p class="cta-sub">Junte-se a centenas de negócios que já automatizaram atendimento, agenda e fidelização com a Unexly.</p>
-        <a href="#" class="btn btn-white btn-large magnetic" data-magnetic>
+        <a href="#contact" class="btn btn-white btn-large magnetic" data-magnetic>
           <span>Testar grátis por 10 dias</span>
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </a>
@@ -472,7 +472,7 @@
         <span class="section-tag">Contato</span>
         <h2 class="section-title">Fale com a gente.</h2>
       </div>
-      <form class="contact-form reveal" action="https://api.web3forms.com/submit" method="POST">
+      <form class="contact-form reveal" id="contactForm">
         <input type="hidden" name="access_key" value="26babe76-46ed-4886-a890-8608325e78c6">
         <input type="hidden" name="subject" value="Novo contato — Unexly Website">
         <input type="hidden" name="from_name" value="Unexly Website">
@@ -497,6 +497,9 @@
       </form>
     </div>
   </section>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
 
   <!-- ========== FOOTER ========== -->
   <footer class="footer">

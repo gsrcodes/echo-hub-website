@@ -3,6 +3,6 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "build": "rm -rf dist && mkdir -p dist/out/prints/logo && cp index.html dist/ && cp -r css dist/ && cp -r js dist/ && cp out/prints/logo/logo_unexly.png dist/out/prints/logo/"
+    "build": "rm -rf dist && mkdir -p dist/out/prints/logo && mkdir -p dist/privacy && mkdir -p dist/terms && mkdir -p dist/security && cp index.html dist/ && cp -r css dist/ && cp -r js dist/ && cp out/prints/logo/logo_unexly.png dist/out/prints/logo/ && cp privacy/index.html dist/privacy/ && cp terms/index.html dist/terms/ && cp security/index.html dist/security/"
   }
 }

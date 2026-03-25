@@ -1381,6 +1381,20 @@ button { font: inherit; cursor: none; border: none; background: none; }
   background: rgba(124, 92, 252, 0.04);
   box-shadow: 0 0 0 3px rgba(124, 92, 252, 0.12), 0 4px 24px rgba(124, 92, 252, 0.06);
 }
+.contact-legal {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 16px;
+}
+.contact-legal a {
+  color: var(--text-secondary);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color 0.25s;
+}
+.contact-legal a:hover {
+  color: var(--text);
+}
 .contact-footer {
   display: flex;
   align-items: center;

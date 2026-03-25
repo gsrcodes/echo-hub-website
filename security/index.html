@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Segurança dos Dados — Unexly</title>
+  <meta name="description" content="Conheça as medidas de segurança da Unexly: criptografia AES-256, isolamento multi-tenant, servidores no Brasil e conformidade com a LGPD.">
+  <meta name="theme-color" content="#09090B">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Segurança dos Dados — Unexly">
+  <meta property="og:description" content="Criptografia de ponta, isolamento total de dados e conformidade LGPD. Conheça como a Unexly protege seus dados.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://unexly.com/security">
+  <meta property="og:site_name" content="Unexly">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="../out/prints/logo/logo_unexly.png">
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/legal.css">
+</head>
+<body class="legal-page">
+
+  <!-- Scroll Progress -->
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <!-- ========== NAVIGATION ========== -->
+  <nav class="nav scrolled" id="nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">
+        <img src="../out/prints/logo/logo_unexly.png" alt="Unexly" class="nav-logo-img">
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="/#features">Funcionalidades</a></li>
+        <li><a href="/#modules">Módulos</a></li>
+        <li><a href="/#pricing">Preços</a></li>
+        <li><a href="/#demo">Demo</a></li>
+        <li><a href="/#contact">Contato</a></li>
+        <li><a href="/#pricing" class="nav-cta magnetic" data-magnetic>Testar agora</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ========== SECURITY HERO ========== -->
+  <main class="legal">
+    <div class="container">
+      <div class="legal-header">
+        <span class="legal-tag">Segurança</span>
+        <h1 class="legal-title">Seus dados protegidos<br>com o mais alto padrão.</h1>
+        <p class="legal-subtitle">Na Unexly, segurança não é um recurso — é o alicerce de tudo que construímos. Conheça as medidas que protegem seus dados e os de seus clientes.</p>
+      </div>
+
+      <!-- ========== SECURITY GRID ========== -->
+      <div class="sec-grid">
+
+        <!-- Criptografia -->
+        <div class="sec-card">
+          <div class="sec-card-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="url(#g1)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <defs><linearGradient id="g1" x1="0" y1="0" x2="24" y2="24"><stop offset="0%" stop-color="#7C5CFC"/><stop offset="100%" stop-color="#00D4AA"/></linearGradient></defs>
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/>
+            </svg>
+          </div>
+          <h3 class="sec-card-title">Criptografia</h3>
+          <ul class="sec-card-list">
+            <li>
+              <span class="sec-check">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </span>
+              <span><strong>AES-256-GCM</strong> com derivação de chave via scrypt para todos os tokens e credenciais de WhatsApp</span>
+            </li>
+            <li>
+              <span class="sec-check">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </span>
+              <span><strong>HTTPS/TLS</strong> em todas as comunicações — dados nunca trafegam em texto puro</span>
+            </li>
+            <li>
+              <span class="sec-check">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </span>
+              <span>Cookies <strong>HttpOnly</strong> com <strong>SameSite=Lax</strong> — sem acesso via JavaScript do cliente</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Autenticação -->
+        <div class="sec-card">
+          <div class="sec-card-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="url(#g2)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <defs><linearGradient id="g2" x1="0" y1="0" x2="24" y2="24"><stop offset="0%" stop-color="#7C5CFC"/><stop offset="100%" stop-color="#00D4AA"/></linearGradient></defs>
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            </svg>
+          </div>
+          <h3 class="sec-card-title">Autenticação</h3>
+          <ul class="sec-card-list">
+            <li>
+              <span class="sec-check">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </span>
+              <span><strong>JWT com RS256</strong> — chaves assimétricas RSA 2048-bit</span>
+            </li>
+            <li>
+              <span class="sec-check">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </span>
+              <span>Tokens de acesso de <strong>curta duração (15 min)</strong> + refresh tokens com rotação automática</span>
+            </li>
+            <li>
+              <span class="sec-check">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </span>
+              <span>Proteção contra <strong>CSRF</strong> com validação de Origin</span>
+            </li>
+            <li>
+              <span class="sec-check">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </span>
+              <span>Senhas hasheadas com <strong>bcrypt (12 rounds)</strong></span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Isolamento de dados -->
+        <div class="sec-card">
+          <div class="sec-card-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="url(#g3)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <defs><linearGradient id="g3" x1="0" y1="0" x2="24" y2="24"><stop offset="0%" stop-color="#7C5CFC"/><stop offset="100%" stop-color="#00D4AA"/></linearGradient></defs>
+              <rect x="2" y="3" width="20" height="18" rx="2"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="12" y1="3" x2="12" y2="21"/>
+            </svg>
+          </div>
+          <h3 class="sec-card-title">Isolamento de Dados (Multi-tenancy)</h3>
+          <ul class="sec-card-list">
+            <li>
+              <span class="sec-check">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </span>
+              <span>Cada empresa tem seus dados <strong>completamente isolados</strong></span>
+            </li>
+            <li>
+              <span class="sec-check">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </span>
+              <span>Tenant isolation verificado em <strong>cada requisição</strong> via middleware</span>
+            </li>
+            <li>
+              <span class="sec-check">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </span>
+              <span><strong>Impossível acessar dados de outra empresa</strong>, mesmo com token válido</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Infraestrutura -->
+        <div class="sec-card">
+          <div class="sec-card-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="url(#g4)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <defs><linearGradient id="g4" x1="0" y1="0" x2="24" y2="24"><stop offset="0%" stop-color="#7C5CFC"/><stop offset="100%" stop-color="#00D4AA"/></linearGradient></defs>
+              <rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/>
+            </svg>
+          </div>
+          <h3 class="sec-card-title">Infraestrutura</h3>
+          <ul class="sec-card-list">
+            <li>
+              <span class="sec-check">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </span>
+              <span><strong>Servidores dedicados</strong> (não compartilhados) para máxima performance e segurança</span>
+            </li>
+            <li>
+              <span class="sec-check">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </span>
+              <span>Região <strong>Brasil (sa-east-1)</strong> para conformidade com a LGPD</span>
+            </li>
+            <li>
+              <span class="sec-check">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </span>
+              <span><strong>Backups diários</strong> automatizados com retenção segura</span>
+            </li>
+            <li>
+              <span class="sec-check">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </span>
+              <span><strong>Rate limiting</strong> por IP e por tenant para proteção contra abuso</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Integrações Seguras -->
+        <div class="sec-card">
+          <div class="sec-card-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="url(#g5)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <defs><linearGradient id="g5" x1="0" y1="0" x2="24" y2="24"><stop offset="0%" stop-color="#7C5CFC"/><stop offset="100%" stop-color="#00D4AA"/></linearGradient></defs>
+              <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/><line x1="14" y1="4" x2="10" y2="20"/>
+            </svg>
+          </div>
+          <h3 class="sec-card-title">Integrações Seguras</h3>
+          <ul class="sec-card-list">
+            <li>
+              <span class="sec-check">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </span>
+              <span>Webhook signatures verificadas com <strong>HMAC-SHA256</strong> (Meta WhatsApp)</span>
+            </li>
+            <li>
+              <span class="sec-check">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </span>
+              <span>Credenciais de terceiros (Twilio, Meta) <strong>criptografadas em repouso</strong></span>
+            </li>
+            <li>
+              <span class="sec-check">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </span>
+              <span><strong>Data Deletion Callback</strong> implementado para conformidade com Meta</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Conformidade -->
+        <div class="sec-card">
+          <div class="sec-card-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="url(#g6)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <defs><linearGradient id="g6" x1="0" y1="0" x2="24" y2="24"><stop offset="0%" stop-color="#7C5CFC"/><stop offset="100%" stop-color="#00D4AA"/></linearGradient></defs>
+              <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+            </svg>
+          </div>
+          <h3 class="sec-card-title">Conformidade</h3>
+          <ul class="sec-card-list">
+            <li>
+              <span class="sec-check">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </span>
+              <span><strong>LGPD</strong> (Lei Geral de Proteção de Dados) — Brasil</span>
+            </li>
+            <li>
+              <span class="sec-check">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </span>
+              <span><strong>Data Deletion Request Callback</strong> para Meta App Review</span>
+            </li>
+            <li>
+              <span class="sec-check">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </span>
+              <span><strong>Logs de auditoria</strong> para todas as ações administrativas</span>
+            </li>
+            <li>
+              <span class="sec-check">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </span>
+              <span><strong>Sem cookies de rastreamento</strong> de terceiros</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- ========== CONTACT SECURITY ========== -->
+      <div class="sec-contact">
+        <div class="sec-contact-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/>
+          </svg>
+        </div>
+        <div class="sec-contact-text">
+          <h4>Encontrou uma vulnerabilidade?</h4>
+          <p>Se você identificou uma vulnerabilidade de segurança, por favor nos avise de forma responsável. Entre em contato pelo e-mail <a href="mailto:seguranca@unexly.com">seguranca@unexly.com</a>. Avaliamos cada relatório com seriedade e respondemos em até 48 horas.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <img src="../out/prints/logo/logo_unexly.png" alt="Unexly" class="footer-logo">
+          <p>A plataforma completa para seu negócio.</p>
+        </div>
+        <nav class="footer-nav">
+          <div class="footer-col">
+            <span class="footer-col-title">Produto</span>
+            <a href="/#features">Funcionalidades</a>
+            <a href="/#modules">Módulos</a>
+            <a href="/#pricing">Preços</a>
+          </div>
+          <div class="footer-col">
+            <span class="footer-col-title">Empresa</span>
+            <a href="/">Sobre</a>
+            <a href="/#contact">Contato</a>
+          </div>
+          <div class="footer-col">
+            <span class="footer-col-title">Legal</span>
+            <a href="/terms">Termos de Uso</a>
+            <a href="/privacy">Privacidade</a>
+            <a href="/security">Segurança</a>
+          </div>
+        </nav>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2026 Unexly. Todos os direitos reservados.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,285 @@
+/* ================================================================
+   UNEXLY — Legal Pages (Privacy, Terms, Security)
+   ================================================================ */
+
+/* Legal page body — disable custom cursor, simpler layout */
+.legal-page {
+  cursor: auto;
+}
+.legal-page a,
+.legal-page button {
+  cursor: pointer;
+}
+.legal-page .cursor,
+.legal-page .cursor-follower {
+  display: none;
+}
+
+/* ========== Legal Layout ========== */
+.legal {
+  padding: 140px 0 80px;
+  position: relative;
+  z-index: 2;
+}
+
+.legal-header {
+  text-align: center;
+  margin-bottom: 64px;
+}
+
+.legal-tag {
+  display: inline-block;
+  padding: 6px 16px;
+  border-radius: 100px;
+  background: rgba(124, 92, 252, 0.1);
+  border: 1px solid rgba(124, 92, 252, 0.2);
+  color: var(--accent-light);
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 24px;
+}
+
+.legal-title {
+  font-size: clamp(32px, 5vw, 56px);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  margin-bottom: 16px;
+}
+
+.legal-date {
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.legal-subtitle {
+  font-size: clamp(15px, 1.5vw, 18px);
+  color: var(--text-secondary);
+  line-height: 1.7;
+  max-width: 640px;
+  margin: 12px auto 0;
+}
+
+/* ========== Legal Body (Privacy / Terms) ========== */
+.legal-body {
+  max-width: 780px;
+  margin: 0 auto;
+}
+
+.legal-section {
+  margin-bottom: 48px;
+}
+
+.legal-section h2 {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: var(--text);
+  letter-spacing: -0.01em;
+}
+
+.legal-section p {
+  font-size: 15px;
+  line-height: 1.8;
+  color: var(--text-secondary);
+  margin-bottom: 12px;
+}
+
+.legal-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 12px 0;
+}
+
+.legal-section ul li {
+  font-size: 15px;
+  line-height: 1.8;
+  color: var(--text-secondary);
+  padding-left: 20px;
+  position: relative;
+  margin-bottom: 8px;
+}
+
+.legal-section ul li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 11px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.legal-section a {
+  color: var(--accent-light);
+  text-decoration: underline;
+  text-decoration-color: rgba(167, 139, 250, 0.3);
+  text-underline-offset: 3px;
+  transition: text-decoration-color 0.25s;
+}
+
+.legal-section a:hover {
+  text-decoration-color: var(--accent-light);
+}
+
+.legal-highlight {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  margin: 16px 0;
+}
+
+.legal-highlight p {
+  margin: 0;
+}
+
+/* ========== Security Grid (Security Page) ========== */
+.sec-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin-bottom: 48px;
+}
+
+.sec-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  transition: border-color 0.3s var(--ease), box-shadow 0.3s var(--ease);
+}
+
+.sec-card:hover {
+  border-color: var(--border-hover);
+  box-shadow: 0 0 40px rgba(124, 92, 252, 0.06);
+}
+
+.sec-card-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: rgba(124, 92, 252, 0.08);
+  border: 1px solid rgba(124, 92, 252, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.sec-card-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: var(--text);
+  letter-spacing: -0.01em;
+}
+
+.sec-card-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sec-card-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+
+.sec-card-list li strong {
+  color: var(--text);
+}
+
+.sec-check {
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+
+/* ========== Security Contact ========== */
+.sec-contact {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  background: rgba(16, 185, 129, 0.05);
+  border: 1px solid rgba(16, 185, 129, 0.15);
+  border-radius: var(--radius-lg);
+  padding: 28px 32px;
+  margin-bottom: 48px;
+}
+
+.sec-contact-icon {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.sec-contact-text h4 {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--text);
+}
+
+.sec-contact-text p {
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.sec-contact-text a {
+  color: var(--accent-light);
+  text-decoration: underline;
+  text-decoration-color: rgba(167, 139, 250, 0.3);
+  text-underline-offset: 3px;
+  transition: text-decoration-color 0.25s;
+}
+
+.sec-contact-text a:hover {
+  text-decoration-color: var(--accent-light);
+}
+
+/* ========== Responsive — Legal Pages ========== */
+@media (max-width: 768px) {
+  .legal {
+    padding: 120px 0 60px;
+  }
+
+  .legal-header {
+    margin-bottom: 48px;
+  }
+
+  .sec-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .sec-card {
+    padding: 24px;
+  }
+
+  .sec-contact {
+    flex-direction: column;
+    padding: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .legal {
+    padding: 100px 0 48px;
+  }
+
+  .legal-title {
+    font-size: 28px;
+  }
+
+  .sec-card {
+    padding: 20px;
+  }
+}
